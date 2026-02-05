@@ -56,13 +56,13 @@ ftpDeploy.on("log", function (data) {
 // ASSETS
 return Promise.resolve(true)
     .then(async start => {
-        if (argv.assets){
+        if (argv.assets)
             await ftpDeploy.deploy(Object.assign({}, config, {
                 include: ["assets/**/*"],
                 exclude: [],
                 remoteRoot: "/var/www/html"
             }))
-        }
+        
 
         // use with promises
         return ftpDeploy.deploy(config);

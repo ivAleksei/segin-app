@@ -1,7 +1,6 @@
 <ion-content [fullscreen]="true">
   <div id="slider">
-    <!-- [allowTouchMove]="false" -->
-    <swiper-container #swiper [pagination]="true" (swiperslidechange)="setCurrSlide()">
+    <swiper-container #swiper [pagination]="true" [allowTouchMove]="false"  (swiperslidechange)="setCurrSlide()">
       <swiper-slide>
         <div class="mask"></div>
         <div class="bg-place" [ngStyle]="{'background-image': 'url(/assets/imgs/bg-welcome-1.png)'}">

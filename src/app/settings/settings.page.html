@@ -1,0 +1,73 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button class="back-button" (click)="nav.navigateBack('/internal')">
+                <ion-icon name="arrow-back-circle"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{i18n.lang.SETTINGS}}</ion-title>
+
+    </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+    <div class="section">
+        <ul>
+            <li routerLink="/settings/profile">
+                <div class="menu-item">
+                    <div class="text-place">
+                        <p class="only">{{i18n.lang.PROFILE_SETTINGS}}</p>
+                    </div>
+                    <ion-icon class="arrow" name="chevron-forward-outline"></ion-icon>
+                </div>
+            </li>
+            <!-- <li routerLink="/settings/account">
+                <div class="menu-item">
+                    <div class="text-place">
+                        <p class="only">{{i18n.lang.ACCOUNT_SETTINGS}}</p>
+                    </div>
+                    <ion-icon class="arrow" name="chevron-forward-outline"></ion-icon>
+                </div>
+            </li> -->
+            <!-- <li routerLink="/settings/privacy">
+                <div class="menu-item">
+                    <div class="text-place">
+                        <p class="only">{{i18n.lang.PRIVACY_SETTINGS}}</p>
+                    </div>
+                    <ion-icon class="arrow" name="chevron-forward-outline"></ion-icon>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+    <div class="section">
+        <ul>
+            <li routerLink="/help">
+                <div class="menu-item">
+                    <div class="text-place">
+                        <p class="only">{{i18n.lang.SUPPORT}}</p>
+                    </div>
+                    <ion-icon class="arrow" name="chevron-forward-outline"></ion-icon>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <div class="text-place">
+                        <p class="only">{{i18n.lang.RATE_US}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="bottom-place">
+        <div class="column">
+            <img src="/assets/imgs/logo_2.png" alt="logo_2">
+            <p class="">{{i18n.lang.VERSION}} {{version?.str}}<br><span class="build">{{version?.revision}}</span></p>
+        </div>
+
+        <div class="inline">
+            <a routerLink="/terms">{{i18n.lang.TERMS}}</a>
+            <a routerLink="/privacy">{{i18n.lang.PRIVACY_POLICY}}</a>
+        </div>
+        <ion-button class="btn btn-out" (click)="signOut()">{{i18n.lang.LOGOUT}}</ion-button>
+    </div>
+</ion-content>

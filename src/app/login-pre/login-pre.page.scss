@@ -1,0 +1,66 @@
+ion-content {
+    position: relative;
+
+    .bg-place {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
+        transition: all .1s ease-in-out;
+    }
+
+
+    .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #00000099;
+        z-index: 99;
+    }
+
+    .bottom-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        min-height: fit-content;
+        width: 100%;
+        background: var(--ion-color-light);
+        color: var(--ion-color-light-contrast);
+        text-align: center;
+        padding: 16px;
+        border-radius: 16px 16px 0 0;
+        z-index: 999;
+
+        img{
+            max-width: 50%;
+        }
+
+        h4 {
+            font-weight: 700;
+        }
+
+        p {
+            font-weight: 300;
+            font-size: .9em;
+        }
+
+        .inline {
+            margin: 32px 0;
+
+            button {
+                font-weight: 500;
+                width: calc(50% - 16px);
+                margin: 0 auto;
+                padding: 8px 16px;
+            }
+        }
+    }
+
+}

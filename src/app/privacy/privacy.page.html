@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="nav.back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{i18n.lang.PRIVACY_POLICY}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ng-template ngFor let-sec [ngForOf]="terms">
+    <p class="section-divisor">{{sec.title[lang]}}</p>
+    <div class="section">
+      <ng-template ngFor let-q [ngForOf]="sec.items">
+        <div class="question">
+          <p class="strong">{{q.q[lang]}}</p>
+          <p>{{q.a[lang]}}</p>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+</ion-content>

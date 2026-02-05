@@ -1,0 +1,49 @@
+<ion-content [fullscreen]="true">
+  <div id="slider">
+    <!-- [allowTouchMove]="false" -->
+    <swiper-container #swiper [pagination]="true" (swiperslidechange)="setCurrSlide()">
+      <swiper-slide>
+        <div class="mask"></div>
+        <div class="bg-place" [ngStyle]="{'background-image': 'url(/assets/imgs/bg-welcome-1.png)'}">
+        </div>
+        <div class="txt">
+          <img src="/assets/imgs/logo-mix.png" alt="logo">
+          <!-- <p>{{i18n.lang.WELCOME_TO}}</p> -->
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="mask"></div>
+        <div class="bg-place" [ngStyle]="{'background-image': 'url(/assets/imgs/bg-welcome-2.png)'}">
+        </div>
+        <div class="txt">
+          <img src="/assets/imgs/logo-mix.png" alt="symbol">
+          <p>{{i18n.lang.WELCOME_TITLE_1}}<br><small>{{i18n.lang.WELCOME_TXT_1}}</small></p>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="mask"></div>
+        <div class="bg-place" [ngStyle]="{'background-image': 'url(/assets/imgs/bg-welcome-3.png)'}">
+        </div>
+        <div class="txt">
+          <img src="/assets/imgs/logo-mix.png" alt="symbol">
+          <p>{{i18n.lang.WELCOME_TITLE_2}}<br><small>{{i18n.lang.WELCOME_TXT_2}}</small></p>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="mask"></div>
+        <div class="bg-place" [ngStyle]="{'background-image': 'url(/assets/imgs/bg-welcome-4.png)'}">
+        </div>
+        <div class="txt">
+          <img src="/assets/imgs/logo-mix.png" alt="symbol">
+          <p>{{i18n.lang.WELCOME_TITLE_3}}<br><small>{{i18n.lang.WELCOME_TXT_3}}</small></p>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <button class="nxt-btn" [ngClass]="{hidden: curr_slide == 0}" (click)="slideNext()">{{curr_slide == 3 ?
+    i18n.lang.GET_STARTED: i18n.lang.NEXT}}</button>
+  <div class="inline-btns" [ngClass]="{hidden: curr_slide<4}">
+    <button class="primary" routerLink="/register">{{i18n.lang.REGISTER}}</button>
+    <button routerLink="/login">{{i18n.lang.ALREADY_REGISTER}}</button>
+  </div>
+</ion-content>

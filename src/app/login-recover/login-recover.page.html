@@ -1,0 +1,19 @@
+<ion-content [fullscreen]="true">
+  <button class="btn back-btn" (click)="nav.back()"><i class="mdi mdi-arrow-left"></i></button>
+  <div class="form-layout">
+    <div class="intro">
+      <h4>{{i18n.lang.RECOVER_LOGIN}}</h4>
+      <p>{{i18n.lang.RECOVER_LOGIN_TXT}}</p>
+    </div>
+    
+    <div class="option-group" routerLink="/email-ask">
+      <i class="mdi mdi-email"></i>
+      <h4>{{i18n.lang.EMAIL}}<br><small>{{i18n.lang.CODE_SENT_EMAIL}}</small></h4>
+    </div>
+    <div class="option-group" routerLink="/phone-ask">
+      <i class="mdi mdi-phone"></i>
+      <h4>{{i18n.lang.PHONE}}<br><small>{{i18n.lang.CODE_SENT_PHONE}}</small></h4>
+    </div>
+  </div>
+
+</ion-content>

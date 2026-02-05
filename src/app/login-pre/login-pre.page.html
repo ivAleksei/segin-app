@@ -1,0 +1,14 @@
+<ion-content [fullscreen]="true">
+  <div class="mask"></div>
+  <div class="bg-place" [ngStyle]="{'background-image': 'url(/assets/imgs/bg-welcome-1.png)'}"></div>
+  <div class="bottom-bar">
+    <img src="/assets/imgs/logo-mix.png" alt="symbol">
+
+    <h4>{{i18n.lang.LOGIN_PRE_WELCOME}}</h4>
+    <p>{{i18n.lang.LOGIN_PRE_TEXT}}</p>
+    <div class="inline">
+      <button class="btn btn-primary" (click)="redirectTo('/login-register')">{{i18n.lang.NEW_HERE}}</button>
+      <button class="btn" (click)="redirectTo('/login-auth')">{{i18n.lang.ALREADY_MEMBER}}</button>
+    </div>
+  </div>
+</ion-content>

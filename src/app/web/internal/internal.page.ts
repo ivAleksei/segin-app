@@ -31,7 +31,7 @@ export class InternalPage implements OnInit {
   loading: any = false;
 
   mobile: any = false;
-  militar: any = {};
+  person: any = {};
   user: any = {};
   mod: any = {};
 
@@ -209,13 +209,21 @@ export class InternalPage implements OnInit {
   side_mode: boolean = false;
 
   async setupMenu() {
-    this.militar = await this.storage.get('person');
+    this.person = await this.storage.get('person');
+    if (!this.person?.img) {
+      let split = this.person.short_name.split(' ');
+      let inicials = [split[0][0], split[1][0]];
+      this.person.img = `https://dummyimage.com/72x72/000/ffffff?text=${inicials.join('')}`;
+    }
     let user = await this.storage.get('user');
 
     if (user?.menu?.length > 13)
       this.side_mode = true;
 
     this.menu = (user?.menu || []);
+
+    console.log(user);
+
   }
 
   toggleMenu(it, ev?) {

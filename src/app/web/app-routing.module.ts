@@ -11,10 +11,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
-  // {
-  //   path: 'internal',
-  //   loadChildren: () => import('./internal/internal.module').then(m => m.InternalPageModule)
-  // },
+  {
+    path: 'internal',
+    loadChildren: () => import('./internal/internal.module').then(m => m.InternalPageModule)
+  },
   { path: '**', redirectTo: '/start', pathMatch: 'full' },
 ];
 

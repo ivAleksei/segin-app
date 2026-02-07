@@ -6,7 +6,7 @@ import { AlertsService } from './alerts.service';
 import { LocalStorageService } from './local-storage.service';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from '../providers/notifications.service';
-import { UsersService } from '../providers/users.service';
+// import { UsersService } from '../providers/users.service';
 
 // import { UserService } from '../providers/user.service';
 // import { PersonsService } from '../providers/persons.service';
@@ -23,7 +23,7 @@ export class SocketService {
     subscriptions: any = {};
 
     constructor(
-        private usersService: UsersService,
+        // private usersService: UsersService,
         private notificationsService: NotificationsService,
         private alertsService: AlertsService,
         private storage: LocalStorageService
@@ -74,7 +74,7 @@ export class SocketService {
 
         try {
             let map_ev = {
-                'users': () => this.usersService.trigger(),
+                // 'users': () => this.usersService.trigger(),
                 'notifications': () => this.notificationsService.trigger()
             }
 

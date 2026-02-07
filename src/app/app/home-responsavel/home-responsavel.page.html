@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="content">
+    <div class="">
+      <h4 class="title"> Dia {{date_ref | date}}</h4>
+    </div>
+    <div class="section">
+      <h4 class="title">{{i18n.lang.DAILY_SCHEDULE}}</h4>
+      <div class="svg-placeholder">
+        <img src="/assets/svg/no_class.svg" alt="no_class">
+        <h3>{{i18n.lang.NO_CLASS_TODAY}}</h3>
+        <p>{{i18n.lang.NO_CLASS_TXT}}</p>
+      </div>
+    </div>
+    <div class="section">
+      <h4 class="title">{{i18n.lang.DAILY_MEAL}}</h4>
+      <div class="svg-placeholder">
+        <img src="/assets/svg/kitchen.svg" alt="kitchen">
+        <h3>{{i18n.lang.NO_MEAL_TODAY}}</h3>
+        <p>{{i18n.lang.NO_MEAL_TXT}}</p>
+      </div>
+    </div>
+    <div class="section">
+      <h4 class="title">{{i18n.lang.NOTICE_BOARD}}</h4>
+      <div class="svg-placeholder">
+        <img src="/assets/svg/kitchen.svg" alt="kitchen">
+        <h3>{{i18n.lang.NO_NOTICE_TODAY}}</h3>
+        <p>{{i18n.lang.NO_NOTICE_TXT}}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

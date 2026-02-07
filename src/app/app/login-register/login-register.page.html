@@ -1,0 +1,48 @@
+<ion-content [fullscreen]="true">
+  <button class="btn back-btn" (click)="nav.back()"><i class="mdi mdi-arrow-left"></i></button>
+  <div class="form-layout">
+    <div class="intro">
+      <h4>{{i18n.lang.CREATE_YOUR_ACCOUNT}}</h4>
+    </div>
+    <form #RegisterForm="ngForm" novalidate>
+      <!-- <pre>{{RegisterForm.value | json}}</pre> -->
+      <input type="hidden" name="_runner" ngModel #_runner="ngModel">
+      <div class="form-group">
+        <label for="name">{{i18n.lang.FULL_NAME}}</label>
+        <i class="start mdi mdi-account-outline"></i>
+        <input [placeholder]="i18n.lang.FULL_NAME" name="name" ngModel #name="ngModel" required
+          (change)="shortName()" />
+      </div>
+      <div class="form-group">
+        <label for="short_name">{{i18n.lang.SHORT_NAME}}</label>
+        <i class="start mdi mdi-tag-text-outline"></i>
+        <input name="short_name" ngModel #short_name="ngModel" required placeholder="..." />
+      </div>
+      <div class="form-group">
+        <label for="name">{{i18n.lang.BIRTHDAY}}</label>
+        <i class="start mdi mdi-calendar-outline"></i>
+        <input type="date" name="dt_birthday" ngModel #dt_birthday="ngModel" required />
+      </div>
+      <div class="form-group">
+        <label for="name">{{i18n.lang.EMAIL}}</label>
+        <i class="start mdi mdi-email-outline"></i>
+        <input name="email" ngModel #email="ngModel" required />
+      </div>
+      <div class="form-group">
+        <label for="name">{{i18n.lang.PHONE}}</label>
+        <i class="start mdi mdi-phone-outline"></i>
+        <input type="tel" name="phone" ngModel #phone="ngModel" required data-mask="+99 99 99999 9999" />
+      </div>
+      <div class="form-group">
+        <label for="name">{{i18n.lang.PASSWORD_PLACEHOLDER}}</label>
+        <i class="start mdi mdi-lock-outline"></i>
+        <input [attr.type]="show_password?'text':'password'" name="password" ngModel #password="ngModel" required />
+        <i class="end mdi mdi-eye-{{show_password? '': 'off-'}}outline" (click)="show_password= !show_password"></i>
+      </div>
+    </form>
+    <ion-button color="primary" class="btn-login" [disabled]="production && (loading || !RegisterForm.valid)"
+      (click)="register()">{{i18n.lang.REGISTER}}</ion-button>
+
+  </div>
+
+</ion-content>

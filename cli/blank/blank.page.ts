@@ -1,0 +1,116 @@
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AlertsService } from 'src/app/_shared/services/alerts.service';
+import { LoadingService } from 'src/app/_shared/services/loading.service';
+import { UtilsService } from 'src/app/_shared/services/utils.service';
+import { environment } from 'src/environments/environment';
+import { BlanksService } from 'src/app/_shared/providers/blanks.service';
+
+@Component({
+  selector: 'app-blanks',
+  templateUrl: './blank.page.html',
+  styleUrls: ['./blank.page.scss'],
+})
+export class BlankPage implements OnInit {
+  @Output() public reloadTable: EventEmitter<any> = new EventEmitter();
+  @ViewChild("modalBlank") modalBlank: any;
+  @ViewChild('BlankForm') BlankForm: any;
+  list_blanks: any[] = [];
+
+  tableInfo: any = {
+    id: "table-blanks",
+    columns: [
+      { title: 'Name', data: "name" },
+    ],
+    ajax: {
+      url: `${environment.API.segin}/server_side/blanks`,
+    },
+    actions: {
+      buttons: [
+        { action: "edit", tooltip: "Editar", class: "btn-info", icon: "mdi mdi-pencil" },
+        { action: "del", tooltip: "Remove", class: "btn-danger", icon: "mdi mdi-close" }
+      ]
+    }
+  }
+
+  constructor(
+    private utils: UtilsService,
+    private loadingService: LoadingService,
+    private blanksService: BlanksService,
+    private alertsService: AlertsService
+  ) { }
+
+  ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.getData();
+  }
+
+  getData() {
+    this.loadBlank();
+  }
+
+  /**
+   * loadBlank: Método que busca as viaturas para o autocomplete.
+   */
+  async loadBlank() {
+    this.loadingService.show();
+    let data = await this.blanksService.getBlanks();
+    this.loadingService.hide();
+    this.list_blanks = (data || []).map(it => {
+      it.label = [it.prefixo, it.placa].join(' - ');
+      return it;
+    });
+  }
+
+  handleTable(ev) {
+    let map = {
+      edit: () => {
+        this.modalBlank.present();
+        setTimeout(() => {
+          this.BlankForm.form.patchValue(ev.data);
+        }, 400);
+      },
+      new: () => {
+        this.modalBlank.present();
+      },
+      del: () => {
+        this.blanksService.delBlank(ev.data)
+          .then(data => {
+            if (data?.status != 'success')
+              return this.alertsService.notify({ type: "error", subtitle: 'Blank não removido' });
+
+            this.clearBlankForm();
+            return this.alertsService.notify({ type: "success", subtitle: 'Blank removido com sucesso' });
+          });
+      },
+    }
+
+    return map[ev.action](ev.data);
+  }
+
+  saveForm() {
+    this.loadingService.show();
+    let obj = Object.assign({}, this.BlankForm.value);
+    this.blanksService.saveBlank(obj)
+      .then(data => {
+        this.loadingService.hide();
+        if (data?.status != 'success')
+          return this.alertsService.notify({ type: "error", subtitle: 'Blank não atualizado' });
+
+        this.clearBlankForm();
+        return this.alertsService.notify({ type: "success", subtitle: 'Blank atualizado com sucesso' });
+      });
+  }
+
+  clearBlankForm() {
+    this.BlankForm?.form.reset();
+    this.closeModal();
+    this.reloadTable.next(true);
+  }
+
+  closeModal() {
+    this.modalBlank.dismiss();
+  }
+
+}

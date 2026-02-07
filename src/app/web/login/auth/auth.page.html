@@ -1,0 +1,26 @@
+<ion-item class="no-border auth-form">
+
+  <form #loginForm="ngForm" novalidate (ngSubmit)="login()">
+    <ion-item class="no-border">
+      <input type="text" name="str_cpf" [(ngModel)]="str_cpf" placeholder="Usuário" (keyup)="enterEv($event)"
+        data-mask="cpf" required />
+    </ion-item>
+    <ion-item class="no-border">
+      <ion-input type="password" name="password" [(ngModel)]="password" placeholder="Senha" (keyup)="enterEv($event)"
+        required>
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="no-border item-btn">
+      <ion-button class="btn-login" type="submit" color="primary" (click)="login()"
+        [disabled]="loading || !loginForm.valid">Acessar</ion-button>
+    </ion-item>
+    <p class="version">v. {{version}}</p>
+    <div class="footer">
+      <p>
+        Esqueceu a senha? <a class="recover"
+          routerLink="/login/recover">Clique aqui</a>
+      </p>
+    </div>
+  </form>
+</ion-item>

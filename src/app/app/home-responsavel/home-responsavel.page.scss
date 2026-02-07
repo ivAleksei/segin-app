@@ -1,0 +1,37 @@
+// img {
+//     position: absolute;
+//     top: calc(50vh - 162px);
+//     left: 0;
+//     right: 0;
+//     margin: 0 auto;
+// }
+
+.content {
+    padding: 16px;
+
+    .section {
+        margin-bottom: 84px;
+
+        h4.title {
+            margin: 16px 0;
+        }
+    }
+
+    .svg-placeholder {
+        text-align: center;
+
+        img {
+            width: 100%;
+            max-width: 60vw;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        p {
+            color: var(--ion-color-medium);
+            font-weight: bold;
+        }
+    }
+}

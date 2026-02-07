@@ -262,7 +262,7 @@ export class UserService {
 
   async recover(args) {
     this.loadingService.show();
-    return this.graphql.post(environment.API.segin, 'auth', {
+    return this.graphql.post(environment.API.auth, 'auth', {
       query: `
       mutation Recover($email: String){
         Recover(email: $email)

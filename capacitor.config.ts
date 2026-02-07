@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'br.ialk.baseorient',
-  appName: 'baseorient',
+  appId: 'br.ialk.segin',
+  appName: 'segin',
   webDir: 'www',
   server: {
     androidScheme: 'https'

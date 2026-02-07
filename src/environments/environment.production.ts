@@ -4,7 +4,7 @@ export const environment = {
   browser: true,
   menu_type: 'side',
   portal: {
-    url: "https://segin.ialk.com.br/"
+    url: "https://segin.ialk.com.br"
   },
   API: {
     storage: "https://storage.cbm.rn.gov.br",

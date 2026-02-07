@@ -134,7 +134,7 @@
   <ion-tabs *ngIf="menu_type === 'tabs'">
     <ion-tab-bar slot="bottom">
       <ng-template ngFor let-it [ngForOf]="menu">
-        <ion-tab-button [routerLink]="it.str_rota" [ngClass]="" routerLinkActive="active">
+        <ion-tab-button [routerLink]="it.route" [ngClass]="" routerLinkActive="active">
           <i class="{{it.icon}}"></i>
           {{ it.label }}
         </ion-tab-button>

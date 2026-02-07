@@ -85,9 +85,9 @@ export class InternalPage implements OnInit {
     if (!environment.production || !route.startsWith('/internal')) return;
 
     let find = (this.menu || []).find(m => {
-      if (m.str_rota && route.startsWith(m.str_rota)) return m;
+      if (m.route && route.startsWith(m.route)) return m;
       return (m.submenu || []).find(p => {
-        if (p.str_rota && route.startsWith(p.str_rota)) return p;
+        if (p.route && route.startsWith(p.route)) return p;
       })
     });
 
@@ -267,7 +267,7 @@ export class InternalPage implements OnInit {
   routeMenu(pg) {
     if (!pg || pg.bo_desabilitado) return;
     this.closeMenus();
-    this.nav.navigateForward(pg.str_rota);
+    this.nav.navigateForward(pg.route);
   }
 
   logout() {

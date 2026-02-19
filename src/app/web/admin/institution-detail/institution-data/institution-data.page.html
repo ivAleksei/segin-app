@@ -1,0 +1,101 @@
+<div class="p-relative">
+  <ion-button class="btn-add" (click)="saveData()" *ngIf="edit">
+    <i class="mdi mdi-content-save"></i>
+    <span class="text">Salvar Dados</span>
+  </ion-button>
+  <!-- <pre>{{InfoForm.value | json}}</pre> -->
+  <form #InfoForm="ngForm" novalidate>
+    <input type="hidden" name="_id" ngModel #_id="ngModel">
+    <div class="section">
+      <h4 class="section-title"><i class="mdi mdi-account"></i> Identificação</h4>
+      <div class="section-body">
+        <ion-row>
+          <ion-col size-xs="12" size-lg="6">
+            <ion-item [ngClass]="{disabled: user?.type == 'CONVENIADO' }">
+              <ion-label for="name" position="stacked">Nome *</ion-label>
+              <ion-input type="text" name="name" ngModel #name="ngModel"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="3">
+            <ion-item class="old-select" [ngClass]="{disabled: user?.type == 'CONVENIADO' }">
+              <label position="stacked">Tipo *</label>
+              <select type="text" name="type_cgc" ngModel #type_cgc="ngModel" required (change)="clearCGC()">
+                <option value=""></option>
+                <option value="CPF">CPF</option>
+                <option value="CNPJ">CNPJ</option>
+              </select>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="3">
+            <ion-item [ngClass]="{hidden : InfoForm.value.type_cgc != 'CPF', disabled: user?.type == 'CONVENIADO' }">
+              <ion-label for="cgc" position="stacked">CPF *</ion-label>
+              <input type="text" name="cgc" ngModel #cgc="ngModel" data-mask="cpf" />
+            </ion-item>
+            <ion-item [ngClass]="{hidden : InfoForm.value.type_cgc != 'CNPJ', disabled: user?.type == 'CONVENIADO' }">
+              <ion-label for="cgc" position="stacked">CNPJ *</ion-label>
+              <input type="text" name="cgc" ngModel #cgc="ngModel" data-mask="cnpj" />
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div class="section">
+      <h4 class="section-title"><i class="mdi mdi-phone"></i> Contato</h4>
+      <div class="section-body">
+        <ion-row>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item>
+              <ion-label for="phone" position="stacked">Celular *</ion-label>
+              <input type="text" name="phone" ngModel #phone="ngModel" placeholder="(00) 00000-0000" maxlength="15"
+                data-mask="cellphone_with_ddd" required />
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item>
+              <ion-label for="email" position="stacked">Email *</ion-label>
+              <ion-input type="email" name="email" ngModel #email="ngModel" placeholder="usuario@email.com" required />
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item>
+              <ion-label for="responsavel" position="stacked">Responsável</ion-label>
+              <ion-input type="text" name="responsavel" ngModel #responsavel="ngModel"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div class="section">
+      <h4 class="section-title"><i class="mdi mdi-account"></i> Apresentação</h4>
+      <div class="section-body">
+        <ion-row>
+          <ion-col size-xs="12" size-lg="12">
+            <ion-item>
+              <ion-label for="text" position="stacked">Descrição *</ion-label>
+              <ion-textarea type="text" name="text" ngModel #text="ngModel" rows="8"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="8">
+            <ion-item class="no-border">
+              <ion-label for="img" position="stacked">512x512 *</ion-label>
+              <input id="input_img" class="hidden" type="file" (change)="fileSelect($event, 'img')">
+              <div class="file-place i512" (click)="getFile('img')"
+                [ngStyle]="{'background-image': 'url('+institution?.img?.url+')'}">
+              </div>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item class="no-border">
+              <ion-label for="img_sm" position="stacked">100x150 *</ion-label>
+              <input id="input_img_sm" class="hidden" type="file" (change)="fileSelect($event, 'img_sm')">
+              <div class="file-place sm" (click)="getFile('img_sm')"
+                [ngStyle]="{'background-image': 'url('+institution?.img_sm?.url+')'}">
+              </div>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </form>
+
+</div>

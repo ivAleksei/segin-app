@@ -28,33 +28,6 @@ export class PersonsService {
     this._watch.next(true);
   }
 
-  /**
-   * Atualiza dados via helga
-   * @param args._id ID person 
-   * @param args.str ID person 
-   * @returns 
-   */
-  async syncHelga(args) {
-    let query: any = args || {}
-    let url = [environment.API.segin, 'tmp', 'helga'].join('/') + '?' + Object.keys(query).map(k => `${k}=${query[k]}`);
-
-    return this.http.get(url);
-  }
-
-  getAthleteInfo(_id, fields) {
-    return this.graphql.query(environment.API.segin, 'graphql', {
-      query: `
-      query AthleteById($_id: ID){
-        AthleteById(_id: $_id){
-          _id
-          ${fields}
-        }
-      }`,
-      name: "AthleteById",
-      variables: { _id: _id }
-    });
-  }
-
   getPersonInfo(_id, fields) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
@@ -69,14 +42,14 @@ export class PersonsService {
     });
   }
 
-  getPersons(args?) {
+  getPersons(args?, fields?) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
-      query Persons{
-        Persons{
+      query Persons($type: String){
+        Persons(type: $type){
           _id
           name
-          num_cbo
+          ${fields || ''}
         }
       }`,
       name: "Persons",

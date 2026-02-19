@@ -128,7 +128,7 @@ export class UserService {
         await this.storage.set('user_id', data._id);
         await this.storage.set('_token', data.token);
         await this.setUser();
-        // await this.logAccess();
+        await this.logAccess();
 
         // this.setTagsOneSignal();
         this.redirect();
@@ -203,7 +203,7 @@ export class UserService {
     let device = (this.platform.is('android') || this.platform.is('ios')) ? 'mobile' : 'desktop';
     let body: any = { _id: _id, device: device };
 
-    return this.graphql.post(environment.API.segin, 'graphql', {
+    return this.graphql.post(environment.API.auth, 'graphql', {
       query: `
             mutation LogAccess($_id: ID, $device: String){
               LogAccess(_id: $_id, device: $device)

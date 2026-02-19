@@ -221,9 +221,6 @@ export class InternalPage implements OnInit {
       this.side_mode = true;
 
     this.menu = (user?.menu || []);
-
-    console.log(user);
-
   }
 
   toggleMenu(it, ev?) {

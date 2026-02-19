@@ -1,0 +1,17 @@
+app-floating-buttons {
+  display: none;
+}
+
+.inline-btns {
+  display: initial;
+}
+
+@media screen and (max-width: 871px) {
+  app-floating-buttons {
+    display: initial;
+  }
+
+  .inline-btns {
+    display: none;
+  }
+}

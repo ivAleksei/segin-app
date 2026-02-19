@@ -7,11 +7,13 @@ import { PipesModule } from '../pipes/pipes.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { DataTableComponent } from './data-table/data-table.component';
 import { DataTablesModule } from 'angular-datatables';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 
 @NgModule({
   declarations: [
     DataTableComponent,
     FloatingButtonsComponent,
+    AutocompleteComponent
   ],
   imports: [
     IonicModule,
@@ -28,6 +30,7 @@ import { DataTablesModule } from 'angular-datatables';
     DataTableComponent,
     FloatingButtonsComponent,
     LeafletModule,
+    AutocompleteComponent
   ]
 })
 export class ComponentsModule { }

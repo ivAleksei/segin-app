@@ -1,0 +1,38 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+    <h3 class="page-title">
+      <span *ngIf="type == 'alunos'">Alunos</span>
+      <span *ngIf="type == 'responsaveis'">Responsáveis</span>
+      <span *ngIf="type == 'professores'">Professores</span>
+      <span *ngIf="type == 'colaboradores'">Colaboradores</span>
+      <span *ngIf="type == 'pessoas'">Pessoas</span>
+      <br>
+      <small>Registros cadastrados no sistema</small>
+    </h3>
+    <input type="file" class="hidden" id="input_persons" (change)="fileSelect($event)">
+
+    <app-floating-buttons [buttons]="float_btns" [toggle]="true" (clickEv)="handleTable($event)"></app-floating-buttons>
+    <div class="inline-btns">
+      <ion-button class="btn-add" color="primary" (click)="handleTable({action:'new'})">
+        <i class="mdi mdi-plus"></i> <span class="text">Adicionar Pessoa</span>
+      </ion-button>
+      <ion-button class="btn-add" color="success" (click)="getCSV()">
+        <i class="mdi mdi-file-excel"></i> <span class="text">Importar CSV</span>
+      </ion-button>
+      <ion-button class="btn-add" color="medium" (click)="downloadXLSX()">
+        <i class="mdi mdi-download"></i> <span class="text">Baixar Modelo</span>
+      </ion-button>
+    </div>
+
+    <!-- <app-filter-by [filters]="filters" (filterEvent)="handleFilter($event)"></app-filter-by> -->
+
+    <div class="content">
+      <div class="card">
+        <div class="card-body">
+          <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
+            (clickEvent)="handleTable($event)"></data-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

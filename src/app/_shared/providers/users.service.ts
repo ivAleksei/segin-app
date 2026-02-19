@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 @Injectable({
   providedIn: 'root'
 })
-export class InstitutionsService {
+export class UsersService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -24,43 +24,45 @@ export class InstitutionsService {
     this._watch.next(true);
   }
 
-  async getInstitutions(args?) {
-    return this.graphql.query(environment.API.segin, 'graphql', {
+  async getUsers(args?, fields?) {
+    return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
-      query Institutions{
-        Institutions{
-          _id
-        }
-      }`,
-      name: "Institutions",
-      variables: args || {}
-    });
-  }
-  async getInstitutionById(_id?, fields?) {
-    return this.graphql.query(environment.API.segin, 'graphql', {
-      query: `
-      query InstitutionById($_id: ID){
-        InstitutionById(_id: $_id){
+      query Users{
+        Users{
           _id
           ${fields || ''}
         }
       }`,
-      name: "InstitutionById",
-      variables: {_id: _id}
+      name: "Users",
+      variables: args || {}
+    });
+  }
+  
+  async getUserById(_id, fields?) {
+    return this.graphql.query(environment.API.admin, 'graphql', {
+      query: `
+      query UserById($_id: ID){
+        UserById(_id: $_id){
+          _id
+          ${fields || ''}
+        }
+      }`,
+      name: "UserById",
+      variables: { _id: _id }
     });
   }
 
-  newInstitution(data) {
+  newUser(data) {
     this.loadingService.show();
-    return this.graphql.query(environment.API.segin, 'graphql', {
+    return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
-      mutation CreateInstitution($input: InstitutionInput){
-        CreateInstitution(input: $input){
+      mutation CreateUser($input: UserInput){
+        CreateUser(input: $input){
           status
           msg
         }
       }`,
-      name: "CreateInstitution",
+      name: "CreateUser",
       variables: data
     })
       .then(done => {
@@ -69,19 +71,19 @@ export class InstitutionsService {
       });
   }
 
-  editInstitution(data) {
+  editUser(data) {
     this.loadingService.show();
 
-    return this.graphql.query(environment.API.segin, 'graphql', {
+    return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
-      mutation UpdateInstitution($input: InstitutionInput){
-        UpdateInstitution(input: $input){
+      mutation UpdateUser($input: UserInput){
+        UpdateUser(input: $input){
           status
           msg
         }
       }`,
 
-      name: "UpdateInstitution",
+      name: "UpdateUser",
       variables: data
     })
       .then(done => {
@@ -90,20 +92,20 @@ export class InstitutionsService {
       });
   }
 
-  delInstitution(data) {
+  delUser(data) {
     return this.alertsService.confirmDel()
       .then(confirm => {
         if (!confirm) return;
         this.loadingService.show();
-        return this.graphql.query(environment.API.segin, 'graphql', {
+        return this.graphql.query(environment.API.admin, 'graphql', {
           query: `
-        mutation deleteInstitution($_id: ID){
-          deleteInstitution(_id: $_id){
+        mutation deleteUser($_id: ID){
+          deleteUser(_id: $_id){
             status
             msg
           }
         }`,
-          name: "deleteInstitution",
+          name: "deleteUser",
           variables: data
         });
       })
@@ -113,8 +115,8 @@ export class InstitutionsService {
       });
   }
 
-  saveInstitution(data) {
-    return this[data._id ? 'editInstitution' : "newInstitution"]({ input: data });
+  saveUser(data) {
+    return this[data._id ? 'editUser' : "newUser"]({ input: data });
   }
 
 }

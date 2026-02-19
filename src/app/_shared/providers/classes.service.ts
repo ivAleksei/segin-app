@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 @Injectable({
   providedIn: 'root'
 })
-export class InstitutionsService {
+export class ClassesService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -24,43 +24,42 @@ export class InstitutionsService {
     this._watch.next(true);
   }
 
-  async getInstitutions(args?) {
+  async getClasses(args?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Institutions{
-        Institutions{
+      query Classes{
+        Classes{
           _id
         }
       }`,
-      name: "Institutions",
+      name: "Classes",
       variables: args || {}
     });
   }
-  async getInstitutionById(_id?, fields?) {
+  async getClasseById(args?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query InstitutionById($_id: ID){
-        InstitutionById(_id: $_id){
+      query ClasseById($_id: String){
+        ClasseById(_id: $_id){
           _id
-          ${fields || ''}
         }
       }`,
-      name: "InstitutionById",
-      variables: {_id: _id}
+      name: "ClasseById",
+      variables: args || {}
     });
   }
 
-  newInstitution(data) {
+  newClasse(data) {
     this.loadingService.show();
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation CreateInstitution($input: InstitutionInput){
-        CreateInstitution(input: $input){
+      mutation CreateClasse($input: ClasseInput){
+        CreateClasse(input: $input){
           status
           msg
         }
       }`,
-      name: "CreateInstitution",
+      name: "CreateClasse",
       variables: data
     })
       .then(done => {
@@ -69,19 +68,19 @@ export class InstitutionsService {
       });
   }
 
-  editInstitution(data) {
+  editClasse(data) {
     this.loadingService.show();
 
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation UpdateInstitution($input: InstitutionInput){
-        UpdateInstitution(input: $input){
+      mutation UpdateClasse($input: ClasseInput){
+        UpdateClasse(input: $input){
           status
           msg
         }
       }`,
 
-      name: "UpdateInstitution",
+      name: "UpdateClasse",
       variables: data
     })
       .then(done => {
@@ -90,20 +89,20 @@ export class InstitutionsService {
       });
   }
 
-  delInstitution(data) {
+  delClasse(data) {
     return this.alertsService.confirmDel()
       .then(confirm => {
         if (!confirm) return;
         this.loadingService.show();
         return this.graphql.query(environment.API.segin, 'graphql', {
           query: `
-        mutation deleteInstitution($_id: ID){
-          deleteInstitution(_id: $_id){
+        mutation deleteClasse($_id: ID){
+          deleteClasse(_id: $_id){
             status
             msg
           }
         }`,
-          name: "deleteInstitution",
+          name: "deleteClasse",
           variables: data
         });
       })
@@ -113,8 +112,8 @@ export class InstitutionsService {
       });
   }
 
-  saveInstitution(data) {
-    return this[data._id ? 'editInstitution' : "newInstitution"]({ input: data });
+  saveClasse(data) {
+    return this[data._id ? 'editClasse' : "newClasse"]({ input: data });
   }
 
 }

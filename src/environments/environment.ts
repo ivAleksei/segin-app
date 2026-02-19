@@ -8,13 +8,13 @@ export const environment = {
   browser: true,
   menu_type: 'side',
   portal: {
-    url: "http://192.168.1.5:8100"
+    url: "http://192.168.1.70:8100"
   },
   API: {
     storage: "https://storage.cbm.rn.gov.br",
-    auth: "http://192.168.1.5:3003/api_auth",
-    admin: "http://192.168.1.5:3003/api_admin",
-    segin: "http://192.168.1.5:3003/api_segin",
+    auth: "http://192.168.1.70:3003/api_auth",
+    admin: "http://192.168.1.70:3003/api_admin",
+    segin: "http://192.168.1.70:3003/api_segin",
   },
   Socket: {
     platform: "segin",

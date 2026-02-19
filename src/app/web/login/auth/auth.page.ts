@@ -14,7 +14,6 @@ export class AuthPage implements OnInit {
 
   production: any = environment.production;
   username: any;
-  str_cpf: any;
   keep_login: any;
   password: any;
   loading: boolean = false;
@@ -47,7 +46,7 @@ export class AuthPage implements OnInit {
     if (this.loading) return;
 
     let obj = Object.assign({}, this.loginForm.value);
-    if (!obj.username && !obj.str_cpf) return;
+    if (!obj.username && !obj.username) return;
 
     this.loading = true;
     try {

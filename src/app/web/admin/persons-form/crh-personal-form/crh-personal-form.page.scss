@@ -1,0 +1,38 @@
+.btn-add {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.p-relative {
+    padding-top: 16px;
+    margin-bottom: 72px;
+}
+
+.old-select {
+    padding-top: 2px;
+}
+
+@media screen and (max-width: 768px) {
+    .old-select {
+        padding-top: 9px;
+    }
+
+    .card-title {
+        display: none;
+    }
+
+    .btn-add {
+        position: fixed;
+        bottom: 16px;
+        right: 32px;
+        top: auto;
+        font-size: 1.5em;
+        width: 72px;
+        height: 72px;
+
+        span {
+            display: none;
+        }
+    }
+}

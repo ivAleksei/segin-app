@@ -355,5 +355,10 @@
     "YOU_INFO": "Você",
     "SET_READ_ALL": "Marcar lidas",
     "SET_READ_ALL_TXT": "Confirma a marcação de todas as notificações como lidas?",
-    "YOUR_SCORE": "Sua pontuação"
+    "YOUR_SCORE": "Sua pontuação",
+    "USERS": "Usuários",
+    "NEW_USER": "Novo Usuário",
+    "USER_REGISTERED": "Usuário registrados no app",
+    "ROLES_AVAILABLE": "Perfis Disponíveis",
+    "SEARCH_ROLE": "Buscar perfil"
 }

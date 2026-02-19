@@ -1,0 +1,240 @@
+<div class="p-relative">
+  <ion-button class="btn-add" (click)="saveData()" *ngIf="edit">
+    <i class="mdi mdi-content-save"></i>
+    <span class="text">Salvar Dados</span>
+  </ion-button>
+  <h4 class="card-title"> <i class="mdi mdi-numeric"></i> Documentação - {{str_nomecurto}}</h4>
+  <form #DocumentsForm="ngForm" novalidate>
+    <ion-row>
+      <ion-col size-xs="12" size-lg="3">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-account-box"></i> CPF</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12">
+                <ion-item>
+                  <ion-label for="cgc" position="stacked">Número</ion-label>
+                  <ion-input type="text" name="cgc" ngModel #cgc="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size-xs="12" size-lg="9">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-account-box"></i> Documento de Origem</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="id_milit" position="stacked">RG Militar</ion-label>
+                  <ion-input type="text" name="id_milit" ngModel #id_milit="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="8">
+                <ion-item>
+                  <ion-label for="doc_cert" position="stacked">Certidão de
+                    Nascimento/Casamento/Divórcio</ion-label>
+                  <ion-input type="text" name="doc_cert" ngModel #doc_cert="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size-xs="12" size-lg="6">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-account-box"></i> Identidade</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="rg_num" position="stacked">RG Civil</ion-label>
+                  <ion-input type="text" name="rg_num" ngModel #rg_num="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="rg_emissor" position="stacked">Órgão Expedidor</ion-label>
+                  <ion-input type="text" name="rg_emissor" ngModel #rg_emissor="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="rg_data" position="stacked">Data de Emissão</ion-label>
+                  <ion-input type="date" name="rg_data" ngModel #rg_data="ngModel" [max]="today"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size-xs="12" size-lg="6">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-account-box"></i> Carteira de Trabalho</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="ctps_num" position="stacked">Número</ion-label>
+                  <ion-input type="text" name="ctps_num" ngModel #ctps_num="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="ctps_serie" position="stacked">Série</ion-label>
+                  <ion-input type="text" name="ctps_serie" ngModel #ctps_serie="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="ctps_uf" position="stacked">UF</ion-label>
+                  <ion-input type="text" name="ctps_uf" ngModel #ctps_uf="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+
+      </ion-col>
+      <ion-col size-xs="12">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-account-box"></i> Título Eleitoral</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="titulo_num" position="stacked">Número</ion-label>
+                  <ion-input type="text" name="titulo_num" ngModel #titulo_num="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="titulo_zona" position="stacked">Zona</ion-label>
+                  <ion-input type="text" name="titulo_zona" ngModel #titulo_zona="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="titulo_secao" position="stacked">Seção</ion-label>
+                  <ion-input type="text" name="titulo_secao" ngModel #titulo_secao="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="titulo_cidade" position="stacked">Cidade</ion-label>
+                  <ion-input type="text" name="titulo_cidade" ngModel #titulo_cidade="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="titulo_uf" position="stacked">UF</ion-label>
+                  <ion-input type="text" name="titulo_uf" ngModel #titulo_uf="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="titulo_data" position="stacked">Data de Emissão</ion-label>
+                  <ion-input type="date" name="titulo_data" ngModel #titulo_data="ngModel" [max]="today"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+
+      </ion-col>
+      <ion-col size-xs="12" size-md="10">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-account-box"></i> Carteira de Habilitação</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="cnh_num" position="stacked">Número</ion-label>
+                  <ion-input type="text" name="cnh_num" ngModel #cnh_num="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="cnh_cat" position="stacked">Categoria</ion-label>
+                  <ion-input type="text" name="cnh_cat" ngModel #cnh_cat="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="cnh_validade" position="stacked">Validade</ion-label>
+                  <ion-input type="date" name="cnh_validade" ngModel #cnh_validade="ngModel" [max]="today"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="cnh_uf" position="stacked">UF</ion-label>
+                  <ion-input type="text" name="cnh_uf" ngModel #cnh_uf="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="2">
+                <ion-item>
+                  <ion-label for="cnh_data" position="stacked">Emissão</ion-label>
+                  <ion-input type="date" name="cnh_data" ngModel #cnh_data="ngModel" [max]="today"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+
+      </ion-col>
+      <ion-col size-xs="12" size-md="2">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-plus"></i> SUS</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12">
+                <ion-item>
+                  <ion-label for="sus_num" position="stacked">Número</ion-label>
+                  <ion-input type="text" name="sus_num" ngModel #sus_num="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size-xs="12" size-md="3">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-account-box"></i> NIS (PIS/PASEP)</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12" size-md="12">
+                <ion-item>
+                  <ion-label for="pis_pasep" position="stacked">Número</ion-label>
+                  <ion-input type="text" name="pis_pasep" ngModel #pis_pasep="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size-xs="12" size-md="9">
+        <div class="section">
+          <h4 class="section-title"><i class="mdi mdi-account-box"></i> Certificado Militar</h4>
+          <div class="section-body">
+            <ion-row>
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="alist_num" position="stacked">Registro de Alistamento (RA)</ion-label>
+                  <ion-input type="text" name="alist_num" ngModel #alist_num="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-md="8">
+                <ion-item>
+                  <ion-label for="alist_obs" position="stacked">Observações</ion-label>
+                  <ion-input type="text" name="alist_obs" ngModel #alist_obs="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </form>
+</div>

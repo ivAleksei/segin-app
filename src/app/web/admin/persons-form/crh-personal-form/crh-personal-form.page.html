@@ -1,0 +1,273 @@
+<div class="p-relative">
+  <ion-button class="btn-add" (click)="saveData()" *ngIf="edit">
+    <i class="mdi mdi-content-save"></i>
+    <span class="text">Salvar Dados</span>
+  </ion-button>
+  <h4 class="card-title"> <i class="mdi mdi-account"></i> Dados Pessoais - {{str_nomecurto}}</h4>
+  <!-- <p>{{InfoForm.value | json}}</p> -->
+  <!-- <p>{{AddressForm.value | json}}</p> -->
+  <!-- <p>{{ContactForm.value | json}}</p> -->
+  <div class="section">
+    <h4 class="section-title"><i class="mdi mdi-account"></i> Identificação</h4>
+    <div class="section-body">
+      <form #InfoForm="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xs="12" size-lg="6">
+            <ion-item>
+              <ion-label for="str_nome" position="stacked">Nome Completo *</ion-label>
+              <ion-input type="text" name="str_nome" ngModel #str_nome="ngModel"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="2">
+            <ion-item>
+              <ion-label for="dt_nascimento" position="stacked">D. Nascimento</ion-label>
+              <ion-input type="date" name="dt_nascimento" ngModel #dt_nascimento="ngModel" placeholder=""
+                [max]="today"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="2">
+            <ion-item class="old-select">
+              <ion-label attr="str_sexo" position="stacked">Sexo</ion-label>
+              <select name="str_sexo" ngModel #str_sexo="ngModel">
+                <option value="">Selecione um item...</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+              </select>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="2">
+            <ion-item class="old-select">
+              <ion-label attr="str_tipo_sanguineo" position="stacked">Tipo Sanguíneo</ion-label>
+              <select name="str_tipo_sanguineo" ngModel #str_tipo_sanguineo="ngModel">
+                <option value="">Selecione um item...</option>
+                <ng-template ngFor let-it [ngForOf]="sanguineos_list">
+                  <option [value]="it.slug">{{it.text}}</option>
+                </ng-template>
+              </select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+          <ion-col size-xs="12" size-lg="6">
+            <ion-item>
+              <ion-label for="filiacao_mae" position="stacked">Filiação (Mãe)</ion-label>
+              <ion-input type="text" name="filiacao_mae" ngModel #filiacao_mae="ngModel"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="6">
+            <ion-item>
+              <ion-label for="filiacao_pai" position="stacked">Filiação (Pai)</ion-label>
+              <ion-input type="text" name="filiacao_pai" ngModel #filiacao_pai="ngModel"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+          <ion-col size-xs="12" size-lg="3">
+            <ion-item class="old-select">
+              <ion-label attr="str_ufnaturalidade" position="stacked">Estado de nascimento (UF)</ion-label>
+              <select name="str_ufnaturalidade" ngModel #str_ufnaturalidade="ngModel"
+                (change)="setListCidade(InfoForm.value.str_ufnaturalidade, 'list_cidades')">
+                <option value="">Selecione um item...</option>
+                <option value="AC">AC - Acre </option>
+                <option value="AL">AL - Alagoas </option>
+                <option value="AM">AM - Amazonas </option>
+                <option value="AP">AP - Amapá </option>
+                <option value="BA">BA - Bahia </option>
+                <option value="CE">CE - Ceará </option>
+                <option value="DF">DF - Distrito Federal </option>
+                <option value="ES">ES - Espírito Santo </option>
+                <option value="GO">GO - Goiás </option>
+                <option value="MA">MA - Maranhão </option>
+                <option value="MG">MG - Minas Gerais </option>
+                <option value="MS">MS - Mato Grosso do Sul </option>
+                <option value="MT">MT - Mato Grosso </option>
+                <option value="PA">PA - Pará </option>
+                <option value="PB">PB - Paraíba </option>
+                <option value="PE">PE - Pernambuco </option>
+                <option value="PI">PI - Piauí </option>
+                <option value="PR">PR - Paraná </option>
+                <option value="RJ">RJ - Rio de Janeiro </option>
+                <option value="RN">RN - Rio Grande do Norte </option>
+                <option value="RO">RO - Rondônia </option>
+                <option value="RR">RR - Roraima </option>
+                <option value="RS">RS - Rio Grande do Sul </option>
+                <option value="SC">SC - Santa Catarina </option>
+                <option value="SE">SE - Sergipe </option>
+                <option value="SP">SP - São Paulo </option>
+                <option value="TO">TO - Tocantins </option>
+              </select>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="3">
+            <ion-item class="old-select">
+              <ion-label attr="str_naturalidade" position="stacked">Município de nascimento</ion-label>
+              <select name="str_naturalidade" ngModel #str_naturalidade="ngModel">
+                <option value="">Selecione um item...</option>
+                <ng-template ngFor let-it [ngForOf]="list_cidades">
+                  <option [value]="it">{{it}} </option>
+                </ng-template>
+              </select>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="3">
+            <ion-item class="old-select">
+              <ion-label attr="op_religiao" position="stacked">Opção Religiosa</ion-label>
+              <select name="op_religiao" ngModel #op_religiao="ngModel">
+                <option value="">Selecione um item...</option>
+                <ng-template ngFor let-it [ngForOf]="op_relig_list">
+                  <option [value]="it.slug">{{it.text }}</option>
+                </ng-template>
+              </select>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="3">
+            <ion-item class="old-select">
+              <ion-label attr="est_civil" position="stacked">Estado Civil</ion-label>
+              <select name="est_civil" ngModel #est_civil="ngModel">
+                <option value="">Selecione um item...</option>
+                <ng-template ngFor let-it [ngForOf]="est_civil_list">
+                  <option [value]="it.slug">{{it.text }}</option>
+                </ng-template>
+              </select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <!-- <ion-row>{{InfoForm.value | json}}</ion-row> -->
+
+      </form>
+    </div>
+  </div>
+  <div class="section">
+    <h4 class="section-title"><i class="mdi mdi-map-marker"></i> Endereço</h4>
+    <div class="section-body">
+      <!-- <pre>{{AddressForm.value | json}}</pre> -->
+      <form #AddressForm="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xs="12" size-lg="3">
+            <ion-item>
+              <ion-label for="str_cep" position="stacked">CEP</ion-label>
+              <input type="text" name="str_cep" ngModel #str_cep="ngModel" placeholder="" maxlength="9" data-mask="cep"
+                (keyup)="searchCEP()" />
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="6">
+            <ion-item>
+              <ion-label for="str_endereco" position="stacked">Logradouro</ion-label>
+              <ion-input type="text" name="str_endereco" ngModel #str_endereco="ngModel"
+                (keyup)="toUpper('address.str_endereco',$event)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="3">
+            <ion-item>
+              <ion-label for="str_numero" position="stacked">Número</ion-label>
+              <ion-input id="str_numero" type="text" name="str_numero" ngModel #str_numero="ngModel"
+                (keyup)="toUpper('address.str_numero',$event)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="6">
+            <ion-item>
+              <ion-label for="str_complemento" position="stacked">Complemento</ion-label>
+              <ion-input type="text" name="str_complemento" ngModel #str_complemento="ngModel"
+                (keyup)="toUpper('address.str_complemento',$event)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="6">
+            <ion-item>
+              <ion-label for="str_pontoreferencia" position="stacked">Ponto de Referência</ion-label>
+              <ion-input type="text" name="str_pontoreferencia" ngModel #str_pontoreferencia="ngModel"
+                (keyup)="toUpper('address.str_pontoreferencia',$event)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item>
+              <ion-label for="str_bairro" position="stacked">Bairro</ion-label>
+              <ion-input type="text" name="str_bairro" ngModel #str_bairro="ngModel"
+                (keyup)="toUpper('address.str_bairro',$event)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item class="old-select">
+              <ion-label attr="str_uf" position="stacked">UF</ion-label>
+              <select name="str_uf" ngModel #str_uf="ngModel"
+                (change)="setListCidade(AddressForm.value.str_uf,'list_cidades_endereco')">
+                <option value="">Selecione um item...</option>
+                <option value="AC">AC - Acre </option>
+                <option value="AL">AL - Alagoas </option>
+                <option value="AM">AM - Amazonas </option>
+                <option value="AP">AP - Amapá </option>
+                <option value="BA">BA - Bahia </option>
+                <option value="CE">CE - Ceará </option>
+                <option value="DF">DF - Distrito Federal </option>
+                <option value="ES">ES - Espírito Santo </option>
+                <option value="GO">GO - Goiás </option>
+                <option value="MA">MA - Maranhão </option>
+                <option value="MG">MG - Minas Gerais </option>
+                <option value="MS">MS - Mato Grosso do Sul </option>
+                <option value="MT">MT - Mato Grosso </option>
+                <option value="PA">PA - Pará </option>
+                <option value="PB">PB - Paraíba </option>
+                <option value="PE">PE - Pernambuco </option>
+                <option value="PI">PI - Piauí </option>
+                <option value="PR">PR - Paraná </option>
+                <option value="RJ">RJ - Rio de Janeiro </option>
+                <option value="RN">RN - Rio Grande do Norte </option>
+                <option value="RO">RO - Rondônia </option>
+                <option value="RR">RR - Roraima </option>
+                <option value="RS">RS - Rio Grande do Sul </option>
+                <option value="SC">SC - Santa Catarina </option>
+                <option value="SE">SE - Sergipe </option>
+                <option value="SP">SP - São Paulo </option>
+                <option value="TO">TO - Tocantins </option>
+              </select>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-md="6" size-lg="4">
+            <ion-item class="old-select">
+              <ion-label attr="str_cidade" position="stacked">Cidade</ion-label>
+              <select name="str_cidade" ngModel #str_cidade="ngModel">
+                <option value="">Selecione um item...</option>
+                <ng-template ngFor let-it [ngForOf]="list_cidades_endereco">
+                  <option [value]="it">{{it}} </option>
+                </ng-template>
+              </select>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+      </form>
+    </div>
+  </div>
+  <div class="section">
+    <h4 class="section-title"><i class="mdi mdi-phone"></i> Contato</h4>
+    <div class="section-body">
+      <!-- <pre>{{ContactForm.value | json}}</pre> -->
+      <form #ContactForm="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item>
+              <ion-label for="str_telefone" position="stacked">Telefone</ion-label>
+              <input type="text" name="str_telefone" ngModel #str_telefone="ngModel" placeholder="(00) 0000-0000"
+                maxlength="14" data-mask="phone_with_ddd" />
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item>
+              <ion-label for="str_telefonecelular" position="stacked">Telefone Celular</ion-label>
+              <input type="text" name="str_telefonecelular" ngModel #str_telefonecelular="ngModel"
+                placeholder="(00) 00000-0000" maxlength="15" data-mask="cellphone_with_ddd" />
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-lg="4">
+            <ion-item>
+              <ion-label for="str_email" position="stacked">Email</ion-label>
+              <ion-input type="email" name="str_email" ngModel #str_email="ngModel" placeholder="usuario@email.com" />
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </form>
+    </div>
+  </div>
+
+</div>

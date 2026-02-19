@@ -1,0 +1,30 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+    <h3 class="page-title">{{institution?.name || "Detalhe Convênio"}}<br>
+      <small>Dados pessoais e profissionais da escola</small>
+    </h3>
+    <div class="tabs hide-mobile">
+      <div class="tabs-btns">
+        <button [ngClass]="{active: tab == 'data'}" (click)="setTab('data')">
+          <i class="mdi mdi-account"></i> Dados Básicos
+        </button>
+      </div>
+      <div class="tabs-place">
+        <div class="card" *ngIf="tab == 'data'">
+          <app-institution-data [_id]="_id" *ngIf="_id" [edit]="1"></app-institution-data>
+        </div>
+      </div>
+    </div>
+    <ion-accordion-group class="hide-desktop" [value]="tab" (ionChange)="setTab($event)">
+      <ion-accordion value="data">
+        <ion-item slot="header" color="light">
+          <ion-label class="group-title">
+            <i class="mdi mdi-account"></i> Dados Básicos</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <app-institution-data [_id]="_id" [edit]="1" *ngIf="_id && tab =='data'"></app-institution-data>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+</ion-content>

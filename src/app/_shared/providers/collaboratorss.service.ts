@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 @Injectable({
   providedIn: 'root'
 })
-export class BlanksService {
+export class CollaboratorsService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -24,43 +24,43 @@ export class BlanksService {
     this._watch.next(true);
   }
 
-  async getBlanks(args?, fields?) {
+  async getCollaborators(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Blanks{
-        Blanks{
+      query Collaborators{
+        Collaborators{
           _id
           ${fields || ""}
         }
       }`,
-      name: "Blanks",
+      name: "Collaborators",
       variables: args || {}
     });
   }
-  async getBlankById(args?) {
+  async getCollaboratorById(args?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query BlankById($_id: String){
-        BlankById(_id: $_id){
+      query CollaboratorById($_id: String){
+        CollaboratorById(_id: $_id){
           _id
         }
       }`,
-      name: "BlankById",
+      name: "CollaboratorById",
       variables: args || {}
     });
   }
 
-  newBlank(data) {
+  newCollaborator(data) {
     this.loadingService.show();
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation CreateBlank($input: BlankInput){
-        CreateBlank(input: $input){
+      mutation CreateCollaborator($input: CollaboratorInput){
+        CreateCollaborator(input: $input){
           status
           msg
         }
       }`,
-      name: "CreateBlank",
+      name: "CreateCollaborator",
       variables: data
     })
       .then(done => {
@@ -69,19 +69,19 @@ export class BlanksService {
       });
   }
 
-  editBlank(data) {
+  editCollaborator(data) {
     this.loadingService.show();
 
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation UpdateBlank($input: BlankInput){
-        UpdateBlank(input: $input){
+      mutation UpdateCollaborator($input: CollaboratorInput){
+        UpdateCollaborator(input: $input){
           status
           msg
         }
       }`,
 
-      name: "UpdateBlank",
+      name: "UpdateCollaborator",
       variables: data
     })
       .then(done => {
@@ -90,20 +90,20 @@ export class BlanksService {
       });
   }
 
-  delBlank(data) {
+  delCollaborator(data) {
     return this.alertsService.confirmDel()
       .then(confirm => {
         if (!confirm) return;
         this.loadingService.show();
         return this.graphql.query(environment.API.segin, 'graphql', {
           query: `
-        mutation deleteBlank($_id: ID){
-          deleteBlank(_id: $_id){
+        mutation deleteCollaborator($_id: ID){
+          deleteCollaborator(_id: $_id){
             status
             msg
           }
         }`,
-          name: "deleteBlank",
+          name: "deleteCollaborator",
           variables: data
         });
       })
@@ -113,8 +113,8 @@ export class BlanksService {
       });
   }
 
-  saveBlank(data) {
-    return this[data._id ? 'editBlank' : "newBlank"]({ input: data });
+  saveCollaborator(data) {
+    return this[data._id ? 'editCollaborator' : "newCollaborator"]({ input: data });
   }
 
 }

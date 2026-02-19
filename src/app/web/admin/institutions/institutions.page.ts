@@ -5,6 +5,7 @@ import { UtilsService } from 'src/app/_shared/services/utils.service';
 import { environment } from 'src/environments/environment';
 import { InstitutionsService } from 'src/app/_shared/providers/institutions.service';
 import { NavController } from '@ionic/angular';
+import { I18nService } from 'src/app/_shared/services/i18n.service';
 
 @Component({
   selector: 'app-institutions',
@@ -21,12 +22,14 @@ export class InstitutionsPage implements OnInit {
     id: "table-institutions",
     columns: [
       { title: 'Name', data: "name" },
+      { title: 'Slug', data: "slug" },
     ],
     ajax: {
       url: `${environment.API.segin}/server_side/institutions`,
     },
     actions: {
       buttons: [
+        { action: "homepage", tooltip: "Page", class: "btn-light", icon: "mdi mdi-home" },
         { action: "detail", tooltip: "Detalhe", class: "btn-light", icon: "mdi mdi-eye" },
         { action: "edit", tooltip: "Editar", class: "btn-info", icon: "mdi mdi-pencil" },
         { action: "del", tooltip: "Remove", class: "btn-danger", icon: "mdi mdi-close" }
@@ -35,6 +38,7 @@ export class InstitutionsPage implements OnInit {
   }
 
   constructor(
+    public i18n: I18nService,
     private nav: NavController,
     private utils: UtilsService,
     private loadingService: LoadingService,
@@ -54,6 +58,7 @@ export class InstitutionsPage implements OnInit {
 
   handleTable(ev) {
     let map = {
+      homepage: () => open([environment.portal.url, ev.data.slug].join('/'), '_blank'),
       detail: () => this.nav.navigateForward(['/internal/admin/escola-detalhe', ev?.data?._id]),
       edit: () => {
         this.modalInstitution.present();

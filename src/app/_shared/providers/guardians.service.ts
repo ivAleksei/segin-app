@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 @Injectable({
   providedIn: 'root'
 })
-export class BlanksService {
+export class GuardiansService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -24,43 +24,43 @@ export class BlanksService {
     this._watch.next(true);
   }
 
-  async getBlanks(args?, fields?) {
+  async getGuardians(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Blanks{
-        Blanks{
+      query Guardians{
+        Guardians{
           _id
           ${fields || ""}
         }
       }`,
-      name: "Blanks",
+      name: "Guardians",
       variables: args || {}
     });
   }
-  async getBlankById(args?) {
+  async getGuardianById(args?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query BlankById($_id: String){
-        BlankById(_id: $_id){
+      query GuardianById($_id: String){
+        GuardianById(_id: $_id){
           _id
         }
       }`,
-      name: "BlankById",
+      name: "GuardianById",
       variables: args || {}
     });
   }
 
-  newBlank(data) {
+  newGuardian(data) {
     this.loadingService.show();
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation CreateBlank($input: BlankInput){
-        CreateBlank(input: $input){
+      mutation CreateGuardian($input: GuardianInput){
+        CreateGuardian(input: $input){
           status
           msg
         }
       }`,
-      name: "CreateBlank",
+      name: "CreateGuardian",
       variables: data
     })
       .then(done => {
@@ -69,19 +69,19 @@ export class BlanksService {
       });
   }
 
-  editBlank(data) {
+  editGuardian(data) {
     this.loadingService.show();
 
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation UpdateBlank($input: BlankInput){
-        UpdateBlank(input: $input){
+      mutation UpdateGuardian($input: GuardianInput){
+        UpdateGuardian(input: $input){
           status
           msg
         }
       }`,
 
-      name: "UpdateBlank",
+      name: "UpdateGuardian",
       variables: data
     })
       .then(done => {
@@ -90,20 +90,20 @@ export class BlanksService {
       });
   }
 
-  delBlank(data) {
+  delGuardian(data) {
     return this.alertsService.confirmDel()
       .then(confirm => {
         if (!confirm) return;
         this.loadingService.show();
         return this.graphql.query(environment.API.segin, 'graphql', {
           query: `
-        mutation deleteBlank($_id: ID){
-          deleteBlank(_id: $_id){
+        mutation deleteGuardian($_id: ID){
+          deleteGuardian(_id: $_id){
             status
             msg
           }
         }`,
-          name: "deleteBlank",
+          name: "deleteGuardian",
           variables: data
         });
       })
@@ -113,8 +113,8 @@ export class BlanksService {
       });
   }
 
-  saveBlank(data) {
-    return this[data._id ? 'editBlank' : "newBlank"]({ input: data });
+  saveGuardian(data) {
+    return this[data._id ? 'editGuardian' : "newGuardian"]({ input: data });
   }
 
 }

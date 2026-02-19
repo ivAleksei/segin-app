@@ -1,12 +1,14 @@
 <ion-content [fullscreen]="true">
   <div class="page-layout">
-    <h3 class="page-title">{{i18n.lang.INSTITUTIONS}}<br>
-      <small>{{i18n.lang.INSTITUTIONS_REGISTEREDS}}</small>
+    <h3 class="page-title">{{i18n.lang.GUARDIANS}}<br>
+      <small>{{i18n.lang.GUARDIANS_REGISTEREDS}}</small>
     </h3>
+
     <ion-button class="btn-add" (click)="handleTable({action: 'new'})">
       <i class="mdi mdi-plus"></i>
-      <span class="text"> {{i18n.lang.NEW_INSTITUTION}}</span>
+      <span class="text"> {{i18n.lang.NEW_GUARDIAN}}</span>
     </ion-button>
+
     <div class="content">
       <div class="card">
         <div class="card-body">
@@ -18,7 +20,7 @@
   </div>
 </ion-content>
 
-<ion-modal id="modalInstitution" #modalInstitution>
+<ion-modal id="modalGuardian" #modalGuardian>
   <ng-template>
     <ion-header>
       <ion-toolbar>
@@ -30,26 +32,44 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
+
     <ion-content class="ion-padding">
-      <form #InstitutionForm="ngForm" novalidate>
-        <!-- <pre>{{InstitutionForm.value | json}}</pre> -->
+      <form #GuardianForm="ngForm" novalidate>
         <input type="hidden" name="_id" ngModel #_id="ngModel">
+
         <div class="section">
           <h4 class="section-title">{{i18n.lang.BASIC_DATA}}</h4>
           <div class="section-body">
             <ion-row>
-              <ion-col size="12">
-                <ion-item>
-                  <ion-label for="slug" position="stacked">{{i18n.lang.SLUG}}*</ion-label>
-                  <ion-input type="text" name="slug" ngModel required #slug="ngModel"></ion-input>
-                </ion-item>
-              </ion-col>
+
               <ion-col size="12">
                 <ion-item>
                   <ion-label for="name" position="stacked">{{i18n.lang.NAME}}*</ion-label>
                   <ion-input type="text" name="name" ngModel required #name="ngModel"></ion-input>
                 </ion-item>
               </ion-col>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label for="cpf" position="stacked">{{i18n.lang.CPF}}*</ion-label>
+                  <ion-input type="text" name="cpf" ngModel required #cpf="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label for="email" position="stacked">{{i18n.lang.EMAIL}}</ion-label>
+                  <ion-input type="email" name="email" ngModel #email="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label for="phone" position="stacked">{{i18n.lang.PHONE}}</ion-label>
+                  <ion-input type="tel" name="phone" ngModel #phone="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+
             </ion-row>
           </div>
         </div>

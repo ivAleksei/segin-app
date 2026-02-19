@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { GraphqlService } from 'src/app/_shared/services/graphql.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class RolesService {
     this._watch.next(true);
   }
 
-  async getRoles(environment, fields?) {
+  async getRoles(fields?) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       query Roles{
@@ -34,10 +35,10 @@ export class RolesService {
     });
   }
 
-  async getRoleById(environment, _id, fields?) {
+  async getRoleById(_id, fields?) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
-      query RoleById($_id: ID){
+      query RoleById($_id: String){
         RoleById(_id: $_id){
           _id
           ${fields || ''}
@@ -48,10 +49,10 @@ export class RolesService {
     });
   }
 
-  async getUsersByRole(environment, _id) {
+  async getUsersByRole(_id) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
-      query UserByRole($_id: ID){
+      query UserByRole($_id: String){
         UserByRole(_id: $_id){
           _id
           str_nomecurto
@@ -63,7 +64,7 @@ export class RolesService {
     });
   }
 
-  setUserRole(environment, args) {
+  setUserRole(args) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       mutation setUserRole(
@@ -82,7 +83,7 @@ export class RolesService {
     });
   }
 
-  rmUserRole(environment, args) {
+  rmUserRole(args) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       mutation rmUserRole(
@@ -100,7 +101,7 @@ export class RolesService {
       variables: args || {}
     });
   }
-  newRole(environment, data) {
+  newRole(data) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       mutation CreateRole(
@@ -117,7 +118,7 @@ export class RolesService {
     });
   }
 
-  editRole(environment, data) {
+  editRole(data) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       mutation UpdateRole(
@@ -134,8 +135,8 @@ export class RolesService {
     });
   }
 
-  delRole(environment, data) {
-    return this.graphql.query(environment.API.url, 'graphql', {
+  delRole(data) {
+    return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       mutation deleteRole($_id: ID){
         deleteRole(_id: $_id){
@@ -147,7 +148,7 @@ export class RolesService {
     });
   }
 
-  saveRole(environment, data) {
-    return this[data._id ? 'editRole' : "newRole"](environment, { input: data });
+  saveRole(data) {
+    return this[data._id ? 'editRole' : "newRole"]({ input: data });
   }
 }

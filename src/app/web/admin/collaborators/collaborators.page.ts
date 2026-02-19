@@ -3,28 +3,27 @@ import { AlertsService } from 'src/app/_shared/services/alerts.service';
 import { LoadingService } from 'src/app/_shared/services/loading.service';
 import { environment } from 'src/environments/environment';
 import { I18nService } from 'src/app/_shared/services/i18n.service';
-import { PersonsService } from 'src/app/_shared/providers/persons.service';
+import { CollaboratorsService } from 'src/app/_shared/providers/collaboratorss.service';
 
 @Component({
-  selector: 'app-persons',
-  templateUrl: './persons.page.html',
-  styleUrls: ['./persons.page.scss'],
+  selector: 'app-collaborators',
+  templateUrl: './collaborators.page.html',
+  styleUrls: ['./collaborators.page.scss'],
 })
-export class PersonsPage implements OnInit {
+export class CollaboratorsPage implements OnInit {
   @Output() public reloadTable: EventEmitter<any> = new EventEmitter();
-  @ViewChild("modalPerson") modalPerson: any;
-  @ViewChild('PersonForm') PersonForm: any;
+  @ViewChild("modalCollaborator") modalCollaborator: any;
+  @ViewChild('CollaboratorForm') CollaboratorForm: any;
 
   tableInfo: any = {
-    id: "table-persons",
+    id: "table-collaborators",
     columns: [
       { title: 'Name', data: "name" },
-      { title: 'CPF', data: "cpf" },
       { title: 'Email', data: "email" },
       { title: 'Telefone', data: "phone" },
     ],
     ajax: {
-      url: `${environment.API.admin}/server_side/persons`,
+      url: `${environment.API.segin}/server_side/collaborators`,
     },
     actions: {
       buttons: [
@@ -37,7 +36,7 @@ export class PersonsPage implements OnInit {
   constructor(
     public i18n: I18nService,
     private loadingService: LoadingService,
-    private personsService: PersonsService,
+    private collaboratorsService: CollaboratorsService,
     private alertsService: AlertsService
   ) { }
 
@@ -48,22 +47,22 @@ export class PersonsPage implements OnInit {
   handleTable(ev) {
     let map = {
       edit: () => {
-        this.modalPerson.present();
+        this.modalCollaborator.present();
         setTimeout(() => {
-          this.PersonForm.form.patchValue(ev.data);
+          this.CollaboratorForm.form.patchValue(ev.data);
         }, 400);
       },
       new: () => {
-        this.modalPerson.present();
+        this.modalCollaborator.present();
       },
       del: () => {
-        this.personsService.delPerson(ev.data)
+        this.collaboratorsService.delCollaborator(ev.data)
           .then(data => {
             if (data?.status != 'success')
-              return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.PERSON_NOT_REMOVED });
+              return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.COLLABORATOR_NOT_REMOVED });
 
-            this.clearPersonForm();
-            return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.PERSON_REMOVED_SUCCESS });
+            this.clearCollaboratorForm();
+            return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.COLLABORATOR_REMOVED_SUCCESS });
           });
       },
     }
@@ -73,26 +72,26 @@ export class PersonsPage implements OnInit {
 
   saveForm() {
     this.loadingService.show();
-    let obj = Object.assign({}, this.PersonForm.value);
+    let obj = Object.assign({}, this.CollaboratorForm.value);
 
-    this.personsService.savePerson(obj)
+    this.collaboratorsService.saveCollaborator(obj)
       .then(data => {
         this.loadingService.hide();
         if (data?.status != 'success')
-          return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.PERSON_NOT_UPDATED });
+          return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.COLLABORATOR_NOT_UPDATED });
 
-        this.clearPersonForm();
-        return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.PERSON_UPDATED_SUCCESS });
+        this.clearCollaboratorForm();
+        return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.COLLABORATOR_UPDATED_SUCCESS });
       });
   }
 
-  clearPersonForm() {
-    this.PersonForm?.form.reset();
+  clearCollaboratorForm() {
+    this.CollaboratorForm?.form.reset();
     this.closeModal();
     this.reloadTable.next(true);
   }
 
   closeModal() {
-    this.modalPerson.dismiss();
+    this.modalCollaborator.dismiss();
   }
 }

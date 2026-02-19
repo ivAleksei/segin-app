@@ -38,8 +38,9 @@ export class UsersPage implements OnInit {
     },
     actions: {
       buttons: [
-        { action: "permissions", tooltip: "Permissões", class: "btn-warning", icon: "mdi mdi-format-list-checks", },
-        { action: "reset", tooltip: "Resetar Senha", class: "btn-warning", icon: "mdi mdi-account-key", },
+        { action: "permissions", tooltip: "Permissões", class: "btn-info", icon: "mdi mdi-format-list-checks" },
+        { action: "reset", tooltip: "Resetar Senha", class: "btn-warning", icon: "mdi mdi-account-key" },
+        { action: "del", tooltip: "Remove", class: "btn-danger", icon: "mdi mdi-close" },
       ]
     }
   }
@@ -53,8 +54,7 @@ export class UsersPage implements OnInit {
     private rolesService: RolesService
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.getData();
@@ -65,14 +65,11 @@ export class UsersPage implements OnInit {
   }
 
   async getRoles() {
-    let data = await this.rolesService.getRoles(environment, `
-      label  
+    let data = await this.rolesService.getRoles(`
+      label
     `);
     this.roles = data || [];
   }
-
-
-
 
   handleTable(ev) {
     console.log(ev);
@@ -80,23 +77,15 @@ export class UsersPage implements OnInit {
     let map = {
       reset: () => this.resetPassword(ev.data),
       permissions: () => this.openModal(ev.data),
-      edit: () => {
-        this.modalUser.present();
-        setTimeout(() => {
-          this.UserForm.form.patchValue(ev.data);
-        }, 400);
-      },
-      new: () => {
-        this.modalUser.present();
-      },
+
       del: () => {
         this.usersService.delUser(ev.data)
           .then(data => {
             if (data?.status != 'success')
-              return this.alertsService.notify({ type: "error", subtitle: 'Users não removido' });
+              return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.USER_NOT_REMOVED });
 
             this.clear();
-            return this.alertsService.notify({ type: "success", subtitle: 'Users removido com sucesso' });
+            return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.USER_REMOVED_SUCCESS });
           });
       },
     }
@@ -107,24 +96,33 @@ export class UsersPage implements OnInit {
   saveForm() {
     this.loadingService.show();
     let obj = Object.assign({}, this.UserForm.value);
+
+    // ✅ Se vier senha em texto, mantém teu padrão de reset (md5)
+    // (não obriga senha na edição; só aplica hash se tiver valor)
+    if (obj?.password && String(obj.password).trim().length)
+      obj.password = md5(String(obj.password).trim());
+    else
+      delete obj.password;
+
     this.usersService.saveUser(obj)
       .then(data => {
         this.loadingService.hide();
         if (data?.status != 'success')
-          return this.alertsService.notify({ type: "error", subtitle: 'Users não atualizado' });
+          return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.USER_NOT_UPDATED });
 
         this.clear();
-        return this.alertsService.notify({ type: "success", subtitle: 'Users atualizado com sucesso' });
+        return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.USER_UPDATED_SUCCESS });
       });
   }
 
-
+  // ✅ função adicional mantida (modal de permissões/roles)
   async openModal(obj?: any) {
     this.filt_roles = [];
     this.user_roles = [];
 
     if (!obj) obj = {};
     this.user = obj;
+
     let info = await this.usersService.getUserById(obj._id, `
       _roles
     `);
@@ -144,9 +142,10 @@ export class UsersPage implements OnInit {
     }, 400);
   }
 
+  // ✅ função adicional mantida
   async addRoleUser(role) {
     if (!role) return;
-    await this.rolesService.setUserRole(environment, {
+    await this.rolesService.setUserRole({
       _id: this.user._id,
       _role: role._id
     });
@@ -155,30 +154,35 @@ export class UsersPage implements OnInit {
     this.clearEvent.next(true);
   }
 
+  // ✅ função adicional mantida
   async rmUserRole(role) {
     let confirm = await this.alertsService.confirmDel();
     if (!confirm) return;
 
-    await this.rolesService.rmUserRole(environment, {
+    await this.rolesService.rmUserRole({
       _id: this.user._id,
       _role: role
     });
     this.user_roles = (this.user_roles || []).filter(r => r != role);
   }
 
+  // ✅ função adicional mantida
   async resetPassword(obj) {
-    let confirm = await this.alertsService.askConfirmation('Resetar Senha', 'Deseja resetar o usuário para a senha padrão "mudar123"?')
-    if (!confirm) return;
+    let confirm = await this.alertsService.askConfirmation(
+      this.i18n.lang.RESET_PASSWORD,
+      this.i18n.lang.RESET_PASSWORD_ASK
+    )
+    if (confirm == 'false') return;
 
     let payload = { _id: obj._id, password: md5("mudar123") };
 
     return this.usersService.saveUser(payload)
       .then(data => {
         if (data?.status != 'success')
-          return this.alertsService.notify({ type: "error", subtitle: "Usuário não foi atualizado" });
+          return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.USER_NOT_UPDATED });
 
         this.clear();
-        return this.alertsService.notify({ type: "success", subtitle: "Usuário atualizado com sucesso" });
+        return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.USER_UPDATED_SUCCESS });
       });
   }
 
@@ -193,5 +197,4 @@ export class UsersPage implements OnInit {
     this.modalUser.dismiss();
     this.reloadTable.next(true);
   }
-
 }

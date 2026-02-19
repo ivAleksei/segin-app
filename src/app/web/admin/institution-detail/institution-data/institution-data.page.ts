@@ -77,8 +77,12 @@ export class InstitutionDataPage implements OnInit {
       
       text
       
-      img
-      img_sm
+      img{
+        url
+      }
+      img_sm{
+        url
+      }
     `);
     if (!this.institution) this.institution = {};
     if (this.institution?.cgc)

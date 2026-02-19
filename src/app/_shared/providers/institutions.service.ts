@@ -24,12 +24,13 @@ export class InstitutionsService {
     this._watch.next(true);
   }
 
-  async getInstitutions(args?) {
+  async getInstitutions(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query Institutions{
         Institutions{
           _id
+          ${fields || ""}
         }
       }`,
       name: "Institutions",

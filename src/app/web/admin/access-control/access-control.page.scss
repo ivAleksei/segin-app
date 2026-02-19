@@ -1,0 +1,6 @@
+ion-modal {
+    &::part(content) {
+        height: 540px;
+        max-height: 540px;
+    }
+}

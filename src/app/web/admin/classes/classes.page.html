@@ -1,11 +1,11 @@
 <ion-content [fullscreen]="true">
   <div class="page-layout">
-    <h3 class="page-title">Classes<br>
-      <small>Classe registrados no app</small>
+    <h3 class="page-title">{{i18n.lang.CLASSES}}<br>
+      <small>{{i18n.lang.CLASSES_REGISTEREDS}}</small>
     </h3>
     <ion-button class="btn-add" (click)="handleTable({action: 'new'})">
       <i class="mdi mdi-plus"></i>
-      <span class="text"> Novo Classe</span>
+      <span class="text"> {{i18n.lang.NEW_CLASSE}}</span>
     </ion-button>
     <div class="content">
       <div class="card">
@@ -23,10 +23,10 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button (click)="closeModal()">Cancelar</ion-button>
+          <ion-button (click)="closeModal()">{{i18n.lang.CANCEL}}</ion-button>
         </ion-buttons>
         <ion-buttons slot="end">
-          <ion-button (click)="saveForm()" [strong]="true">Confirmar</ion-button>
+          <ion-button (click)="saveForm()" [strong]="true">{{i18n.lang.CONFIRM}}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -35,13 +35,24 @@
         <!-- <pre>{{ClasseForm.value | json}}</pre> -->
         <input type="hidden" name="_id" ngModel #_id="ngModel">
         <div class="section">
-          <h4 class="section-title">Dados Básicos</h4>
+          <h4 class="section-title">{{i18n.lang.BASIC_DATA}}</h4>
           <div class="section-body">
             <ion-row>
               <ion-col size="12">
+                <ion-item class="old-select">
+                  <ion-label for="_institution" position="stacked">{{i18n.lang.INSTITUTION}}*</ion-label>
+                  <select name="_institution" ngModel #_institution="ngModel">
+                    <option value="">Selecione um tipo...</option>
+                    <ng-template ngFor let-it [ngForOf]="list_institutions" let-i="index">
+                      <option [value]="it._id">{{it.name}}</option>
+                    </ng-template>
+                  </select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
                 <ion-item>
-                  <ion-label for="slug" position="stacked">Campo*</ion-label>
-                  <ion-input type="text" name="slug" ngModel required #slug="ngModel"></ion-input>
+                  <ion-label for="name" position="stacked">{{i18n.lang.NAME}}*</ion-label>
+                  <ion-input type="text" name="name" ngModel required #name="ngModel"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>

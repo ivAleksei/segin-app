@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 @Injectable({
   providedIn: 'root'
 })
-export class BlanksService {
+export class StudentsService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -24,43 +24,42 @@ export class BlanksService {
     this._watch.next(true);
   }
 
-  async getBlanks(args?, fields?) {
+  async getStudents(args?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Blanks{
-        Blanks{
+      query Students{
+        Students{
           _id
-          ${fields || ""}
         }
       }`,
-      name: "Blanks",
+      name: "Students",
       variables: args || {}
     });
   }
-  async getBlankById(args?) {
+  async getStudentById(args?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query BlankById($_id: String){
-        BlankById(_id: $_id){
+      query StudentById($_id: String){
+        StudentById(_id: $_id){
           _id
         }
       }`,
-      name: "BlankById",
+      name: "StudentById",
       variables: args || {}
     });
   }
 
-  newBlank(data) {
+  newStudent(data) {
     this.loadingService.show();
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation CreateBlank($input: BlankInput){
-        CreateBlank(input: $input){
+      mutation CreateStudent($input: StudentInput){
+        CreateStudent(input: $input){
           status
           msg
         }
       }`,
-      name: "CreateBlank",
+      name: "CreateStudent",
       variables: data
     })
       .then(done => {
@@ -69,19 +68,19 @@ export class BlanksService {
       });
   }
 
-  editBlank(data) {
+  editStudent(data) {
     this.loadingService.show();
 
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation UpdateBlank($input: BlankInput){
-        UpdateBlank(input: $input){
+      mutation UpdateStudent($input: StudentInput){
+        UpdateStudent(input: $input){
           status
           msg
         }
       }`,
 
-      name: "UpdateBlank",
+      name: "UpdateStudent",
       variables: data
     })
       .then(done => {
@@ -90,20 +89,20 @@ export class BlanksService {
       });
   }
 
-  delBlank(data) {
+  delStudent(data) {
     return this.alertsService.confirmDel()
       .then(confirm => {
         if (!confirm) return;
         this.loadingService.show();
         return this.graphql.query(environment.API.segin, 'graphql', {
           query: `
-        mutation deleteBlank($_id: ID){
-          deleteBlank(_id: $_id){
+        mutation deleteStudent($_id: ID){
+          deleteStudent(_id: $_id){
             status
             msg
           }
         }`,
-          name: "deleteBlank",
+          name: "deleteStudent",
           variables: data
         });
       })
@@ -113,8 +112,8 @@ export class BlanksService {
       });
   }
 
-  saveBlank(data) {
-    return this[data._id ? 'editBlank' : "newBlank"]({ input: data });
+  saveStudent(data) {
+    return this[data._id ? 'editStudent' : "newStudent"]({ input: data });
   }
 
 }

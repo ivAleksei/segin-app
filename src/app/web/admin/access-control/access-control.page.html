@@ -1,0 +1,183 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+    <h3 class="page-title">{{i18n.lang.ACCESS_CONTROL}}<br>
+      <small>{{i18n.lang.ACCESS_CONTROL_DESC}}</small>
+    </h3>
+
+    <!-- ACTION BAR -->
+    <div class="actions-bar">
+      <ion-button class="btn-add" *ngIf="tab =='permissions'" (click)="handlePermissionsTable({action:'new'})">
+        <i class="mdi mdi-plus"></i>
+        <span class="text"> {{i18n.lang.NEW_PERMISSION}}</span>
+      </ion-button>
+
+      <ion-button class="btn-add" *ngIf="tab =='roles'" (click)="handleRolesTable({action:'new'})">
+        <i class="mdi mdi-plus"></i>
+        <span class="text"> {{i18n.lang.NEW_ROLE}}</span>
+      </ion-button>
+    </div>
+
+    <div class="tabs hide-mobile">
+      <div class="tabs-btns">
+        <button [ngClass]="{active: tab == 'roles'}" (click)="setTab('roles')">
+          <i class="mdi  mdi-format-list-checks"></i> {{i18n.lang.ROLES}}
+        </button>
+        <button [ngClass]="{active: tab == 'permissions'}" (click)="setTab('permissions')">
+          <i class="mdi mdi-key"></i> {{i18n.lang.PERMISSIONS}}
+        </button>
+      </div>
+      <div class="tabs-place">
+        <div class="card" *ngIf="tab == 'permissions'">
+          <div class="card-body">
+            <data-table [tableInfo]="tablePermissions" [reload]="reloadTablePermissions"
+              (clickEvent)="handlePermissionsTable($event)">
+            </data-table>
+          </div>
+        </div>
+        <div class="card" *ngIf="tab == 'roles'">
+          <div class="card-body">
+            <data-table [tableInfo]="tableRoles" [reload]="reloadTableRoles" (clickEvent)="handleRolesTable($event)">
+            </data-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- MODAL: PERMISSION -->
+<ion-modal id="modalPermission" #modalPermission>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="clearPermission()">{{i18n.lang.CANCEL}}</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="savePermissionForm()" [strong]="true">{{i18n.lang.CONFIRM}}</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <form #PermissionForm="ngForm" novalidate>
+        <input type="hidden" name="_id" ngModel>
+
+        <div class="section">
+          <h4 class="section-title">{{i18n.lang.PERMISSION}}</h4>
+          <div class="section-body">
+            <ion-row>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label position="stacked">{{i18n.lang.PERMISSION_KEY}}*</ion-label>
+                  <ion-input type="text" name="key" ngModel required></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label position="stacked">{{i18n.lang.DESCRIPTION}}</ion-label>
+                  <ion-input type="text" name="description" ngModel></ion-input>
+                </ion-item>
+              </ion-col>
+
+            </ion-row>
+          </div>
+        </div>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- MODAL: ROLE -->
+<ion-modal id="modalRole" #modalRole>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="clearRole()">{{i18n.lang.CANCEL}}</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="saveRoleForm()" [strong]="true">{{i18n.lang.CONFIRM}}</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <form #RoleForm="ngForm" novalidate>
+        <input type="hidden" name="_id" ngModel>
+
+        <div class="section">
+          <h4 class="section-title">{{i18n.lang.ROLE}}</h4>
+          <div class="section-body">
+            <ion-row>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label position="stacked">{{i18n.lang.LABEL}}*</ion-label>
+                  <ion-input type="text" name="label" ngModel required></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label position="stacked">{{i18n.lang.DESCRIPTION}}</ion-label>
+                  <ion-input type="text" name="description" ngModel></ion-input>
+                </ion-item>
+              </ion-col>
+
+            </ion-row>
+          </div>
+        </div>
+
+        <!-- PERMISSIONS -->
+        <div class="section" *ngIf="RoleForm?.value?._id || RoleForm?.value?.label">
+          <h4 class="section-title">{{i18n.lang.PERMISSIONS}}</h4>
+          <div class="section-body">
+            <ion-row>
+
+              <ion-col size="12">
+                <ion-item class="old-select">
+                  <ion-label position="stacked">{{i18n.lang.ADD_PERMISSION}}</ion-label>
+                  <!-- (change)="addPermissionToRoleByKey($event.target.value); $event.target.value=''" -->
+                  <select>
+                    <option value="">{{i18n.lang.SELECT_OPTION}}</option>
+                    <ng-template ngFor let-it [ngForOf]="filt_permissions">
+                      <option [value]="it.key">{{it.key}} - {{it.description}}</option>
+                    </ng-template>
+                  </select>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="12">
+                <table class="table dataTable">
+                  <thead>
+                    <tr>
+                      <th>{{i18n.lang.PERMISSION}}</th>
+                      <th>{{i18n.lang.ACTIONS}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-template ngFor let-it [ngForOf]="role_permissions">
+                      <tr>
+                        <td>{{it}} </td>
+                        <td class="td-actions">
+                          <button class="btn btn-danger" color="danger" (click)="rmRolePermission(it)">
+                            <i class="mdi mdi-close"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </tbody>
+                </table>
+              </ion-col>
+
+            </ion-row>
+          </div>
+        </div>
+
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>

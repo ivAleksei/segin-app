@@ -4,6 +4,8 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 import { UtilsService } from 'src/app/_shared/services/utils.service';
 import { environment } from 'src/environments/environment';
 import { ClassesService } from 'src/app/_shared/providers/classes.service';
+import { I18nService } from 'src/app/_shared/services/i18n.service';
+import { InstitutionsService } from 'src/app/_shared/providers/institutions.service';
 
 @Component({
   selector: 'app-classes',
@@ -15,6 +17,7 @@ export class ClassesPage implements OnInit {
   @ViewChild("modalClasse") modalClasse: any;
   @ViewChild('ClasseForm') ClasseForm: any;
   list_classes: any[] = [];
+  list_institutions: any[] = [];
 
   tableInfo: any = {
     id: "table-classes",
@@ -33,8 +36,10 @@ export class ClassesPage implements OnInit {
   }
 
   constructor(
+    public i18n: I18nService,
     private utils: UtilsService,
     private loadingService: LoadingService,
+    private institutionsService: InstitutionsService,
     private classesService: ClassesService,
     private alertsService: AlertsService
   ) { }
@@ -47,20 +52,16 @@ export class ClassesPage implements OnInit {
   }
 
   getData() {
-    this.loadClasse();
+    this.loadInstitutions();
   }
 
-  /**
-   * loadClasse: Método que busca as viaturas para o autocomplete.
-   */
-  async loadClasse() {
+  async loadInstitutions() {
     this.loadingService.show();
-    let data = await this.classesService.getClasses();
+    let data = await this.institutionsService.getInstitutions({}, `
+      name  
+    `);
+    this.list_institutions = (data || []);
     this.loadingService.hide();
-    this.list_classes = (data || []).map(it => {
-      it.label = [it.prefixo, it.placa].join(' - ');
-      return it;
-    });
   }
 
   handleTable(ev) {

@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { StudentsPageRoutingModule } from './students-routing.module';
+
+import { StudentsPage } from './students.page';
+import { ComponentsModule } from 'src/app/_shared/components/components.module';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    ComponentsModule,
+    StudentsPageRoutingModule
+  ],
+  declarations: [StudentsPage]
+})
+export class StudentsPageModule { }

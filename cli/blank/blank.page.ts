@@ -4,6 +4,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 import { UtilsService } from 'src/app/_shared/services/utils.service';
 import { environment } from 'src/environments/environment';
 import { BlanksService } from 'src/app/_shared/providers/blanks.service';
+import { I18nService } from 'src/app/_shared/services/i18n.service';
 
 @Component({
   selector: 'app-blanks',
@@ -34,6 +35,7 @@ export class BlankPage implements OnInit {
 
   constructor(
     private utils: UtilsService,
+    public i18n: I18nService,
     private loadingService: LoadingService,
     private blanksService: BlanksService,
     private alertsService: AlertsService

@@ -51,6 +51,13 @@
 
               <ion-col size="12">
                 <ion-item>
+                  <ion-label for="cgc" position="stacked">{{i18n.lang.CPF}}</ion-label>
+                  <ion-input type="text" name="cgc" ngModel #cgc="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-item>
                   <ion-label for="email" position="stacked">{{i18n.lang.EMAIL}}</ion-label>
                   <ion-input type="email" name="email" ngModel #email="ngModel"></ion-input>
                 </ion-item>

@@ -162,6 +162,7 @@ export class UserService {
       query UserInfo($_id: ID){
         UserInfo(_id: $_id){
           _id
+          _person
           menu
           _permissions
         }
@@ -183,12 +184,14 @@ export class UserService {
 
     sessionStorage.setItem("_permissions", JSON.stringify(obj_permissions));
 
-    // INFO MILITAR
-    let person = await this.personsService.getPersonInfo(user._id, `
-      name
-      short_name
-    `);
-    await this.storage.set('person', person);
+    // INFO PERSON
+    if (user._person) {
+      let person = await this.personsService.getPersonInfo(user._person, `
+        name
+        short_name
+        `);
+      await this.storage.set('person', person);
+    }
 
     this._watch.next(true);
     return user;

@@ -14,11 +14,13 @@ const routes: Routes = [
   
   { path: 'usuarios', loadChildren: () => import('./users/users.module').then(m => m.UsersPageModule) },
   { path: 'turmas', loadChildren: () => import('./classes/classes.module').then(m => m.ClassesPageModule) },
+  { path: 'turma-detalhe/:id', loadChildren: () => import('./classes/classes.module').then(m => m.ClassesPageModule) },
   { path: 'escolas', loadChildren: () => import('./institutions/institutions.module').then(m => m.InstitutionsPageModule) },
   { path: 'escola-detalhe/:id', loadChildren: () => import('./institution-detail/institution-detail.module').then(m => m.InstitutionDetailPageModule) },
   // { path: 'escola', loadChildren: () => import('./institution-detail/institution-detail.module').then(m => m.InstitutionDetailPageModule) },
   { path: 'auditoria', loadChildren: () => import('./logs/logs.module').then(m => m.LogsPageModule) },
-  // { path: 'vinculos', loadChildren: () => import('./log-access/log-access.module').then(m => m.LogAccessPageModule) },
+  { path: 'vinculos', loadChildren: () => import('./person-links/person-links.module').then(m => m.PersonLinksPageModule) },
+  { path: 'matriculas', loadChildren: () => import('./student-class-links/student-class-links.module').then(m => m.StudentClassLinksPageModule) },
   { path: 'permissoes', loadChildren: () => import('./access-control/access-control.module').then(m => m.AccessControlPageModule) },
   { path: "**", redirectTo: '/internal/alunos' },
 ];

@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 
 const routes: Routes = [
-  // { path: '', loadChildren: () => import('./log-access/log-access.module').then(m => m.LogAccessPageModule) },
+  { path: '', loadChildren: () => import('../admin/classes/classes.module').then(m => m.ClassesPageModule) },
   // { path: ':id/frequencia', loadChildren: () => import('./log-access/log-access.module').then(m => m.LogAccessPageModule) },
   // { path: ':id', loadChildren: () => import('./users/users.module').then(m => m.UsersPageModule) },
   { path: "**", redirectTo: '/internal/rotina/agenda' },

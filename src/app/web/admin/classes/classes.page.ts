@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ClassesService } from 'src/app/_shared/providers/classes.service';
 import { I18nService } from 'src/app/_shared/services/i18n.service';
 import { InstitutionsService } from 'src/app/_shared/providers/institutions.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-classes',
@@ -22,6 +23,7 @@ export class ClassesPage implements OnInit {
   tableInfo: any = {
     id: "table-classes",
     columns: [
+      { title: 'Year', data: "year" },
       { title: 'Name', data: "name" },
     ],
     ajax: {
@@ -29,6 +31,7 @@ export class ClassesPage implements OnInit {
     },
     actions: {
       buttons: [
+        { action: "detail", tooltip: "Detalhe", class: "btn-light", icon: "mdi mdi-eye" },
         { action: "edit", tooltip: "Editar", class: "btn-info", icon: "mdi mdi-pencil" },
         { action: "del", tooltip: "Remove", class: "btn-danger", icon: "mdi mdi-close" }
       ]
@@ -37,6 +40,7 @@ export class ClassesPage implements OnInit {
 
   constructor(
     public i18n: I18nService,
+    private nav: NavController,
     private utils: UtilsService,
     private loadingService: LoadingService,
     private institutionsService: InstitutionsService,
@@ -66,6 +70,7 @@ export class ClassesPage implements OnInit {
 
   handleTable(ev) {
     let map = {
+      detail: () => this.nav.navigateForward(['/internal/admin/turma-detalhe', ev.data._id]),
       edit: () => {
         this.modalClasse.present();
         setTimeout(() => {

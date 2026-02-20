@@ -84,6 +84,12 @@ export class StudentsPage implements OnInit {
     this.loadingService.show();
     let obj = Object.assign({}, this.StudentForm.value);
 
+    if (!obj.cgc) {
+      this.loadingService.hide();
+      return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.STUDENT_NOT_UPDATED });
+    }
+
+
     this.studentsService.saveStudent(obj)
       .then(data => {
         this.loadingService.hide();

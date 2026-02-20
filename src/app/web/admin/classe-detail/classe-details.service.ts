@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ClassesService {
+export class ClasseDetailsService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -24,43 +24,43 @@ export class ClassesService {
     this._watch.next(true);
   }
 
-  async getClasses(args?, fields?) {
+  async getClasseDetails(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Classes{
-        Classes{
+      query ClasseDetails{
+        ClasseDetails{
           _id
           ${fields || ""}
         }
       }`,
-      name: "Classes",
+      name: "ClasseDetails",
       variables: args || {}
     });
   }
-  async getClasseById(args?) {
+  async getClasseDetailById(args?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query ClasseById($_id: String){
-        ClasseById(_id: $_id){
+      query ClasseDetailById($_id: String){
+        ClasseDetailById(_id: $_id){
           _id
         }
       }`,
-      name: "ClasseById",
+      name: "ClasseDetailById",
       variables: args || {}
     });
   }
 
-  newClasse(data) {
+  newClasseDetail(data) {
     this.loadingService.show();
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation CreateClasse($input: ClasseInput){
-        CreateClasse(input: $input){
+      mutation CreateClasseDetail($input: ClasseDetailInput){
+        CreateClasseDetail(input: $input){
           status
           msg
         }
       }`,
-      name: "CreateClasse",
+      name: "CreateClasseDetail",
       variables: data
     })
       .then(done => {
@@ -69,19 +69,19 @@ export class ClassesService {
       });
   }
 
-  editClasse(data) {
+  editClasseDetail(data) {
     this.loadingService.show();
 
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation UpdateClasse($input: ClasseInput){
-        UpdateClasse(input: $input){
+      mutation UpdateClasseDetail($input: ClasseDetailInput){
+        UpdateClasseDetail(input: $input){
           status
           msg
         }
       }`,
 
-      name: "UpdateClasse",
+      name: "UpdateClasseDetail",
       variables: data
     })
       .then(done => {
@@ -90,20 +90,20 @@ export class ClassesService {
       });
   }
 
-  delClasse(data) {
+  delClasseDetail(data) {
     return this.alertsService.confirmDel()
       .then(confirm => {
         if (!confirm) return;
         this.loadingService.show();
         return this.graphql.query(environment.API.segin, 'graphql', {
           query: `
-        mutation deleteClasse($_id: ID){
-          deleteClasse(_id: $_id){
+        mutation deleteClasseDetail($_id: ID){
+          deleteClasseDetail(_id: $_id){
             status
             msg
           }
         }`,
-          name: "deleteClasse",
+          name: "deleteClasseDetail",
           variables: data
         });
       })
@@ -113,8 +113,8 @@ export class ClassesService {
       });
   }
 
-  saveClasse(data) {
-    return this[data._id ? 'editClasse' : "newClasse"]({ input: data });
+  saveClasseDetail(data) {
+    return this[data._id ? 'editClasseDetail' : "newClasseDetail"]({ input: data });
   }
 
 }

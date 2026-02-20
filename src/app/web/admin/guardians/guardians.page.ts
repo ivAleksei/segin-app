@@ -4,6 +4,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 import { environment } from 'src/environments/environment';
 import { I18nService } from 'src/app/_shared/services/i18n.service';
 import { GuardiansService } from 'src/app/_shared/providers/guardians.service';
+import { PersonsService } from 'src/app/_shared/providers/persons.service';
 
 @Component({
   selector: 'app-guardians',
@@ -19,7 +20,7 @@ export class GuardiansPage implements OnInit {
     id: "table-guardians",
     columns: [
       { title: 'Name', data: "name" },
-      { title: 'CPF', data: "cpf" },
+      { title: 'CPF', data: "cgc" },
       { title: 'Email', data: "email" },
       { title: 'Telefone', data: "phone" },
     ],
@@ -28,6 +29,7 @@ export class GuardiansPage implements OnInit {
     },
     actions: {
       buttons: [
+        { action: "new_user", tooltip: "Criar Usuário", class: "btn-warning", icon: "mdi mdi-account-plus" },
         { action: "edit", tooltip: "Editar", class: "btn-info", icon: "mdi mdi-pencil" },
         { action: "del", tooltip: "Remove", class: "btn-danger", icon: "mdi mdi-close" }
       ]
@@ -37,6 +39,7 @@ export class GuardiansPage implements OnInit {
   constructor(
     public i18n: I18nService,
     private loadingService: LoadingService,
+    private personsService: PersonsService,
     private guardiansService: GuardiansService,
     private alertsService: AlertsService
   ) { }
@@ -47,6 +50,16 @@ export class GuardiansPage implements OnInit {
 
   handleTable(ev) {
     let map = {
+      new_user: async () => {
+        await this.personsService.CreatePersonUser(ev.data._person)
+          .then(data => {
+            if (data?.status != 'success')
+              return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.PERSON_NOT_UPDATED });
+
+            this.clearGuardianForm();
+            return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.PERSON_UPDATED_SUCCESS });
+          });
+      },
       edit: () => {
         this.modalGuardian.present();
         setTimeout(() => {

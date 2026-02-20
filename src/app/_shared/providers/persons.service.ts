@@ -127,4 +127,27 @@ export class PersonsService {
   savePerson(data) {
     return this[data._id ? 'editPerson' : "newPerson"]({ input: data });
   }
+
+
+  CreatePersonUser(_id) {
+    this.loadingService.show();
+    return this.graphql.query(environment.API.admin, 'graphql', {
+      query: `
+      mutation CreatePersonUser(
+        $_id: ID
+      ){
+        CreatePersonUser(
+          _id: $_id
+        ){
+          msg
+          status
+        }
+      }`,
+      name: "CreatePersonUser",
+      variables: { _id: _id }
+    }).then(data => {
+      this.loadingService.hide();
+      return data;
+    })
+  }
 }

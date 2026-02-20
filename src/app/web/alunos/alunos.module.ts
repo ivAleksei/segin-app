@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 
 const routes: Routes = [
-  // { path: '', loadChildren: () => import('./log-access/log-access.module').then(m => m.LogAccessPageModule) },
+  { path: '', loadChildren: () => import('../admin/students/students.module').then(m => m.StudentsPageModule) },
   // { path: ':id/diario', loadChildren: () => import('./log-access/log-access.module').then(m => m.LogAccessPageModule) },
   // { path: ':id/frequencia', loadChildren: () => import('./log-access/log-access.module').then(m => m.LogAccessPageModule) },
   // { path: ':id/avaliacoes', loadChildren: () => import('./log-access/log-access.module').then(m => m.LogAccessPageModule) },

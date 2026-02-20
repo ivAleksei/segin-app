@@ -15,6 +15,9 @@ import { BannersService } from 'src/app/_shared/providers/banners.service';
 import moment from 'moment';
 import { PersonsService } from 'src/app/_shared/providers/persons.service';
 import { UtilsService } from 'src/app/_shared/services/utils.service';
+import { InstitutionsService } from 'src/app/_shared/providers/institutions.service';
+import { I18nService } from 'src/app/_shared/services/i18n.service';
+import { PersonLinksService } from 'src/app/_shared/providers/person-links.service';
 
 @Component({
   selector: 'app-internal',
@@ -24,6 +27,10 @@ import { UtilsService } from 'src/app/_shared/services/utils.service';
 export class InternalPage implements OnInit {
   @ViewChild("menuSidebar") menuSidebar: any;
 
+  list_students: any = [];
+  list_institutions: any = [];
+  _institution: any;
+  _student: any;
   env: any = environment;
   force_chg: any = false;
   password: any;
@@ -47,6 +54,7 @@ export class InternalPage implements OnInit {
   routerSub: Subscription;
 
   constructor(
+    public i18n: I18nService,
     private http: HttpService,
     private modalCtrl: ModalController,
     private bannersService: BannersService,
@@ -54,6 +62,8 @@ export class InternalPage implements OnInit {
     private socket: SocketService,
     private nav: NavController,
     private platform: Platform,
+    private institutionsService: InstitutionsService,
+    private personLinksService: PersonLinksService,
     private personsService: PersonsService,
     private userService: UserService,
     private loadingService: LoadingService,
@@ -144,6 +154,8 @@ export class InternalPage implements OnInit {
 
     this.setupMenu();
     this.getNotifications();
+    this.getRelateds();
+    this.getInstitutions();
     this.getBanners();
     this.preloadData();
   }
@@ -152,6 +164,31 @@ export class InternalPage implements OnInit {
   async preloadData() {
   }
 
+
+  async getRelateds() {
+    let person = await this.storage.get('person');
+    if(!person) return;
+    
+    let data = await this.personLinksService.getStudentsByGuardian({_guardian: person._id }, `
+      student{
+        _id
+        name
+      }
+    `)
+    this.list_students = (data || []).sort((a, b) => b.name > a.name ? 1 : -1);
+  }
+
+  async getInstitutions() {
+    let data = await this.institutionsService.getInstitutions({}, `
+      name
+    `)
+    this.list_institutions = (data || []).sort((a, b) => b.name > a.name ? 1 : -1);
+  }
+
+  setInstitution() {
+    this.storage.set('__institution', this._institution);
+    location.reload();
+  }
 
   async getBanners() {
     let last_see_banners = await this.storage.get('last_see_banners');
@@ -186,6 +223,9 @@ export class InternalPage implements OnInit {
 
     if (user && !user.img) user.img = '/assets/imgs/avatar.jpeg';
     this.user = user || {};
+
+    let _institution = await this.storage.get('__institution');
+    this._institution = _institution || null;
   }
 
   async getNotifications() {
@@ -211,9 +251,11 @@ export class InternalPage implements OnInit {
   async setupMenu() {
     this.person = await this.storage.get('person');
     if (!this.person?.img) {
-      let split = this.person.short_name.split(' ');
-      let inicials = [split[0][0], split[1][0]];
-      this.person.img = `https://dummyimage.com/72x72/000/ffffff?text=${inicials.join('')}`;
+      let split = (this.person?.short_name || "").split(' ');
+      if (split?.length > 1) {
+        let inicials = [split[0][0], split[1][0]];
+        this.person.img = `https://dummyimage.com/72x72/000/ffffff?text=${inicials.join('')}`;
+      }
     }
     let user = await this.storage.get('user');
 

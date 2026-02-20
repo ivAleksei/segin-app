@@ -19,7 +19,7 @@ export class PersonsPage implements OnInit {
     id: "table-persons",
     columns: [
       { title: 'Name', data: "name" },
-      { title: 'CPF', data: "cpf" },
+      { title: 'CPF', data: "cgc" },
       { title: 'Email', data: "email" },
       { title: 'Telefone', data: "phone" },
     ],
@@ -28,6 +28,7 @@ export class PersonsPage implements OnInit {
     },
     actions: {
       buttons: [
+        { action: "new_user", tooltip: "Criar Usuário", class: "btn-warning", icon: "mdi mdi-account-plus" },
         { action: "edit", tooltip: "Editar", class: "btn-info", icon: "mdi mdi-pencil" },
         { action: "del", tooltip: "Remove", class: "btn-danger", icon: "mdi mdi-close" }
       ]
@@ -52,6 +53,16 @@ export class PersonsPage implements OnInit {
         setTimeout(() => {
           this.PersonForm.form.patchValue(ev.data);
         }, 400);
+      },
+      new_user: async () => {
+        await this.personsService.CreatePersonUser(ev.data._id)
+          .then(data => {
+            if (data?.status != 'success')
+              return this.alertsService.notify({ type: "error", subtitle: this.i18n.lang.PERSON_NOT_UPDATED });
+
+            this.clearPersonForm();
+            return this.alertsService.notify({ type: "success", subtitle: this.i18n.lang.PERSON_UPDATED_SUCCESS });
+          });
       },
       new: () => {
         this.modalPerson.present();

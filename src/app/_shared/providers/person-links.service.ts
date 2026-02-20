@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ClassesService {
+export class PersonLinksService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -24,43 +24,57 @@ export class ClassesService {
     this._watch.next(true);
   }
 
-  async getClasses(args?, fields?) {
+  async getStudentsByGuardian(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Classes{
-        Classes{
+      query StudentsByGuardian($_guardian: ID){
+        StudentsByGuardian(_guardian: $_guardian){
           _id
           ${fields || ""}
         }
       }`,
-      name: "Classes",
+      name: "StudentsByGuardian",
       variables: args || {}
     });
   }
-  async getClasseById(args?) {
+
+  async getPersonLinks(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query ClasseById($_id: String){
-        ClasseById(_id: $_id){
+      query PersonLinks{
+        PersonLinks{
+          _id
+          ${fields || ""}
+        }
+      }`,
+      name: "PersonLinks",
+      variables: args || {}
+    });
+  }
+  async getPersonLinkById(args?) {
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      query PersonLinkById($_id: String){
+        PersonLinkById(_id: $_id){
           _id
         }
       }`,
-      name: "ClasseById",
+      name: "PersonLinkById",
       variables: args || {}
     });
   }
 
-  newClasse(data) {
+  newPersonLink(data) {
     this.loadingService.show();
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation CreateClasse($input: ClasseInput){
-        CreateClasse(input: $input){
+      mutation CreatePersonLink($input: PersonLinkInput){
+        CreatePersonLink(input: $input){
           status
           msg
         }
       }`,
-      name: "CreateClasse",
+      name: "CreatePersonLink",
       variables: data
     })
       .then(done => {
@@ -69,19 +83,19 @@ export class ClassesService {
       });
   }
 
-  editClasse(data) {
+  editPersonLink(data) {
     this.loadingService.show();
 
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation UpdateClasse($input: ClasseInput){
-        UpdateClasse(input: $input){
+      mutation UpdatePersonLink($input: PersonLinkInput){
+        UpdatePersonLink(input: $input){
           status
           msg
         }
       }`,
 
-      name: "UpdateClasse",
+      name: "UpdatePersonLink",
       variables: data
     })
       .then(done => {
@@ -90,20 +104,20 @@ export class ClassesService {
       });
   }
 
-  delClasse(data) {
+  delPersonLink(data) {
     return this.alertsService.confirmDel()
       .then(confirm => {
         if (!confirm) return;
         this.loadingService.show();
         return this.graphql.query(environment.API.segin, 'graphql', {
           query: `
-        mutation deleteClasse($_id: ID){
-          deleteClasse(_id: $_id){
+        mutation deletePersonLink($_id: ID){
+          deletePersonLink(_id: $_id){
             status
             msg
           }
         }`,
-          name: "deleteClasse",
+          name: "deletePersonLink",
           variables: data
         });
       })
@@ -113,8 +127,8 @@ export class ClassesService {
       });
   }
 
-  saveClasse(data) {
-    return this[data._id ? 'editClasse' : "newClasse"]({ input: data });
+  savePersonLink(data) {
+    return this[data._id ? 'editPersonLink' : "newPersonLink"]({ input: data });
   }
 
 }

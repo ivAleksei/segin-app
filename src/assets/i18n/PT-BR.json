@@ -442,5 +442,18 @@
     "ROLE_UPDATED_SUCCESS": "Perfil atualizado com sucesso",
     "ROLE_NOT_UPDATED": "Perfil não atualizado",
     "ROLE_REMOVED_SUCCESS": "Perfil removido com sucesso",
-    "ROLE_NOT_REMOVED": "Perfil não removido"
+    "ROLE_NOT_REMOVED": "Perfil não removido",
+    "GUARDIAN_STUDENT_LINKS": "Vínculos Responsável → Aluno",
+    "GUARDIAN_STUDENT_LINKS_DESC": "Cadastre e gerencie vínculos entre responsáveis e alunos",
+    "NEW_LINK": "Novo Vínculo",
+    "LINK_UPDATED_SUCCESS": "Vínculo atualizado com sucesso",
+    "LINK_NOT_UPDATED": "Vínculo não atualizado",
+    "LINK_REMOVED_SUCCESS": "Vínculo removido com sucesso",
+    "LINK_NOT_REMOVED": "Vínculo não removido",
+    "FILL_REQUIRED_FIELDS": "Preencha os campos obrigatórios",
+    "STUDENT_CLASS_LINKS": "Vínculo Aluno → Turma",
+    "STUDENT_CLASS_LINKS_DESC": "Cadastre e gerencie o vínculo de alunos em turmas",
+    "ERR_LINK_SAME_PERSON": "Não é possível vincular duas pessoas iguais",
+    "YEAR": "Ano",
+    "ALIAS": "Sigla"
 }

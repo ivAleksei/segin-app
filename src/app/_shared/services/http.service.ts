@@ -38,12 +38,15 @@ export class HttpService {
   async getHeaders(json?) {
     let location = await this.locationService.location;
     let token = await this.storage.get('_token');
+    let _institution = await this.storage.get('__institution');
 
     let headers;
 
     headers = {};
 
     headers['Authorization'] = (token) ? `Bearer ${token}` : '';
+    headers['X-Institution'] = _institution || '';
+
 
     headers['Content-Type'] = 'application/json';
     headers["Access-Control-Allow-Origin"] = "*";
@@ -94,7 +97,7 @@ export class HttpService {
       })
       .catch(err => {
         console.log(err);
-        
+
         return null
       });
   }

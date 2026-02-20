@@ -38,21 +38,39 @@
           <h4 class="section-title">{{i18n.lang.BASIC_DATA}}</h4>
           <div class="section-body">
             <ion-row>
-              <ion-col size="12">
+              <!-- <ion-col size-xs="12" size-lg="4">
                 <ion-item class="old-select">
                   <ion-label for="_institution" position="stacked">{{i18n.lang.INSTITUTION}}*</ion-label>
                   <select name="_institution" ngModel #_institution="ngModel">
-                    <option value="">Selecione um tipo...</option>
+                    <option value="">{{i18n.lang.SELECT_OPTION}}</option>
                     <ng-template ngFor let-it [ngForOf]="list_institutions" let-i="index">
                       <option [value]="it._id">{{it.name}}</option>
                     </ng-template>
                   </select>
                 </ion-item>
-              </ion-col>
-              <ion-col size="12">
+              </ion-col> -->
+              <ion-col size-xs="12" size-lg="12">
                 <ion-item>
                   <ion-label for="name" position="stacked">{{i18n.lang.NAME}}*</ion-label>
                   <ion-input type="text" name="name" ngModel required #name="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-lg="4">
+                <ion-item>
+                  <ion-label for="year" position="stacked">{{i18n.lang.YEAR}}*</ion-label>
+                  <ion-input type="text" name="year" ngModel required #year="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-lg="4">
+                <ion-item>
+                  <ion-label for="alias" position="stacked">{{i18n.lang.ALIAS}}*</ion-label>
+                  <ion-input type="text" name="alias" ngModel required #alias="ngModel"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size-xs="12" size-lg="4">
+                <ion-item>
+                  <ion-label for="slug" position="stacked">{{i18n.lang.SLUG}}*</ion-label>
+                  <ion-input type="text" name="slug" ngModel required #slug="ngModel"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>

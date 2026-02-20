@@ -279,11 +279,13 @@ export class DataTableComponent implements OnInit {
 
   async setupAjaxHeaders() {
     let user = await this.storage.get('user_id');
+    let _institution = await this.storage.get('__institution');
     this.dtOptions.ajax = this.tableInfo.ajax;
     this.dtOptions.ajax.beforeSend = function (request) {
       request.setRequestHeader("Content-Type", "application/json");
       request.setRequestHeader("Access-Control-Allow-Origin", "*");
       request.setRequestHeader("x-access-user", user);
+      request.setRequestHeader("x-institution", _institution);
     };
   }
 

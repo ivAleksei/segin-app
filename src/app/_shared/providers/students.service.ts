@@ -24,12 +24,13 @@ export class StudentsService {
     this._watch.next(true);
   }
 
-  async getStudents(args?) {
+  async getStudents(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query Students{
         Students{
           _id
+          ${fields||""}
         }
       }`,
       name: "Students",

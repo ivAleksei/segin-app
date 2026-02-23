@@ -1,6 +1,8 @@
 import $ from "jquery";
 import moment from "moment";
 
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AlertsService } from "./alerts.service";
@@ -24,6 +26,47 @@ export class UtilsService {
     '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
     '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
     '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+  calendarOptions: any = {
+    // LAYOUT
+    headerToolbar: {
+      start: 'prev',
+      center: 'title',
+      end: 'next'
+    },
+    titleFormat: { year: 'numeric', month: 'short' },
+    buttonText: {
+      today: 'HOJE',
+      month: 'MÊS',
+      week: 'SEMANA',
+      day: 'DIA',
+      list: 'LISTA'
+    },
+    noEventsContent: "Nenhum registro encontrado",
+    buttonIcons: {
+      prev: 'a mdi mdi-arrow-left-drop-circle',
+      next: 'a mdi mdi-arrow-right-drop-circle',
+      prevYear: 'a mdi mdi-chevron-double-left', // double chevron
+      nextYear: 'a mdi mdi-chevron-double-right' // double chevron
+    },
+    dayHeaderFormat: { weekday: 'short' },
+    // DISPLAY
+    eventDisplay: "list-item",
+    fixedWeekCount: false,
+    initialView: 'dayGridMonth',
+    initialDate: moment().format('YYYY-MM-DD'),
+    aspectRatio: 1,
+    height: 'auto',
+    expandRows: true,
+    showNonCurrentDates: false,
+    eventBackgroundColor: "#EC3337",
+    eventBorderColor: "#BA292B",
+    plugins: [
+      dayGridPlugin,
+      interactionPlugin
+    ],
+    locale: 'pt-BR',
+    themeSystem: 'standard',
+  };
 
   constructor(
     private storage: LocalStorageService,
@@ -177,7 +220,7 @@ export class UtilsService {
       };
     })
   }
-  
+
   removeAcento(str) {
     let com_acento = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
     let sem_acento = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";

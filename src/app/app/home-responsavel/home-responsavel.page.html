@@ -49,7 +49,7 @@
       </div>
       <div class="notices-place">
         <ng-template ngFor let-it [ngForOf]="notices">
-          <div class="notices-item">
+          <div class="notices-item" [routerLink]="['/internal/notice-detail', it._id]">
             <img src="/assets/svg/attention.svg" alt="attention">
             <h4>{{it.title}}<br><small>{{it.subtitle}}</small></h4>
             <p>{{it.text}}</p>

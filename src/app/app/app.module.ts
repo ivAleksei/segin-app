@@ -12,7 +12,6 @@ import { Geolocation } from "@awesome-cordova-plugins/geolocation/ngx";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
 import { HttpService } from 'src/app/_shared/services/http.service';
 import { LocationService } from 'src/app/_shared/services/location.service';
 import { UtilsService } from 'src/app/_shared/services/utils.service';
@@ -33,7 +32,7 @@ import { NgChartsModule } from 'ng2-charts';
     PipesModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgChartsModule,
+    NgChartsModule
   ],
   providers: [
     Geolocation,

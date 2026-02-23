@@ -8,12 +8,14 @@ import { SchoolTabPageRoutingModule } from './school-tab-routing.module';
 
 import { SchoolTabPage } from './school-tab.page';
 import { ComponentsModule } from 'src/app/_shared/components/components.module';
+import { PipesModule } from 'src/app/_shared/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    PipesModule,
     ComponentsModule,
     SchoolTabPageRoutingModule
   ],

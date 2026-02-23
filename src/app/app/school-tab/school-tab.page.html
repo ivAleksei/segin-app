@@ -13,13 +13,20 @@
       <swiper-slide>
         <div class="scroll-area">
           <div class="fc-place">
-
-            <!-- <full-calendar #calendar [options]="calendarOptions"></full-calendar> -->
+            <full-calendar #calendar [options]="calendarOptions"></full-calendar>
           </div>
-          <div class="svg-placeholder">
+          <div class="svg-placeholder" *ngIf="!list_events?.length">
             <img src="/assets/svg/calendar.svg" alt="calendar">
             <h3>{{i18n.lang.EMPTY_EVENT}}</h3>
             <p>{{i18n.lang.EMPTY_EVENT_TXT}}</p>
+          </div>
+          <div class="events-place" *ngIf="list_events?.length">
+            <h4>Dia {{date_ref | date}} <span *ngIf="map_events[date_ref]">- {{map_events[date_ref] || 0}} {{i18n.lang.EVENTS}}</span></h4>
+            <ng-template ngFor let-it [ngForOf]="list_events">
+              <div class="events-item" >
+                <h4>{{it.title}}<br><small>{{it.subtitle}}</small></h4>
+              </div>
+            </ng-template>
           </div>
         </div>
       </swiper-slide>
@@ -30,7 +37,7 @@
         <div class="scroll-area">
           <div class="notices-place">
             <ng-template ngFor let-it [ngForOf]="notices">
-              <div class="notices-item">
+              <div class="notices-item" [routerLink]="['/internal/notice-detail', it._id]">
                 <img src="/assets/svg/attention.svg" alt="attention">
                 <h4>{{it.title}}<br><small>{{it.subtitle}}</small></h4>
                 <p>{{it.text}}</p>

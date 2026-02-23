@@ -9,6 +9,8 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { DataTablesModule } from 'angular-datatables';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,11 @@ import { UserHeaderComponent } from './user-header/user-header.component';
   ],
   imports: [
     IonicModule,
+    RouterModule,
     FormsModule,
     CommonModule,
     DataTablesModule,
+    FullCalendarModule,
     PipesModule,
     LeafletModule
   ],
@@ -29,9 +33,10 @@ import { UserHeaderComponent } from './user-header/user-header.component';
     CUSTOM_ELEMENTS_SCHEMA
   ],
   exports: [
+    LeafletModule,
+    FullCalendarModule,
     DataTableComponent,
     FloatingButtonsComponent,
-    LeafletModule,
     AutocompleteComponent,
     UserHeaderComponent
   ]

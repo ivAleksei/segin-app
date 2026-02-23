@@ -14,6 +14,10 @@ const routes: Routes = [
         redirectTo: '/internal/home',
       },
       {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+      },
+      {
         path: 'home-responsavel',
         loadChildren: () => import('../home-responsavel/home-responsavel.module').then(m => m.HomeResponsavelPageModule)
       },
@@ -26,11 +30,15 @@ const routes: Routes = [
         loadChildren: () => import('../school-tab/school-tab.module').then(m => m.SchoolTabPageModule)
       },
       {
-        path: 'home',
-        redirectTo: '/internal/home-responsavel'
+        path: 'settings',
+        redirectTo: '/settings'
       },
     ]
-  }
+  },
+  {
+    path: 'notice-detail/:id',
+    loadChildren: () => import('../notice-detail/notice-detail.module').then(m => m.NoticeDetailPageModule)
+  },
 ];
 
 @NgModule({

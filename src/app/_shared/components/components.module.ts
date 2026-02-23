@@ -8,12 +8,14 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { DataTableComponent } from './data-table/data-table.component';
 import { DataTablesModule } from 'angular-datatables';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { UserHeaderComponent } from './user-header/user-header.component';
 
 @NgModule({
   declarations: [
     DataTableComponent,
     FloatingButtonsComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    UserHeaderComponent
   ],
   imports: [
     IonicModule,
@@ -30,7 +32,8 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
     DataTableComponent,
     FloatingButtonsComponent,
     LeafletModule,
-    AutocompleteComponent
+    AutocompleteComponent,
+    UserHeaderComponent
   ]
 })
 export class ComponentsModule { }

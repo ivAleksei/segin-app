@@ -4,10 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { InternalTabsPage } from './internal-tabs.page';
 
 const routes: Routes = [
-  // {
-  //   path: 'badges',
-  //   loadChildren: () => import('../badges/badges.module').then(m => m.BadgesPageModule)
-  // },
   {
     path: '',
     component: InternalTabsPage,
@@ -26,25 +22,13 @@ const routes: Routes = [
         loadChildren: () => import('../home-aluno/home-aluno.module').then(m => m.HomeAlunoPageModule)
       },
       {
+        path: 'school-tab',
+        loadChildren: () => import('../school-tab/school-tab.module').then(m => m.SchoolTabPageModule)
+      },
+      {
         path: 'home',
         redirectTo: '/internal/home-responsavel'
       },
-      // {
-      //   path: 'you',
-      //   loadChildren: () => import('../personal-data/personal-data.module').then(m => m.PersonalDataPageModule)
-      // },
-      // {
-      //   path: 'profile',
-      //   loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
-      // },
-      // {
-      //   path: 'coach',
-      //   loadChildren: () => import('../coach/coach.module').then(m => m.CoachPageModule)
-      // },
-      // {
-      //   path: 'personal',
-      //   loadChildren: () => import('../personal-data/personal-data.module').then(m => m.PersonalDataPageModule)
-      // },
     ]
   }
 ];

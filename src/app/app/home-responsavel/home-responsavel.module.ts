@@ -8,6 +8,7 @@ import { HomeResponsavelPageRoutingModule } from './home-responsavel-routing.mod
 
 import { HomeResponsavelPage } from './home-responsavel.page';
 import { PipesModule } from 'src/app/_shared/pipes/pipes.module';
+import { ComponentsModule } from 'src/app/_shared/components/components.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PipesModule } from 'src/app/_shared/pipes/pipes.module';
     FormsModule,
     IonicModule,
     PipesModule,
+    ComponentsModule,
     HomeResponsavelPageRoutingModule
   ],
   declarations: [HomeResponsavelPage]

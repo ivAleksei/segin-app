@@ -1,0 +1,62 @@
+.tabs {
+    position: relative;
+    width: 100%;
+
+    ion-button {
+        width: 33%;
+        height: 48px;
+        color: var(--ion-color-medium)
+    }
+
+    .tab-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 33%;
+        height: 2px;
+        background: var(--ion-color-primary);
+        transition: .2s all ease-in-out;
+    }
+
+    &.tab-1 .tab-bar {
+        left: 33%;
+    }
+
+    &.tab-2 .tab-bar {
+        left: 66%;
+    }
+}
+
+ion-content {
+    --overflow: hidden;
+    overflow: hidden;
+}
+
+#slider {
+
+    .scroll-area {
+        height: calc(100vh - 56px - 72px);
+        padding: 16px;
+        padding-bottom: 56px;
+        overflow-y: auto;
+    }
+}
+
+
+.svg-placeholder {
+    text-align: center;
+
+    img {
+        width: 100%;
+        max-width: 60vw;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    p {
+        color: var(--ion-color-medium);
+        font-weight: bold;
+    }
+}

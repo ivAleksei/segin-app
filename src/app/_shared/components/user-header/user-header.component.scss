@@ -1,0 +1,23 @@
+.user-header {
+    position: relative;
+    height: 80px;
+    background: var((--ion-color-primary));
+    color: var((--ion-color-primary-contrast));
+    padding: 16px;
+
+    p {
+        margin: 0;
+        width: calc(100% - 58px);
+        font-size: 20px;
+    }
+
+    .avatar-place {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-size: cover;
+    }
+}

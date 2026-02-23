@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true">
+  <app-user-header></app-user-header>
+
+  <ion-buttons class="tabs tab-{{curr_slide}}">
+    <ion-button (click)="setSlide(0)" [ngClass]="{active: curr_slide == 0}">{{i18n.lang.CALENDAR}}</ion-button>
+    <ion-button (click)="setSlide(1)" [ngClass]="{active: curr_slide == 1}">{{i18n.lang.SUBJECTS}}</ion-button>
+    <ion-button (click)="setSlide(2)" [ngClass]="{active: curr_slide == 2}">{{i18n.lang.NOTICES}}</ion-button>
+    <div class="tab-bar"></div>
+  </ion-buttons>
+
+  <div id="slider">
+    <swiper-container #swiper (swiperslidechange)="setCurrSlide()">
+      <swiper-slide>
+        <div class="scroll-area">
+          <div class="fc-place">
+
+            <!-- <full-calendar #calendar [options]="calendarOptions"></full-calendar> -->
+          </div>
+          <div class="svg-placeholder">
+            <img src="/assets/svg/calendar.svg" alt="calendar">
+            <h3>{{i18n.lang.EMPTY_EVENT}}</h3>
+            <p>{{i18n.lang.EMPTY_EVENT_TXT}}</p>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="scroll-area"></div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="scroll-area">
+          <div class="notices-place">
+            <ng-template ngFor let-it [ngForOf]="notices">
+              <div class="notices-item">
+                <img src="/assets/svg/attention.svg" alt="attention">
+                <h4>{{it.title}}<br><small>{{it.subtitle}}</small></h4>
+                <p>{{it.text}}</p>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</ion-content>

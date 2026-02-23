@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomeAlunoPageRoutingModule } from './home-aluno-routing.module';
+import { SchoolTabPageRoutingModule } from './school-tab-routing.module';
 
-import { HomeAlunoPage } from './home-aluno.page';
+import { SchoolTabPage } from './school-tab.page';
 import { ComponentsModule } from 'src/app/_shared/components/components.module';
 
 @NgModule({
@@ -15,8 +15,9 @@ import { ComponentsModule } from 'src/app/_shared/components/components.module';
     FormsModule,
     IonicModule,
     ComponentsModule,
-    HomeAlunoPageRoutingModule
+    SchoolTabPageRoutingModule
   ],
-  declarations: [HomeAlunoPage]
+  declarations: [SchoolTabPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomeAlunoPageModule {}
+export class SchoolTabPageModule {}

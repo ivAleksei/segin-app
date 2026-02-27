@@ -30,11 +30,34 @@
               </div>
             </ng-template>
           </div>
-          <ion-button [routerLink]="['/internal/report-detail/general']">{{i18n.lang.ACCESS_GENERAL_REPORT}}</ion-button>
+          <ion-button
+            [routerLink]="['/internal/report-detail/general']">{{i18n.lang.ACCESS_GENERAL_REPORT}}</ion-button>
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="scroll-area">
+        <div class="scroll-area tab-absences">
+          <div class="card-presence">
+            <h2>{{absences_data?.percent}}%</h2>
+            <p>{{i18n.lang.GENERAL_FREQUENCY}}</p>
+            <ion-progress-bar [value]="absences_data?.percent/100"></ion-progress-bar>
+            <p>{{absences_data?.total}} {{i18n.lang.LOGGED_ABSENCES}}</p>
+          </div>
+          <h4>{{i18n.lang.LOGGED_ABSENCES}}</h4>
+          <div class="list-absences">
+            <div class="svg-placeholder" *ngIf="!absences?.length">
+              <img src="/assets/svg/absences.svg" alt="absences">
+              <h3>{{i18n.lang.CONGRATS}}</h3>
+              <p>{{i18n.lang.NO_ABSENCES_TXT}}</p>
+            </div>
+            <ng-template ngFor let-it [ngForOf]="absences">
+              <div class="card-absence">
+                <p class="date">{{it.date | date}}<br>
+                  <small>{{it.teacher.name}} - {{it.subject.name}}</small>
+                </p>
+                <i class="mdi mdi-chevron-right"></i>
+              </div>
+            </ng-template>
+          </div>
         </div>
       </swiper-slide>
       <swiper-slide>

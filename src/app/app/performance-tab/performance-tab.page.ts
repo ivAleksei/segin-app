@@ -7,6 +7,7 @@ import { I18nService } from 'src/app/_shared/services/i18n.service';
 import { LocalStorageService } from 'src/app/_shared/services/local-storage.service';
 import { NavController } from '@ionic/angular';
 import moment from 'moment';
+import { AbsencesService } from 'src/app/_shared/providers/absences.service';
 
 @Component({
   selector: 'app-performance-tabs',
@@ -20,20 +21,24 @@ export class PerformanceTabPage implements OnInit {
   year: any = moment().format('YYYY');
 
   periods: any = [
-    {year: "2025", label: "1o Bimestre", period: "2025.1", class:"Infantil"},
-    {year: "2025", label: "2o Bimestre", period: "2025.2", class:"Infantil"},
-    {year: "2025", label: "3o Bimestre", period: "2025.3", class:"Infantil"},
-    {year: "2025", label: "4o Bimestre", period: "2025.4", class:"Infantil"},
-    {year: "2026", label: "1o Bimestre", period: "2026.1", class:"Infantil"},
-    {year: "2026", label: "2o Bimestre", period: "2026.2", class:"Infantil"},
-    {year: "2026", label: "3o Bimestre", period: "2026.3", class:"Infantil"},
-    {year: "2026", label: "4o Bimestre", period: "2026.4", class:"Infantil"},
+    { year: "2025", label: "1o Bimestre", period: "2025.1", class: "Infantil" },
+    { year: "2025", label: "2o Bimestre", period: "2025.2", class: "Infantil" },
+    { year: "2025", label: "3o Bimestre", period: "2025.3", class: "Infantil" },
+    { year: "2025", label: "4o Bimestre", period: "2025.4", class: "Infantil" },
+    { year: "2026", label: "1o Bimestre", period: "2026.1", class: "Infantil" },
+    { year: "2026", label: "2o Bimestre", period: "2026.2", class: "Infantil" },
+    { year: "2026", label: "3o Bimestre", period: "2026.3", class: "Infantil" },
+    { year: "2026", label: "4o Bimestre", period: "2026.4", class: "Infantil" },
   ]
+
+  absences_data: any;
+  absences: any;
 
   constructor(
     public utils: UtilsService,
     public storage: LocalStorageService,
     public nav: NavController,
+    public absencesService: AbsencesService,
     public i18n: I18nService
   ) { }
 
@@ -45,8 +50,17 @@ export class PerformanceTabPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    setTimeout(() => {
+      this.setSlide(1);
+    }, 400);
+    this.getAbsences()
   }
 
+  async getAbsences() {
+    let data = await this.absencesService.getAbsences();
+    this.absences_data = data || null;
+    this.absences = data?.absences || null;
+  }
 
   setCurrSlide() {
     let swiper = this.swiperRef?.nativeElement.swiper;

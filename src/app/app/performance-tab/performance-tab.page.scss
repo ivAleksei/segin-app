@@ -103,3 +103,68 @@ ion-content {
         }
     }
 }
+
+.tab-absences {
+
+    .card-presence {
+        background: var(--ion-card-primary);
+        text-align: center;
+
+        h2 {
+            font-size: 48px;
+        }
+
+        p {
+            opacity: .5;
+        }
+
+        ion-progress-bar {
+            height: 10px;
+            border-radius: 4px;
+        }
+
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    h4 {
+
+        font-size: 16px;
+        margin: 13px 0;
+        font-weight: bold;
+    }
+
+
+    .list-absences {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .card-absence {
+        position: relative;
+        background: var(--ion-card-warning);
+        padding: 16px;
+        border-bottom: 1px solid var(--ion-color-light-shade);
+
+
+        &:last-of-type {
+            border-bottom: 0;
+        }
+
+        p {
+            margin: 0;
+            font-weight: bold;
+
+            small {
+                font-weight: initial;
+                opacity: .5;
+            }
+        }
+
+        i {
+            position: absolute;
+            right: 16px;
+            top: 24px;
+        }
+    }
+}

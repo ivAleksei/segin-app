@@ -232,6 +232,24 @@ ion-content,
     }
 }
 
+.svg-placeholder {
+    text-align: center;
+
+    img {
+        width: 100%;
+        max-width: 60vw;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    p {
+        color: var(--ion-color-medium);
+        font-weight: bold;
+    }
+}
+
 .card-section {
     margin-bottom: 16px;
     padding: 16px;

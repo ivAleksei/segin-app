@@ -30,6 +30,10 @@ const routes: Routes = [
         loadChildren: () => import('../school-tab/school-tab.module').then(m => m.SchoolTabPageModule)
       },
       {
+        path: 'performance-tab',
+        loadChildren: () => import('../performance-tab/performance-tab.module').then(m => m.PerformanceTabPageModule)
+      },
+      {
         path: 'settings',
         redirectTo: '/settings'
       },
@@ -38,6 +42,18 @@ const routes: Routes = [
   {
     path: 'notice-detail/:id',
     loadChildren: () => import('../notice-detail/notice-detail.module').then(m => m.NoticeDetailPageModule)
+  },
+  {
+    path: 'subject-detail/:id',
+    loadChildren: () => import('../subject-detail/subject-detail.module').then(m => m.SubjectDetailPageModule)
+  },
+  {
+    path: 'performance-detail/:id',
+    loadChildren: () => import('../performance-detail/performance-detail.module').then(m => m.PerformanceDetailPageModule)
+  },
+  {
+    path: 'report-detail/:id',
+    loadChildren: () => import('../report-detail/report-detail.module').then(m => m.ReportDetailPageModule)
   },
 ];
 

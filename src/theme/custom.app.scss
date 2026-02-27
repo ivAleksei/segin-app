@@ -33,7 +33,7 @@ ion-header {
 
     &.primary {
         ion-toolbar {
-            --background: var(--ion-color-primary);
+            --background: var(--ion-color-primary-shade);
             --color: var(--ion-color-primary-contrast);
 
             ion-button {

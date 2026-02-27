@@ -1,0 +1,29 @@
+<ion-header  class="primary">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="nav.back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{i18n.lang.PERFORMANCE}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="scroll-area">
+    <ng-template ngFor let-it [ngForOf]="performance">
+      <h4>{{it.label}}</h4>
+      <div class="list-periods">
+        <ng-template ngFor let-it [ngForOf]="it.steps">
+          <div class="card-period">
+            <p>
+              {{it.label}}<br>
+              <small>{{it.value}}</small>
+            </p>
+          </div>
+        </ng-template>
+      </div>
+      <ion-button [routerLink]="['/internal/report-detail', it._id]">{{i18n.lang.ACCESS_REPORT}}</ion-button>
+    </ng-template>
+  </div>
+</ion-content>

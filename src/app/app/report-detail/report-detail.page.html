@@ -1,0 +1,51 @@
+<ion-header class="primary">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="nav.back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{i18n.lang.REPORT}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="exportPDF()">
+        <img src="/assets/svg/pdf.svg" alt="pdf" />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="scroll-area">
+    <div class="card-section">
+      <div class="card-title">
+        <p>
+          <i class="mdi mdi-account"></i>
+          {{i18n.lang.STUDENT}} - <span>Regular</span>
+        </p>
+      </div>
+      <div class="card-body">
+        <p>{{i18n.lang.NAME}}: {{report?.student?.name}}</p>
+        <p>{{i18n.lang.AGE}}: {{report?.student?.age}} {{i18n.lang[report?.student?.age > 1? 'YEARS': 'YEAR' ]}}</p>
+        <p>{{i18n.lang.CLASSE}}: {{report?.classe?.name}}</p>
+        <p>{{i18n.lang.TEACHER}}: {{report?.teacher?.short_name}}</p>
+        <p>{{i18n.lang.PERIOD}}: {{report?.period?.label}}</p>
+      </div>
+    </div>
+
+    <ng-template ngFor let-it [ngForOf]="report?.period?.performance">
+      <ng-template ngFor let-st [ngForOf]="it.steps">
+        <div class="card-section">
+          <div class="card-title">
+            <p>
+              <i class="mdi mdi-account"></i>
+              {{st.label}} - <span>{{st.value}}</span>
+            </p>
+          </div>
+          <div class="card-body">
+            {{st.text}}
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+</ion-content>

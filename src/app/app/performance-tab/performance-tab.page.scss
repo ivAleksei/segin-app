@@ -1,0 +1,105 @@
+.tabs {
+    position: relative;
+    width: 100%;
+
+    ion-button {
+        width: 33%;
+        height: 48px;
+        color: var(--ion-color-medium)
+    }
+
+    .tab-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 33%;
+        height: 2px;
+        background: var(--ion-color-primary);
+        transition: .2s all ease-in-out;
+    }
+
+    &.tab-1 .tab-bar {
+        left: 33%;
+    }
+
+    &.tab-2 .tab-bar {
+        left: 66%;
+    }
+}
+
+ion-content {
+    --overflow: hidden;
+    overflow: hidden;
+}
+
+#slider {
+
+    .scroll-area {
+        height: calc(100vh - 56px - 72px);
+        padding: 16px;
+        padding-bottom: 56px;
+        overflow-y: auto;
+    }
+}
+
+.performance {
+
+    .inline {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        h4 {
+            font-size: 16px;
+            margin: 13px 0;
+            font-weight: bold;
+        }
+
+        ion-select {
+            text-align: right;
+            width: 70px;
+        }
+
+        &:last-child {
+            text-align: right;
+        }
+    }
+
+    ion-button {
+        width: 100%;
+        margin-top: 32px;
+    }
+
+    .list-periods {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .card-period {
+        position: relative;
+        background: var(--ion-card-primary);
+        padding: 16px;
+        border-bottom: 1px solid var(--ion-color-light-shade);
+
+
+        &:last-of-type {
+            border-bottom: 0;
+        }
+
+        p {
+            margin: 0;
+            font-weight: bold;
+
+            small {
+                font-weight: initial;
+                opacity: .5;
+            }
+        }
+
+        i {
+            position: absolute;
+            right: 16px;
+            top: 24px;
+        }
+    }
+}

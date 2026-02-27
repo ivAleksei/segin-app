@@ -1,4 +1,12 @@
 {
+    "PERFORMANCE_PERIOD_BIM": "Desempenho por Bimestre",
+    "AGE": "Idade",
+    "YEARS": "Anos",
+    "PERIOD": "Periodo",
+    "REPORT": "Relatório",
+    "ACCESS_REPORT": "Acessar Relatório",
+    "ACCESS_GENERAL_REPORT": "Acessar Relatório Geral",
+    "PERFORMANCE_PERIOD_TRIM": "Desempenho por Trimestre",
     "SUBJECT_PROGRESS": "Progresso na matéria",
     "SEE_MORE": "Ver mais",
     "NEXT_CLASS": "Próxima Aula",

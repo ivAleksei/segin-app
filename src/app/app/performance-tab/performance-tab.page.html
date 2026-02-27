@@ -1,0 +1,47 @@
+<ion-content [fullscreen]="true">
+  <app-user-header></app-user-header>
+
+  <ion-buttons class="tabs tab-{{curr_slide}}">
+    <ion-button (click)="setSlide(0)" [ngClass]="{active: curr_slide == 0}">{{i18n.lang.PERFORMANCE}}</ion-button>
+    <ion-button (click)="setSlide(1)" [ngClass]="{active: curr_slide == 1}">{{i18n.lang.FREQUENCY}}</ion-button>
+    <ion-button (click)="setSlide(2)" [ngClass]="{active: curr_slide == 2}">{{i18n.lang.JOURNAL}}</ion-button>
+    <div class="tab-bar"></div>
+  </ion-buttons>
+
+  <div id="slider">
+    <swiper-container #swiper (swiperslidechange)="setCurrSlide()">
+      <swiper-slide>
+        <div class="scroll-area performance">
+          <div class="inline">
+            <h4>{{i18n.lang.PERFORMANCE_PERIOD_BIM}}</h4>
+            <ion-select [(ngModel)]="year">
+              <ion-select-option>2025</ion-select-option>
+              <ion-select-option>2026</ion-select-option>
+            </ion-select>
+          </div>
+          <div class="list-periods">
+            <ng-template ngFor let-it [ngForOf]="periods">
+              <div class="card-period" *ngIf="it.year == year" [routerLink]="['/internal/performance-detail', it._id]">
+                <p>
+                  {{it.label}}<br>
+                  <small>{{it.period}} - {{it.class}}</small>
+                </p>
+                <i class="mdi mdi-chevron-right"></i>
+              </div>
+            </ng-template>
+          </div>
+          <ion-button [routerLink]="['/internal/report-detail/general']">{{i18n.lang.ACCESS_GENERAL_REPORT}}</ion-button>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="scroll-area">
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="scroll-area">
+
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</ion-content>

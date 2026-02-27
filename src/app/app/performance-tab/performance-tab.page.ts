@@ -8,6 +8,7 @@ import { LocalStorageService } from 'src/app/_shared/services/local-storage.serv
 import { NavController } from '@ionic/angular';
 import moment from 'moment';
 import { AbsencesService } from 'src/app/_shared/providers/absences.service';
+import { JournalsService } from 'src/app/_shared/providers/journals.service';
 
 @Component({
   selector: 'app-performance-tabs',
@@ -33,11 +34,13 @@ export class PerformanceTabPage implements OnInit {
 
   absences_data: any;
   absences: any;
+  journals: any;
 
   constructor(
     public utils: UtilsService,
     public storage: LocalStorageService,
     public nav: NavController,
+    public journalsService: JournalsService,
     public absencesService: AbsencesService,
     public i18n: I18nService
   ) { }
@@ -51,9 +54,15 @@ export class PerformanceTabPage implements OnInit {
 
   ionViewWillEnter() {
     setTimeout(() => {
-      this.setSlide(1);
+      this.setSlide(2);
     }, 400);
     this.getAbsences()
+    this.getJournals()
+  }
+
+  async getJournals() {
+    let data = await this.journalsService.getJournals();
+    this.journals = data || null;
   }
 
   async getAbsences() {

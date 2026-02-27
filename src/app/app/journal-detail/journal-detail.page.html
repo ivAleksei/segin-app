@@ -1,0 +1,33 @@
+<ion-header class="primary">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="nav.back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{i18n.lang.JOURNAL}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="scroll-area">
+    <div class="card-section">
+      <div class="card-title">
+        <p>
+          <i class="mdi {{journal?.icon || 'mdi-book'}}"></i>
+          {{i18n.lang.JOURNAL}} - {{journal?.teacher?.short_name}}
+        </p>
+      </div>
+      <div class="card-body border">
+        <p>{{i18n.lang.NAME}}: {{journal?.student?.name}}</p>
+        <p>{{i18n.lang.CLASSE}}: {{journal?.classe?.name}}</p>
+        <p>{{i18n.lang.TEACHER}}: {{journal?.teacher?.short_name}}</p>
+        <p>{{i18n.lang.PERIOD}}: {{journal?.period?.label}}</p>
+        <p>{{i18n.lang.DATE}}: {{journal?.date | date}}</p>
+      </div>
+      <div class="card-body">
+        <p> {{journal?.text}}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

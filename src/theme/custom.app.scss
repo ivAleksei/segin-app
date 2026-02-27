@@ -279,6 +279,9 @@ ion-content,
         p {
             margin: 4px 0;
         }
+        &.border{
+        border-bottom: 1px solid var(--ion-color-light-shade);
+        }
     }
 }
 

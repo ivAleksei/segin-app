@@ -138,20 +138,53 @@ ion-content {
     .list-absences {
         border-radius: 16px;
         overflow: hidden;
+
+        .card-absence {
+            position: relative;
+            background: var(--ion-card-warning);
+            padding: 16px;
+            border-bottom: 1px solid var(--ion-color-light-shade);
+
+
+            &:last-of-type {
+                border-bottom: 0;
+            }
+
+            p {
+                margin: 0;
+                font-weight: bold;
+
+                small {
+                    font-weight: initial;
+                    opacity: .5;
+                }
+            }
+
+            i {
+                position: absolute;
+                right: 16px;
+                top: 24px;
+            }
+        }
     }
+}
 
-    .card-absence {
+.list-journals {
+    overflow: hidden;
+
+    .card-journal {
+    border-radius: 16px;
         position: relative;
-        background: var(--ion-card-warning);
+        background: var(--ion-card-primary);
         padding: 16px;
-        border-bottom: 1px solid var(--ion-color-light-shade);
-
-
+        // border-bottom: 1px solid var(--ion-color-light-shade);
+        margin-bottom: 8px;
         &:last-of-type {
             border-bottom: 0;
         }
 
         p {
+            padding-left: 64px;
             margin: 0;
             font-weight: bold;
 
@@ -161,7 +194,39 @@ ion-content {
             }
         }
 
-        i {
+        .icon {
+            background: var(--ion-white);
+            padding: 8px 12px;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            position: absolute;
+            left: 16px;
+            top: 32px;
+
+            i {
+                font-size: 24px;
+
+
+                &.mdi-book {
+                    color: var(--ion-color-primary)
+                }
+
+                &.mdi-alert-circle {
+                    color: var(--ion-color-warning)
+                }
+
+                &.mdi-thumb-up {
+                    color: var(--ion-color-success)
+                }
+
+                &.mdi-thumb-down {
+                    color: var(--ion-color-danger)
+                }
+            }
+        }
+
+        i.mdi-chevron-right {
             position: absolute;
             right: 16px;
             top: 24px;

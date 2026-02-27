@@ -9,6 +9,22 @@ export class StatusPipe implements PipeTransform {
 
   transform(value: string, prop?: string): unknown {
     let map_status = {
+      "informacao": {
+        class: "primary",
+        label: "Informação"
+      },
+      "advertencia": {
+        class: "warning",
+        label: "Advertência"
+      },
+      "elogio": {
+        class: "success",
+        label: "Elogio"
+      },
+      "negativo": {
+        class: "danger",
+        label: "Negativo"
+      },
       "aprovado": {
         class: "success",
         label: "Aprovado"

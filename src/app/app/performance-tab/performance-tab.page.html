@@ -62,7 +62,33 @@
       </swiper-slide>
       <swiper-slide>
         <div class="scroll-area">
+          <h4>{{i18n.lang.JOURNALS}}</h4>
+          <div class="list-journals">
+            <div class="svg-placeholder" *ngIf="!journals?.length">
+              <img src="/assets/svg/journals.svg" alt="journals">
+              <h3>{{i18n.lang.CONGRATS}}</h3>
+              <p>{{i18n.lang.NO_ABSENCES_TXT}}</p>
+            </div>
+            <ng-template ngFor let-it [ngForOf]="journals">
+              <div class="card-journal" [routerLink]="['/internal/journal-detail', it._id]">
 
+                <div class="icon">
+                  <i class="mdi " [ngClass]="{
+                   'mdi-book': it.type == 'informacao', 
+                   'mdi-alert-circle': it.type == 'advertencia', 
+                   'mdi-thumb-up': it.type == 'elogio', 
+                   'mdi-thumb-down': it.type == 'negativo', 
+                  }"></i>
+                </div>
+
+                <p>{{it.teacher?.short_name}}<br>
+                  <small>{{it.date | date}}</small><br>
+                  <small>{{it.type | status}}</small>
+                </p>
+                <i class="mdi mdi-chevron-right"></i>
+              </div>
+            </ng-template>
+          </div>
         </div>
       </swiper-slide>
     </swiper-container>

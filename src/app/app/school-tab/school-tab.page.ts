@@ -4,6 +4,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import { NavController } from '@ionic/angular';
 import moment from 'moment';
 import { NoticesService } from 'src/app/_shared/providers/notices.service';
+import { SubjectsService } from 'src/app/_shared/providers/subjects.service';
 import { I18nService } from 'src/app/_shared/services/i18n.service';
 import { LocalStorageService } from 'src/app/_shared/services/local-storage.service';
 import { UtilsService } from 'src/app/_shared/services/utils.service';
@@ -36,9 +37,12 @@ export class SchoolTabPage implements OnInit {
     dateClick: ev => this.setDateRef(ev)
   });
 
+  subjects: any = [];
+
   constructor(
     public utils: UtilsService,
     private noticesService: NoticesService,
+    public subjectsService: SubjectsService,
     public storage: LocalStorageService,
     public nav: NavController,
     public i18n: I18nService
@@ -49,6 +53,7 @@ export class SchoolTabPage implements OnInit {
   }
 
   setupPage() {
+    this.getSubjects();
     this.getPerson();
     this.getNotices();
     this.getEvents();
@@ -58,7 +63,11 @@ export class SchoolTabPage implements OnInit {
     let data = await this.noticesService.getNotices();
     this.notices = data || [];
   }
-  
+  async getSubjects() {
+    let data = await this.subjectsService.getSubjects();
+    this.subjects = data || [];
+  }
+
   async getPerson() {
     this.person = await this.storage.get('person');
   }

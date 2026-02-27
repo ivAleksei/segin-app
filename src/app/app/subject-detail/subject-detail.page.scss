@@ -1,0 +1,111 @@
+ion-header.primary ion-toolbar{
+    --background: var(--ion-color-primary-shade) !important;
+    --color: var(--ion-color-primary-contrast);
+    --border-width: 0;
+}
+ion-content {
+    background: var(--ion-white);
+}
+
+.card-subject {
+    background: var(--ion-color-primary-shade);
+    color: var(--ion-color-primary-contrast);
+    position: relative;
+    padding: 16px;
+    margin-bottom: 16px;
+
+    p {
+        &.title {
+            font-weight: bold;
+
+            small {
+                font-weight: initial;
+                opacity: .5;
+            }
+        }
+    }
+
+    img {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+.scroll-area{
+    height: calc(100vh - 96px - 222px);
+    overflow-y: auto;
+}
+
+.progress-place {
+    position: relative;
+    padding: 16px;
+
+    p {
+        margin: 0;
+    }
+
+    .percent {
+        position: absolute;
+        top: 24px;
+        right: 16px;
+    }
+
+    ion-progress-bar {
+        border-radius: 8px;
+        margin: 16px 0;
+        height: 12px
+    }
+}
+
+.subject-content {
+    background: var(--ion-white-tint);
+
+    .content-item {
+        padding: 0 16px;
+        position: relative;
+        border-bottom: 1px solid var(--ion-color-light-shade);
+
+        .badge {
+            position: absolute;
+            left: 24px;
+            top: 18px;
+            width: 5px;
+            height: 32px;
+            border-radius: 4px;
+            background-color: var(--ion-color-medium);
+        }
+
+        p {
+            padding-left: 32px;
+            font-weight: bold;
+            margin: 0;
+            padding: 16px 24px;
+
+            small {
+                font-weight: initial;
+                opacity: .5;
+            }
+
+            &.grade {
+                position: absolute;
+                top: 8px;
+                right: 16px;
+                margin: auto;
+            }
+        }
+
+        &.success .badge {
+            background-color: var(--ion-color-success);
+        }
+        &.warning .badge {
+            background-color: var(--ion-color-warning);
+        }
+        &.danger .badge {
+            background-color: var(--ion-color-danger);
+        }
+        &.info .badge {
+            background-color: var(--ion-color-primary);
+        }
+    }
+}

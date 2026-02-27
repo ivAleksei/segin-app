@@ -60,3 +60,65 @@ ion-content {
         font-weight: bold;
     }
 }
+
+.card-subject {
+    position: relative;
+    background: var(--ion-card-primary);
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+
+    p {
+        &.title {
+            font-weight: bold;
+
+            small {
+                font-weight: initial;
+                opacity: .5;
+            }
+        }
+    }
+
+    .progress-place {
+        position: relative;
+        margin: 24px 0;
+
+        p {
+            margin: 0;
+        }
+
+        .percent {
+            position: absolute;
+            top: 0;
+            right: 16px;
+        }
+
+        ion-progress-bar {
+            border-radius: 8px;
+            margin: 16px 0;
+            height: 12px
+        }
+    }
+
+    .next-class {
+        margin: 16px 0;
+        background: var(--ion-card-primary-shade);
+        border-radius: 16px;
+        padding: 16px;
+
+        p {
+            font-weight: bold;
+            text-transform: capitalize;
+            color: var(--ion-color-primary);
+
+            small {
+                color: #000;
+                font-weight: initial;
+            }
+        }
+    }
+
+    ion-button {
+        width: 100%;
+    }
+}

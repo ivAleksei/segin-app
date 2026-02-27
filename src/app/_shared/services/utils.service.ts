@@ -33,7 +33,6 @@ export class UtilsService {
       center: 'title',
       end: 'next'
     },
-    titleFormat: { year: 'numeric', month: 'short' },
     buttonText: {
       today: 'HOJE',
       month: 'MÊS',
@@ -48,7 +47,12 @@ export class UtilsService {
       prevYear: 'a mdi mdi-chevron-double-left', // double chevron
       nextYear: 'a mdi mdi-chevron-double-right' // double chevron
     },
-    dayHeaderFormat: { weekday: 'short' },
+    titleFormat: { year: 'numeric', month: 'short' },
+    dayHeaderContent: (arg) => {
+      const dias = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+      return dias[arg.date.getDay()];
+    },
+    dayHeaderFormat: { weekday: 'short', },
     // DISPLAY
     eventDisplay: "list-item",
     fixedWeekCount: false,

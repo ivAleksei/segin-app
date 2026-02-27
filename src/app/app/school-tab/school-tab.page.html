@@ -21,9 +21,10 @@
             <p>{{i18n.lang.EMPTY_EVENT_TXT}}</p>
           </div>
           <div class="events-place" *ngIf="list_events?.length">
-            <h4>Dia {{date_ref | date}} <span *ngIf="map_events[date_ref]">- {{map_events[date_ref] || 0}} {{i18n.lang.EVENTS}}</span></h4>
+            <h4>Dia {{date_ref | date}} <span *ngIf="map_events[date_ref]">- {{map_events[date_ref] || 0}}
+                {{i18n.lang.EVENTS}}</span></h4>
             <ng-template ngFor let-it [ngForOf]="list_events">
-              <div class="events-item" >
+              <div class="events-item">
                 <h4>{{it.title}}<br><small>{{it.subtitle}}</small></h4>
               </div>
             </ng-template>
@@ -31,7 +32,29 @@
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="scroll-area"></div>
+        <div class="scroll-area">
+          <ng-template ngFor let-it [ngForOf]="subjects">
+            <div class="card-subject">
+              <p class="title">{{it.name}}<br><small>{{it.alias}}</small></p>
+              <p><i class="mdi mdi-account-outline"></i> {{it.instructor?.short_name}}</p>
+              <p><i class="mdi mdi-clock-outline"></i> {{it.time}}</p>
+              <p><i class="mdi mdi-square-outline"></i> {{it.room?.name}}</p>
+              <div class="progress-place">
+                <p>{{i18n.lang.SUBJECT_PROGRESS}}</p>
+                <p class="percent">{{it.progress}} %</p>
+                <ion-progress-bar [value]="it.progress/100"></ion-progress-bar>
+                <div class="next-class" *ngIf="it.nxt_class">
+                  <p>
+                    <small>{{i18n.lang.NEXT_CLASS}}</small><br>
+                    {{it.nxt_class | date: "dddd, HH:mm"}}
+                  </p>
+                </div>
+                <ion-button [routerLink]="['/internal/subject-detail/',it._id]">{{i18n.lang.INTO_SUBJECT}}</ion-button>
+              </div>
+            </div>
+
+          </ng-template>
+        </div>
       </swiper-slide>
       <swiper-slide>
         <div class="scroll-area">

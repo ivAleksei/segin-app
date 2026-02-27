@@ -9,6 +9,26 @@ export class StatusPipe implements PipeTransform {
 
   transform(value: string, prop?: string): unknown {
     let map_status = {
+      "aprovado": {
+        class: "success",
+        label: "Aprovado"
+      },
+      "recuperacao": {
+        class: "warning",
+        label: "Recuperação"
+      },
+      "reprovado": {
+        class: "danger",
+        label: "Reprovado"
+      },
+      "andamento": {
+        class: "info",
+        label: "Em Andamento"
+      },
+      "a_cursar": {
+        class: "medium",
+        label: "A Cursar"
+      },
       "NotCompeting": {
         class: "warning",
         label: "DNS"
@@ -24,10 +44,6 @@ export class StatusPipe implements PipeTransform {
       "DidNotStarted": {
         class: "warning",
         label: "DNS"
-      },
-      "aprovado": {
-        class: "success",
-        label: "Aprovado"
       },
       "aprovado_parcial": {
         class: "warning",

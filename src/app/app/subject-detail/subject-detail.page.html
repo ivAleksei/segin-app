@@ -1,0 +1,35 @@
+<ion-header class="primary">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="nav.back()">
+        <ion-icon name="arrow-back-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{subject?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="card-subject">
+    <p><i class="mdi mdi-account-outline"></i> {{subject?.instructor?.short_name}}</p>
+    <p><i class="mdi mdi-clock-outline"></i> {{subject?.time}}</p>
+    <p><i class="mdi mdi-square-outline"></i> {{subject?.room?.name}}</p>
+    <img src="/assets/svg/class.svg" alt="class">
+  </div>
+  <div class="progress-place">
+    <p>{{i18n.lang.SUBJECT_PROGRESS}}</p>
+    <p class="percent">{{subject?.progress}} %</p>
+    <ion-progress-bar [value]="subject?.progress/100"></ion-progress-bar>
+  </div>
+  <div class="scroll-area">
+    <div class="subject-content">
+      <ng-template ngFor let-it [ngForOf]="subject?.content">
+        <div class="content-item {{it.status | status: 'class'}}">
+          <div class="badge"></div>
+          <p>{{it.name}}<br><small>{{it.status | status: 'label'}}</small></p>
+          <p class="grade">{{it.grade | currency}}</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+</ion-content>

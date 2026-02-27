@@ -3,6 +3,8 @@ import { I18nService } from 'src/app/_shared/services/i18n.service';
 import moment from 'moment';
 import { UserService } from 'src/app/_shared/providers/user.service';
 import { LocalStorageService } from 'src/app/_shared/services/local-storage.service';
+import { MealsService } from 'src/app/_shared/providers/meals.service';
+import { NoticesService } from 'src/app/_shared/providers/notices.service';
 
 @Component({
   selector: 'app-home-responsavel',
@@ -13,52 +15,8 @@ export class HomeResponsavelPage implements OnInit {
 
   date_ref: any = moment().format('YYYY-MM-DD');
 
-  meals: any = [
-    {
-      name: "Café da Manhã",
-      date: "2024-05-13",
-      start: "07:30",
-      img: {
-        url: "https://www.seara.com.br/wp-content/uploads/2025/09/pizza-de-pao-de-forma-portal-minha-receita-1-1.jpg"
-      },
-      text: `<ul>
-              <li>Leite (ou bebida vegetal) com aveia</li>
-              <li>Banana amassada com canela</li>
-              <li>Pão macio com queijo branco</li>
-            </ul>`
-    },
-    {
-      name: "Lanche",
-      date: "2024-05-13",
-      start: "09:30",
-      img: {
-        url: "https://www.seara.com.br/wp-content/uploads/2025/09/pizza-de-pao-de-forma-portal-minha-receita-1-1.jpg"
-      },
-      text: ` <ul>
-              <li>Maçã em cubos</li>
-              <li>Água</li>
-            </ul>`
-    },
-    {
-      name: "Café da Manhã",
-      date: "2024-05-13",
-      start: "11:30",
-      img: {
-        url: "https://www.seara.com.br/wp-content/uploads/2025/09/pizza-de-pao-de-forma-portal-minha-receita-1-1.jpg"
-      },
-      text: `<ul>
-              <li>Arroz + feijão</li>
-              <li>Frango desfiado ao molho suave</li>
-              <li>Abóbora refogada</li>
-              <li>Salada de pepino (opcional)</li>
-            </ul>`
-    }
-  ];
-  notices: any = [
-    { title: "Feriado Municipal", subtitle: "Feriado dia 08/01/2026", text: "Informamos que as atividades escolares serão encerradas as 12h00 do dia 08/01/2026, pois será realizada uma detetização." },
-    { title: "Detetização", subtitle: "Feriado dia 08/01/2026", text: "Informamos que as atividades escolares serão encerradas as 12h00 do dia 08/01/2026, pois será realizada uma detetização." },
-    { title: "Passeio", subtitle: "Feriado dia 08/01/2026", text: "Informamos que as atividades escolares serão encerradas as 12h00 do dia 08/01/2026, pois será realizada uma detetização." }
-  ];
+  meals: any = [];
+  notices: any = [];
   schedule: any = [
     {
       index: 0,
@@ -122,6 +80,8 @@ export class HomeResponsavelPage implements OnInit {
 
   constructor(
     public storage: LocalStorageService,
+    public noticesService: NoticesService,
+    public mealsService: MealsService,
     public userService: UserService,
     public i18n: I18nService
   ) { }
@@ -138,6 +98,18 @@ export class HomeResponsavelPage implements OnInit {
   }
 
   getData() {
+    this.getMeals();
+    this.getNotices();
+  }
+
+  async getMeals() {
+    let data = await this.mealsService.getMeals();
+    this.meals = data || [];
+  }
+
+  async getNotices() {
+    let data = await this.noticesService.getNotices();
+    this.notices = data || [];
   }
 
 }

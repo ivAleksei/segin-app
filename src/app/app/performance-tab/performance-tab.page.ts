@@ -53,9 +53,6 @@ export class PerformanceTabPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    setTimeout(() => {
-      this.setSlide(2);
-    }, 400);
     this.getAbsences()
     this.getJournals()
   }

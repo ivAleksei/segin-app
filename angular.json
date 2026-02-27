@@ -172,7 +172,7 @@
               }
             ],
             "styles": [
-              "node_modules/datatables.net-dt/css/jquery.dataTables.min.css",
+              "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/ngx-toastr/toastr.css",
@@ -185,7 +185,7 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/moment/min/moment.min.js",
               "node_modules/moment/locale/pt-br.js",
-              "node_modules/datatables.net/js/jquery.dataTables.min.js",
+              "node_modules/datatables.net/js/dataTables.min.js",
               "src/assets/libs/jquery-ui/jquery-ui.min.js",
               "src/assets/scripts/sorting-datetime-moment.js",
               "src/assets/plugins/summernote-lite/summernote-lite.min.js",

@@ -70,7 +70,11 @@ const routes: Routes = [
     path: 'notifications',
     loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsPageModule)
   },
-  { path: '**', redirectTo: '/start', pathMatch: 'full' },
+  { path: '**', redirectTo: '/start', pathMatch: 'full' },  {
+    path: 'profile-tab',
+    loadChildren: () => import('./profile-tab/profile-tab.module').then( m => m.ProfileTabPageModule)
+  },
+
 ];
 
 @NgModule({

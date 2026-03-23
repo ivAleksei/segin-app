@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{i18n.lang.PROFILE}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="avatar-place">
+    <div class="img-place" [ngStyle]="{'background-image': 'url('+(person?.img|| './assets/imgs/avatar.jpeg')+')'}">
+
+    </div>
+    <h4>{{person?.name}}</h4>
+  </div>
+  <ion-grid>
+    <div class="item">
+      <i class="mdi mdi-email-outline"></i>
+      <div class="text-info">
+        <p>{{i18n.lang.EMAIL}}</p>
+        <p>{{(person?.phone | customFormat: 'phone') || '-'}}</p>
+      </div>
+    </div>
+    <div class="item">
+      <i class="mdi mdi-email-outline"></i>
+      <div class="text-info">
+        <p>{{i18n.lang.CONTACT}}</p>
+        <p>{{person?.email || '-'}}</p>
+      </div>
+    </div>
+    <div class="item">
+      <i class="mdi mdi-chevron-right"></i>
+      <div class="text-info">
+        <p>Dados do Responsável</p>
+      </div>
+    </div>
+    <div class="item">
+      <i class="mdi mdi-chevron-right"></i>
+      <div class="text-info">
+        <p>Dados do Aluno<br>
+        <small>Ivan Aleksei da Silveira Albuquerque</small></p>
+      </div>
+    </div>
+    <div class="item">
+      <i class="mdi mdi-chevron-right"></i>
+      <div class="text-info">
+        <p>Documentos</p>
+      </div>
+    </div>
+    <div class="item">
+      <i class="mdi mdi-chevron-right"></i>
+      <div class="text-info">
+        <p>Notificações</p>
+      </div>
+    </div>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,45 @@
+.avatar-place {
+    padding: 64px;
+    min-height: 200px;
+    text-align: center;
+    .img-place{
+        width: 128px;
+        height: 128px;
+        border-radius: 32px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0 auto;
+    }
+}
+
+.item {
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    position: relative;
+    padding-left: 56px;
+    border-bottom: 1px solid #ccc;
+
+    p {
+        margin: 0;
+    }
+
+    i {
+        position: absolute;
+        left: 16px;
+        top: 16px;
+        width: 32px;
+        height: 32px;
+        font-size: 32px;
+
+        &.mdi-chevron-right {
+            left: initial;
+            right: 16px;
+            top: 10px;
+        }
+    }
+
+    .text-info {
+        width: calc(100% - 56px);
+    }
+}

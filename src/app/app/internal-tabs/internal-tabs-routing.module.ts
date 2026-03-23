@@ -30,6 +30,10 @@ const routes: Routes = [
         loadChildren: () => import('../school-tab/school-tab.module').then(m => m.SchoolTabPageModule)
       },
       {
+        path: 'profile-tab',
+        loadChildren: () => import('../profile-tab/profile-tab.module').then(m => m.ProfileTabPageModule)
+      },
+      {
         path: 'performance-tab',
         loadChildren: () => import('../performance-tab/performance-tab.module').then(m => m.PerformanceTabPageModule)
       },

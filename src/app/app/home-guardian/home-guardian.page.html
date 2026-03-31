@@ -1,0 +1,61 @@
+<ion-content [fullscreen]="true">
+  <app-user-header></app-user-header>
+  <div class="content">
+    <p class="date-ref"> Dia {{date_ref | date}} <button><i class="mdi mdi-calendar"></i></button></p>
+    <div class="section">
+      <h4 class="title">{{i18n.lang.DAILY_SCHEDULE}}</h4>
+      <div class="svg-placeholder" *ngIf="!schedule?.length">
+        <img src="https://ialk.com.br/assets/segin/svg/no_class.svg" alt="no_class">
+        <h3>{{i18n.lang.NO_CLASS_TODAY}}</h3>
+        <p>{{i18n.lang.NO_CLASS_TXT}}</p>
+      </div>
+      <div class="qts-place">
+        <ng-template ngFor let-it [ngForOf]="schedule">
+          <div class="qts-item">
+            <p class="time">{{it.start}} {{i18n.lang.TIME_UNTIL}} {{it.end}}</p>
+            <p class="subject">{{it.subject?.name}}</p>
+            <p class="instructor">{{it.person?.name}}</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="section">
+      <h4 class="title">{{i18n.lang.DAILY_MEAL}}</h4>
+      <div class="svg-placeholder" *ngIf="!meals?.length">
+        <img src="https://ialk.com.br/assets/segin/svg/kitchen.svg" alt="kitchen">
+        <h3>{{i18n.lang.NO_MEAL_TODAY}}</h3>
+        <p>{{i18n.lang.NO_MEAL_TXT}}</p>
+      </div>
+      <div class="meals-place">
+        <ng-template ngFor let-it [ngForOf]="meals">
+          <div class="card-meal">
+            <div class="img-place" [ngStyle]="{'background-image': 'url('+it.img?.url+')'}"></div>
+            <div class="text-place">
+              <h4>{{it?.name}}<br>
+                <small>{{i18n.lang.TIME_INTERVAL}}: {{it.start}}</small>
+              </h4>
+              <div [innerHTML]="it.text"></div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="section">
+      <h4 class="title">{{i18n.lang.NOTICE_BOARD}}</h4>
+      <div class="svg-placeholder" *ngIf="!notices?.length">
+        <img src="https://ialk.com.br/assets/segin/svg/empty_box.svg" alt="empty_box">
+        <h3>{{i18n.lang.NO_NOTICE_TODAY}}</h3>
+        <p>{{i18n.lang.NO_NOTICE_TXT}}</p>
+      </div>
+      <div class="notices-place">
+        <ng-template ngFor let-it [ngForOf]="notices">
+          <div class="notices-item" [routerLink]="['/internal/notice-detail', it._id]">
+            <img src="https://ialk.com.br/assets/segin/svg/attention.svg" alt="attention">
+            <h4>{{it.title}}<br><small>{{it.subtitle}}</small></h4>
+            <p>{{it.text}}</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -18,12 +18,12 @@ const routes: Routes = [
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'home-responsavel',
-        loadChildren: () => import('../home-responsavel/home-responsavel.module').then(m => m.HomeResponsavelPageModule)
+        path: 'home-guardian',
+        loadChildren: () => import('../home-guardian/home-guardian.module').then(m => m.HomeGuardianPageModule)
       },
       {
-        path: 'home-aluno',
-        loadChildren: () => import('../home-aluno/home-aluno.module').then(m => m.HomeAlunoPageModule)
+        path: 'home-student',
+        loadChildren: () => import('../home-student/home-student.module').then(m => m.HomeStudentPageModule)
       },
       {
         path: 'school-tab',

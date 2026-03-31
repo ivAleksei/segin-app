@@ -17,6 +17,6 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     // VERIFICA PERFIL E NAVEGA PRA HOME ESPECÍFICA 
-    this.nav.navigateForward('/internal/home-responsavel');
+    this.nav.navigateForward('/internal/home-guardian');
   }
 }

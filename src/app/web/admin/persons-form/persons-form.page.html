@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <div class="page-layout">
     <h3 class="page-title">Ficha Individual<br>
-      <small>Dados pessoais e profissionais do militar</small>
+      <small>Dados pessoais da pessoa</small>
     </h3>
 
     <div class="tabs hide-mobile">
@@ -15,10 +15,10 @@
       </div>
       <div class="tabs-place">
         <div class="card" [ngClass]="{hidden: tab != 'personal'}">
-          <app-crh-personal-form [_id]="_id" *ngIf="_id" [edit]="1"></app-crh-personal-form>
+          <app-person-personal-form [_id]="_id" *ngIf="_id" [edit]="1"></app-person-personal-form>
         </div>
         <div class="card" [ngClass]="{hidden: tab != 'documents'}">
-          <app-crh-documents-form [_id]="_id" *ngIf="_id" [edit]="1"></app-crh-documents-form>
+          <app-person-documents-form [_id]="_id" *ngIf="_id" [edit]="1"></app-person-documents-form>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
             <i class="mdi mdi-account"></i> Dados Pessoais</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <app-crh-personal-form [_id]="_id" *ngIf="_id" [edit]="1"></app-crh-personal-form>
+          <app-person-personal-form [_id]="_id" *ngIf="_id" [edit]="1"></app-person-personal-form>
         </div>
       </ion-accordion>
 
@@ -41,7 +41,7 @@
           </ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <app-crh-documents-form [_id]="_id" *ngIf="_id" [edit]="1"></app-crh-documents-form>
+          <app-person-documents-form [_id]="_id" *ngIf="_id" [edit]="1"></app-person-documents-form>
         </div>
       </ion-accordion>
     </ion-accordion-group>

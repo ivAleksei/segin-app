@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CrhDocumentsFormPage } from './crh-documents-form.page';
+import { ClassDetailPage } from './class-detail.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CrhDocumentsFormPage
+    component: ClassDetailPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CrhDocumentsFormPageRoutingModule { }
+export class ClassDetailPageRoutingModule { }

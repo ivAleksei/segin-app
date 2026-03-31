@@ -8,11 +8,11 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-crh-personal-form',
-  templateUrl: './crh-personal-form.page.html',
-  styleUrls: ['./crh-personal-form.page.scss'],
+  selector: 'app-person-personal-form',
+  templateUrl: './personal-form.page.html',
+  styleUrls: ['./personal-form.page.scss'],
 })
-export class CrhPersonalFormPage implements OnInit {
+export class PersonPersonalFormPage implements OnInit {
   @ViewChild("InfoForm") InfoForm: any;
   @ViewChild("AddressForm") AddressForm: any;
   @ViewChild("ContactForm") ContactForm: any;

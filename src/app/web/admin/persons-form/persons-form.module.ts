@@ -8,7 +8,7 @@ import { PersonsFormPageRoutingModule } from './persons-form-routing.module';
 
 import { PersonsFormPage } from './persons-form.page';
 import { DirectivesModule } from 'src/app/_shared/directives/directives.module';
-import { PersonsCRHsFormsModule } from './_persons-crh-forms.module';
+import { PersonsFormsModule } from './_persons-forms.module';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { PersonsCRHsFormsModule } from './_persons-crh-forms.module';
     IonicModule,
     DirectivesModule,
     PersonsFormPageRoutingModule,
-    PersonsCRHsFormsModule
+    PersonsFormsModule
   ],
   declarations: [PersonsFormPage]
 })

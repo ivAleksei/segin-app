@@ -1,0 +1,145 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+    <h3 class="page-title">Agenda<br>
+      <small>Eventos e rotina escolar</small>
+    </h3>
+
+    <ion-button class="btn-add" (click)="handleTable({action: 'new'})">
+      <i class="mdi mdi-plus"></i>
+      <span class="text"> Novo Evento</span>
+    </ion-button>
+
+    <div class="content">
+      <div class="card">
+        <div class="card-body">
+          <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
+            (clickEvent)="handleTable($event)"></data-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-modal id="modalAgenda" #modalAgenda>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="closeModal()">{{i18n.lang.CANCEL}}</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="saveForm()" [strong]="true">{{i18n.lang.CONFIRM}}</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <form #AgendaForm="ngForm" novalidate>
+        <input type="hidden" name="_id" ngModel>
+
+        <div class="section">
+          <h4 class="section-title">Evento</h4>
+          <div class="section-body">
+            <ion-row>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label for="title" position="stacked">Título*</ion-label>
+                  <ion-input type="text" name="title" ngModel required></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label for="description" position="stacked">Descrição</ion-label>
+                  <ion-textarea name="description" ngModel rows="3" auto-grow="true"></ion-textarea>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size-xs="12" size-md="6">
+                <ion-item>
+                  <ion-label for="type" position="stacked">Tipo</ion-label>
+                  <ion-select name="type" ngModel interface="popover">
+                    <ion-select-option *ngFor="let t of event_types" [value]="t.value">{{t.label}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size-xs="12" size-md="6">
+                <ion-item>
+                  <ion-label for="color" position="stacked">Cor</ion-label>
+                  <ion-input type="color" name="color" ngModel></ion-input>
+                </ion-item>
+              </ion-col>
+
+            </ion-row>
+          </div>
+        </div>
+
+        <div class="section">
+          <h4 class="section-title">Data e Hora</h4>
+          <div class="section-body">
+            <ion-row>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label>Dia inteiro</ion-label>
+                  <ion-toggle name="all_day" ngModel></ion-toggle>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="date" position="stacked">Data*</ion-label>
+                  <ion-input type="date" name="date" ngModel required></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="time_start" position="stacked">Início</ion-label>
+                  <ion-input type="time" name="time_start" ngModel></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size-xs="12" size-md="4">
+                <ion-item>
+                  <ion-label for="time_end" position="stacked">Fim</ion-label>
+                  <ion-input type="time" name="time_end" ngModel></ion-input>
+                </ion-item>
+              </ion-col>
+
+            </ion-row>
+          </div>
+        </div>
+
+        <div class="section">
+          <h4 class="section-title">Público-alvo</h4>
+          <div class="section-body">
+            <ion-row>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label for="_class" position="stacked">Turma (opcional — deixe vazio para todas)</ion-label>
+                  <ion-select name="_class" ngModel interface="popover">
+                    <ion-select-option value="">Todas as turmas</ion-select-option>
+                    <ion-select-option *ngFor="let c of list_classes" [value]="c._id">{{c.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label>Publicado</ion-label>
+                  <ion-toggle name="published" ngModel></ion-toggle>
+                </ion-item>
+              </ion-col>
+
+            </ion-row>
+          </div>
+        </div>
+
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>

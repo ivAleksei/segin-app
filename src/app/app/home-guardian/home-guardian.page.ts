@@ -5,6 +5,7 @@ import { UserService } from 'src/app/_shared/providers/user.service';
 import { LocalStorageService } from 'src/app/_shared/services/local-storage.service';
 import { MealsService } from 'src/app/_shared/providers/meals.service';
 import { NoticesService } from 'src/app/_shared/providers/notices.service';
+import { AgendaService } from 'src/app/_shared/providers/agenda.service';
 
 @Component({
   selector: 'app-home-guardian',
@@ -17,71 +18,14 @@ export class HomeGuardianPage implements OnInit {
 
   meals: any = [];
   notices: any = [];
-  schedule: any = [
-    {
-      index: 0,
-      date: "2024-05-13",
-      start: "07:00",
-      end: "08:00",
-      _subject: 1,
-      _person: 1,
-      label: "Leitura",
-      subject: {
-        name: "Leitura"
-      },
-      person: {
-        name: "Apolônia do Rodrigues"
-      }
-    },
-    {
-      index: 0,
-      date: "2024-05-13",
-      start: "08:00",
-      end: "09:30",
-      _subject: 1,
-      label: "Brincadeiras",
-      subject: {
-        name: "Brincadeiras"
-      },
-      person: {
-        name: "José de Pedro"
-      }
-    },
-    {
-      index: 0,
-      date: "2024-05-13",
-      start: "09:30",
-      end: "10:30",
-      _subject: 1,
-      label: "Hora da Soneca",
-      subject: {
-        name: "Hora da Soneca"
-      },
-      person: {
-        name: "Laércio do Rodrigues"
-      }
-    },
-    {
-      index: 0,
-      date: "2024-05-13",
-      start: "10:30",
-      end: "12:30",
-      _subject: 1,
-      label: "A Disposição do CA",
-      subject: {
-        name: "Socializar"
-      },
-      person: {
-        name: "José de Pedro"
-      }
-    }
-  ];
+  schedule: any = [];
 
 
   constructor(
     public storage: LocalStorageService,
     public noticesService: NoticesService,
     public mealsService: MealsService,
+    public agendaService: AgendaService,
     public userService: UserService,
     public i18n: I18nService
   ) { }
@@ -100,6 +44,7 @@ export class HomeGuardianPage implements OnInit {
   getData() {
     this.getMeals();
     this.getNotices();
+    this.getSchedule();
   }
 
   async getMeals() {
@@ -110,6 +55,11 @@ export class HomeGuardianPage implements OnInit {
   async getNotices() {
     let data = await this.noticesService.getNotices();
     this.notices = data || [];
+  }
+
+  async getSchedule() {
+    let data = await this.agendaService.getAgendas({ date: this.date_ref });
+    this.schedule = data || [];
   }
 
 }

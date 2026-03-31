@@ -5,6 +5,7 @@ import { I18nService } from 'src/app/_shared/services/i18n.service';
 import { LocalStorageService } from 'src/app/_shared/services/local-storage.service';
 import { NoticesService } from 'src/app/_shared/providers/notices.service';
 import { MealsService } from 'src/app/_shared/providers/meals.service';
+import { AgendaService } from 'src/app/_shared/providers/agenda.service';
 
 @Component({
   selector: 'app-home-student',
@@ -16,65 +17,7 @@ export class HomeStudentPage implements OnInit {
   date_ref: any = moment().format('YYYY-MM-DD');
   meals: any = [];
   notices: any = [];
-  schedule: any = [
-    {
-      index: 0,
-      date: "2024-05-13",
-      start: "07:00",
-      end: "08:00",
-      _subject: 1,
-      _person: 1,
-      label: "Leitura",
-      subject: {
-        name: "Leitura"
-      },
-      person: {
-        name: "Apolônia do Rodrigues"
-      }
-    },
-    {
-      index: 0,
-      date: "2024-05-13",
-      start: "08:00",
-      end: "09:30",
-      _subject: 1,
-      label: "Brincadeiras",
-      subject: {
-        name: "Brincadeiras"
-      },
-      person: {
-        name: "José de Pedro"
-      }
-    },
-    {
-      index: 0,
-      date: "2024-05-13",
-      start: "09:30",
-      end: "10:30",
-      _subject: 1,
-      label: "Hora da Soneca",
-      subject: {
-        name: "Hora da Soneca"
-      },
-      person: {
-        name: "Laércio do Rodrigues"
-      }
-    },
-    {
-      index: 0,
-      date: "2024-05-13",
-      start: "10:30",
-      end: "12:30",
-      _subject: 1,
-      label: "A Disposição do CA",
-      subject: {
-        name: "Socializar"
-      },
-      person: {
-        name: "José de Pedro"
-      }
-    }
-  ];
+  schedule: any = [];
 
 
   constructor(
@@ -82,6 +25,7 @@ export class HomeStudentPage implements OnInit {
     public userService: UserService,
     public noticesService: NoticesService,
     public mealsService: MealsService,
+    public agendaService: AgendaService,
     public i18n: I18nService
   ) { }
 
@@ -99,6 +43,7 @@ export class HomeStudentPage implements OnInit {
   getData() {
     this.getNotices();
     this.getMeals();
+    this.getSchedule();
   }
 
   async getNotices() {
@@ -109,6 +54,11 @@ export class HomeStudentPage implements OnInit {
   async getMeals() {
     let data = await this.mealsService.getMeals();
     this.meals = data || [];
+  }
+
+  async getSchedule() {
+    let data = await this.agendaService.getAgendas({ date: this.date_ref });
+    this.schedule = data || [];
   }
 
 }

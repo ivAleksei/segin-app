@@ -11,10 +11,10 @@
       </div>
       <div class="qts-place">
         <ng-template ngFor let-it [ngForOf]="schedule">
-          <div class="qts-item">
-            <p class="time">{{it.start}} {{i18n.lang.TIME_UNTIL}} {{it.end}}</p>
-            <p class="subject">{{it.subject?.name}}</p>
-            <p class="instructor">{{it.person?.name}}</p>
+          <div class="qts-item" [style.border-left-color]="it.color">
+            <p class="time">{{it.time_start}} {{i18n.lang.TIME_UNTIL}} {{it.time_end}}</p>
+            <p class="subject">{{it.title}}</p>
+            <p class="instructor">{{it.description}}</p>
           </div>
         </ng-template>
       </div>

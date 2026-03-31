@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { HTTP } from "@awesome-cordova-plugins/http/ngx";
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +22,7 @@ export class HttpService {
     private platform: Platform,
     private httpBrowser: HttpClient,
     private httpNative: HTTP,
+    private router: Router,
   ) {
     this.platform.ready()
       .then(done => {
@@ -154,6 +156,12 @@ export class HttpService {
         return json;
       })
       .catch(err => {
+        if (err?.status === 401) {
+          localStorage.removeItem('user_id');
+          localStorage.removeItem('_token');
+          this.router.navigate(['/login']);
+          return null;
+        }
         if (err?.error?.message)
           this.alertsService.notify({ type: "error", title: "", subtitle: err?.error?.message });
         for (let e of (err?.error?.errors || []))

@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
-
 const routes: Routes = [
-  { path: '', loadChildren: () => import('../admin/classes/classes.module').then(m => m.ClassesPageModule) },
-  // { path: ':id/frequencia', loadChildren: () => import('./log-access/log-access.module').then(m => m.LogAccessPageModule) },
-  // { path: ':id', loadChildren: () => import('./users/users.module').then(m => m.UsersPageModule) },
-  { path: "**", redirectTo: '/internal/rotina/agenda' },
+  // { path: '', loadChildren: () => import('./turmas-list/turmas-list.module').then(m => m.TurmasListPageModule) },
+  // { path: ':id', loadChildren: () => import('./turma-detalhe/turma-detalhe.module').then(m => m.TurmaDetalhePageModule) },
+  { path: '**', redirectTo: '/internal/admin/turmas' },
 ];
 
 @NgModule({

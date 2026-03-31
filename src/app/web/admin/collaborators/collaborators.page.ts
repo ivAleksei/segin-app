@@ -3,7 +3,7 @@ import { AlertsService } from 'src/app/_shared/services/alerts.service';
 import { LoadingService } from 'src/app/_shared/services/loading.service';
 import { environment } from 'src/environments/environment';
 import { I18nService } from 'src/app/_shared/services/i18n.service';
-import { CollaboratorsService } from 'src/app/_shared/providers/collaboratorss.service';
+import { CollaboratorsService } from 'src/app/_shared/providers/collaborators.service';
 
 @Component({
   selector: 'app-collaborators',

@@ -225,6 +225,13 @@ export class UtilsService {
     })
   }
 
+  getThumbnail(url: string): string {
+    if (!url) return '';
+    const lastDot = url.lastIndexOf('.');
+    if (lastDot === -1) return url;
+    return url.substring(0, lastDot) + '_sm' + url.substring(lastDot);
+  }
+
   removeAcento(str) {
     let com_acento = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
     let sem_acento = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";

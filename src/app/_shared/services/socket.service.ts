@@ -58,6 +58,14 @@ export class SocketService {
         }
     }
 
+    stop() {
+        if (this.platformSocket) {
+            this.platformSocket.off('event');
+            this.platformSocket.disconnect();
+            this.platformSocket = null;
+        }
+    }
+
     close(endpoint?) {
         if (Object.keys(this.subscriptions[endpoint] || {})?.length) {
             this.subscriptions[endpoint].disconnect();

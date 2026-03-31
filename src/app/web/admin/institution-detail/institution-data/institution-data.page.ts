@@ -106,13 +106,13 @@ export class InstitutionDataPage implements OnInit {
 
         if (this.files['img']) {
           let url = [environment.API.storage, 'uploads', 'index.php'].join("/");
-          let data_upl = await this.http.post(url, { id: this._id, folder: 'segin-institutions' }, { arquivo: this.files['img'] });
+          let data_upl = await this.http.post(url, { id: this._id, folder: environment.API.storagePrefix + 'institutions' }, { arquivo: this.files['img'] });
           obj.img = data_upl || null;
         }
 
         if (this.files['img_sm']) {
           let url = [environment.API.storage, 'uploads', 'index.php'].join("/");
-          let data_upl = await this.http.post(url, { id: this._id, folder: 'segin-institutions' }, { arquivo: this.files['img_sm'] });
+          let data_upl = await this.http.post(url, { id: this._id, folder: environment.API.storagePrefix + 'institutions' }, { arquivo: this.files['img_sm'] });
           obj.img_sm = data_upl || null;
         }
 

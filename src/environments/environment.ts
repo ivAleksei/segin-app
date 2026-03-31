@@ -12,6 +12,7 @@ export const environment = {
   },
   API: {
     storage: "https://storage.ialk.com.br",
+    storagePrefix: "segindev-",
     auth: "http://192.168.1.70:3003/api_auth",
     admin: "http://192.168.1.70:3003/api_admin",
     segin: "http://192.168.1.70:3003/api_segin",

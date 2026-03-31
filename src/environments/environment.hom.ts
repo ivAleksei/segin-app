@@ -8,6 +8,7 @@ export const environment = {
   },
   API: {
     storage: "https://storage.ialk.com.br",
+    storagePrefix: "seginhom-",
     auth: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_auth_hom",
     admin: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_admin_hom",
     segin: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_api_hom",

@@ -6,11 +6,13 @@ import { AlertsService } from './alerts.service';
 import { LocalStorageService } from './local-storage.service';
 import { environment } from 'src/environments/environment';
 import { NotificationsService } from '../providers/notifications.service';
-// import { UsersService } from '../providers/users.service';
-
-// import { UserService } from '../providers/user.service';
-// import { PersonsService } from '../providers/persons.service';
-// import { UsersService } from '../providers/users.service';
+import { StudentsService } from '../providers/students.service';
+import { ClassesService } from '../providers/classes.service';
+import { NoticesService } from '../providers/notices.service';
+import { AgendaService } from '../providers/agenda.service';
+import { AbsencesService } from '../providers/absences.service';
+import { JournalsService } from '../providers/journals.service';
+import { MealsService } from '../providers/meals.service';
 
 @Injectable({
     providedIn: 'root'
@@ -23,8 +25,14 @@ export class SocketService {
     subscriptions: any = {};
 
     constructor(
-        // private usersService: UsersService,
         private notificationsService: NotificationsService,
+        private studentsService: StudentsService,
+        private classesService: ClassesService,
+        private noticesService: NoticesService,
+        private agendaService: AgendaService,
+        private absencesService: AbsencesService,
+        private journalsService: JournalsService,
+        private mealsService: MealsService,
         private alertsService: AlertsService,
         private storage: LocalStorageService
     ) { }
@@ -82,8 +90,14 @@ export class SocketService {
 
         try {
             let map_ev = {
-                // 'users': () => this.usersService.trigger(),
-                'notifications': () => this.notificationsService.trigger()
+                'notifications': () => this.notificationsService.trigger(),
+                'students':      () => this.studentsService.trigger(),
+                'classes':       () => this.classesService.trigger(),
+                'notices':       () => this.noticesService.trigger(),
+                'agenda':        () => this.agendaService.trigger(),
+                'absences':      () => this.absencesService.trigger(),
+                'journals':      () => this.journalsService.trigger(),
+                'meals':         () => this.mealsService.trigger(),
             }
 
             if (!map_ev[ev.table_obj])

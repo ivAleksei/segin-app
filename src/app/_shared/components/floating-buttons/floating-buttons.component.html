@@ -4,7 +4,7 @@
       [ngClass]="{ 'active': !b.hide, 'hidden': b.hide, 'disabled': b.disabled}"
       [ngStyle]="{bottom: b.bottom, right: b.right}" (click)="clickEvent(b)">
       <i class="mdi {{b.icon}}"></i>
-      <img src="{{b.img}}" />
+      <img src="{{b.img}}" *ngIf="b.img" (error)="$any($event.target).style.display='none'" />
       <span [ngClass]="{show: open}">{{b.label}}</span>
     </button>
   </ng-template>

@@ -54,6 +54,10 @@ export class UserService {
     this.setUserLogged();
   }
 
+  trigger() {
+    this._watch.next(true);
+  }
+
   async setUserLogged() {
     let _id = await this.storage.get('user_id');
     if (_id) this.setUser();

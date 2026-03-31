@@ -2,7 +2,7 @@
   <button class="btn back-btn" (click)="nav.back()"><i class="mdi mdi-arrow-left"></i></button>
   <div class="form-layout">
     <div class="intro" [ngClass]="{institution: institution?.img}">
-      <img [src]="institution?.img" alt="img_institution" *ngIf="institution">
+      <img [src]="institution?.img" alt="img_institution" *ngIf="institution" (error)="$any($event.target).style.display='none'">
       <h4>{{i18n.lang.LOGIN_APP}}</h4>
     </div>
     <form #LoginForm="ngForm" novalidate>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewWillEnter } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { I18nService } from 'src/app/_shared/services/i18n.service';
 import { UserService } from 'src/app/_shared/providers/user.service';
@@ -10,7 +11,7 @@ import { LocalStorageService } from 'src/app/_shared/services/local-storage.serv
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements OnInit, ViewWillEnter {
   version: any;
 
   constructor(
@@ -21,7 +22,9 @@ export class SettingsPage implements OnInit {
     public nav: NavController
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() { }
+
+  async ionViewWillEnter() {
     this.version = await this.storage.get('version_info');
   }
 

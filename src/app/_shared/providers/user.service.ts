@@ -169,6 +169,8 @@ export class UserService {
           _person
           menu
           _permissions
+          _relateds
+          _institutions
         }
       }`,
       name: "UserInfo",
@@ -187,6 +189,9 @@ export class UserService {
       obj_permissions[it] = 1;
 
     sessionStorage.setItem("_permissions", JSON.stringify(obj_permissions));
+
+    await this.storage.set('_relateds', user._relateds || []);
+    await this.storage.set('_institutions', user._institutions || []);
 
     // INFO PERSON
     if (user._person) {

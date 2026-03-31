@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 const routes: Routes = [
-  // { path: '', loadChildren: () => import('./turmas-list/turmas-list.module').then(m => m.TurmasListPageModule) },
-  // { path: ':id', loadChildren: () => import('./turma-detalhe/turma-detalhe.module').then(m => m.TurmaDetalhePageModule) },
+  // { path: '', loadChildren: () => import('./classes-list/classes-list.module').then(m => m.ClassesListPageModule) },
+  // { path: ':id', loadChildren: () => import('./class-detail/class-detail.module').then(m => m.ClassDetailPageModule) },
   { path: '**', redirectTo: '/internal/admin/classes' },
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   ],
   declarations: []
 })
-export class TurmasModule { }
+export class ClassesModule { }

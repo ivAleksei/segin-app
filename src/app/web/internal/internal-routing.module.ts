@@ -10,11 +10,11 @@ const routes: Routes = [
     children: [
       { path: 'home', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule) },
       { path: 'admin', loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule) },
-      { path: 'alunos', loadChildren: () => import('../alunos/alunos.module').then(m => m.AlunosModule) },
-      { path: 'comunicacao', loadChildren: () => import('../comunicacao/comunicacao.module').then(m => m.ComunicacaoModule) },
-      { path: 'pedagogico', loadChildren: () => import('../pedagogico/pedagogico.module').then(m => m.PedagogicoModule) },
-      { path: 'rotina', loadChildren: () => import('../rotina/rotina.module').then(m => m.RotinaModule) },
-      { path: 'turmas', loadChildren: () => import('../turmas/turmas.module').then(m => m.TurmasModule) },
+      { path: 'students', loadChildren: () => import('../students/students.module').then(m => m.StudentsModule) },
+      { path: 'communication', loadChildren: () => import('../communication/communication.module').then(m => m.CommunicationModule) },
+      { path: 'teaching', loadChildren: () => import('../teaching/teaching.module').then(m => m.TeachingModule) },
+      { path: 'schedule', loadChildren: () => import('../schedule/schedule.module').then(m => m.ScheduleModule) },
+      { path: 'classes', loadChildren: () => import('../classes/classes.module').then(m => m.ClassesModule) },
       { path: '**', redirectTo: '/internal/home', pathMatch: 'full' }
     ]
   },

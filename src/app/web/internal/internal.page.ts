@@ -16,6 +16,7 @@ import moment from 'moment';
 import { PersonsService } from 'src/app/_shared/providers/persons.service';
 import { UtilsService } from 'src/app/_shared/services/utils.service';
 import { InstitutionsService } from 'src/app/_shared/providers/institutions.service';
+import { UsersService } from 'src/app/_shared/providers/users.service';
 import { I18nService } from 'src/app/_shared/services/i18n.service';
 import { PersonLinksService } from 'src/app/_shared/providers/person-links.service';
 
@@ -29,8 +30,10 @@ export class InternalPage implements OnInit {
 
   list_students: any = [];
   list_institutions: any = [];
+  list_users: any = [];
   _institution: any;
   _student: any;
+  _user_sim: any;
   env: any = environment;
   force_chg: any = false;
   password: any;
@@ -63,6 +66,7 @@ export class InternalPage implements OnInit {
     private nav: NavController,
     private platform: Platform,
     private institutionsService: InstitutionsService,
+    private usersService: UsersService,
     private personLinksService: PersonLinksService,
     private personsService: PersonsService,
     private userService: UserService,
@@ -158,6 +162,7 @@ export class InternalPage implements OnInit {
     this.getInstitutions();
     this.getBanners();
     this.preloadData();
+    if (!environment.production) this.getUsers();
   }
 
   // CARREGA DADOS EM SEGUNDO PLANO
@@ -187,6 +192,18 @@ export class InternalPage implements OnInit {
 
   setInstitution() {
     this.storage.set('__institution', this._institution);
+    location.reload();
+  }
+
+  async getUsers() {
+    let data = await this.usersService.getUsers({}, `email _roles`);
+    this._user_sim = await this.storage.get('user_id');
+    this.list_users = data || [];
+  }
+
+  async setUserSim() {
+    if (!this._user_sim ) return;
+    await this.storage.set('user_id', this._user_sim);
     location.reload();
   }
 
@@ -274,7 +291,7 @@ export class InternalPage implements OnInit {
         m.open = m._id == it._id && it.open;
 
       if (it.open) {
-        if (ev) $('.header-submenu').css({ left: ev.target.offsetLeft });
+        if (ev) $('.header-submenu').css({ left: ev.target.offsetLeft + 100 });
         this.mod = it;
       } else {
         this.mod = {};
@@ -304,8 +321,10 @@ export class InternalPage implements OnInit {
 
 
   routeMenu(pg) {
-    if (!pg || pg.bo_desabilitado) return;
+    console.log(pg);
+    if (!pg || pg.bo_disabled) return;
     this.closeMenus();
+    
     this.nav.navigateForward(pg.route);
   }
 

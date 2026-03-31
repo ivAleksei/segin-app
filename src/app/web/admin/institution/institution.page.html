@@ -1,0 +1,197 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+
+    <!-- HEADER -->
+    <div class="page-header">
+      <h2>Configurações da Escola</h2>
+      <p>Dados e informações da Escola</p>
+
+      <div class="breadcrumb">
+        <span>Administração</span>
+        <span>›</span>
+        <strong>Configurações da escola</strong>
+      </div>
+
+      <ion-button size="small" class="btn-tab active">
+        Dados Institucionais
+      </ion-button>
+    </div>
+
+    <!-- CARD PRINCIPAL -->
+    <div class="main-card">
+
+      <h3 class="card-title">
+        Dados Institucionais - {{ institution.name || 'Nome da Escola' }}
+      </h3>
+
+      <form novalidate>
+
+        <!-- DADOS -->
+        <div class="form-section">
+          <span class="section-label">Dados e Informações</span>
+
+          <ion-row>
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">Nome</ion-label>
+                <ion-input [(ngModel)]="institution.name" name="name"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">Data de Fundação</ion-label>
+                <ion-input type="date" [(ngModel)]="institution.date_founded" name="date_founded"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">Nível de Ensino</ion-label>
+                <ion-select [(ngModel)]="institution.education_level" name="education_level">
+                  <ion-select-option value="infantil">Educação Infantil</ion-select-option>
+                  <ion-select-option value="fundamental">Ensino Fundamental</ion-select-option>
+                  <ion-select-option value="medio">Ensino Médio</ion-select-option>
+                  <ion-select-option value="fundamental_medio">Fund. + Médio</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">CNPJ</ion-label>
+                <ion-input [(ngModel)]="institution.cgc" name="cgc"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">Responsável</ion-label>
+                <ion-input [(ngModel)]="institution.responsavel" name="responsavel"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">Descrição</ion-label>
+                <ion-input [(ngModel)]="institution.text" name="text"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!-- ENDEREÇO -->
+        <div class="form-section">
+          <span class="section-label">Endereço</span>
+
+          <ion-row>
+            <ion-col size="12" size-md="6">
+              <ion-item>
+                <ion-label position="stacked">Rua</ion-label>
+                <ion-input [(ngModel)]="institution.street" name="street"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6" size-md="2">
+              <ion-item>
+                <ion-label position="stacked">Número</ion-label>
+                <ion-input [(ngModel)]="institution.number" name="number"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">Cidade</ion-label>
+                <ion-input [(ngModel)]="institution.city" name="city"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6" size-md="3">
+              <ion-item>
+                <ion-label position="stacked">Estado</ion-label>
+                <ion-select [(ngModel)]="institution.state" name="state">
+                  <ion-select-option value="AC">AC</ion-select-option>
+                  <ion-select-option value="AL">AL</ion-select-option>
+                  <ion-select-option value="AP">AP</ion-select-option>
+                  <ion-select-option value="AM">AM</ion-select-option>
+                  <ion-select-option value="BA">BA</ion-select-option>
+                  <ion-select-option value="CE">CE</ion-select-option>
+                  <ion-select-option value="DF">DF</ion-select-option>
+                  <ion-select-option value="ES">ES</ion-select-option>
+                  <ion-select-option value="GO">GO</ion-select-option>
+                  <ion-select-option value="MA">MA</ion-select-option>
+                  <ion-select-option value="MT">MT</ion-select-option>
+                  <ion-select-option value="MS">MS</ion-select-option>
+                  <ion-select-option value="MG">MG</ion-select-option>
+                  <ion-select-option value="PA">PA</ion-select-option>
+                  <ion-select-option value="PB">PB</ion-select-option>
+                  <ion-select-option value="PR">PR</ion-select-option>
+                  <ion-select-option value="PE">PE</ion-select-option>
+                  <ion-select-option value="PI">PI</ion-select-option>
+                  <ion-select-option value="RJ">RJ</ion-select-option>
+                  <ion-select-option value="RN">RN</ion-select-option>
+                  <ion-select-option value="RS">RS</ion-select-option>
+                  <ion-select-option value="RO">RO</ion-select-option>
+                  <ion-select-option value="RR">RR</ion-select-option>
+                  <ion-select-option value="SC">SC</ion-select-option>
+                  <ion-select-option value="SP">SP</ion-select-option>
+                  <ion-select-option value="SE">SE</ion-select-option>
+                  <ion-select-option value="TO">TO</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6" size-md="3">
+              <ion-item>
+                <ion-label position="stacked">CEP</ion-label>
+                <ion-input [(ngModel)]="institution.cep" name="cep"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="6">
+              <ion-item>
+                <ion-label position="stacked">País</ion-label>
+                <ion-input [(ngModel)]="institution.country" name="country"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!-- CONTATO -->
+        <div class="form-section">
+          <span class="section-label">Contato</span>
+
+          <ion-row>
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">Telefone</ion-label>
+                <ion-input [(ngModel)]="institution.phone" name="phone"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">WhatsApp</ion-label>
+                <ion-input [(ngModel)]="institution.whatsapp" name="whatsapp"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item>
+                <ion-label position="stacked">E-mail</ion-label>
+                <ion-input type="email" [(ngModel)]="institution.email" name="email"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!-- BOTÃO -->
+        <div class="form-actions">
+          <ion-button (click)="save()">Salvar Dados</ion-button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</ion-content>

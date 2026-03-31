@@ -35,12 +35,12 @@ export class NotificationsService {
   }
 
   async setRead(args) {
-    args._person = await this.storage.get('user_id');
+    args._user = await this.storage.get('user_id');
     this.loadingService.show();
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation read_Notification($_id: ID, $_person: ID){
-        read_Notification(_id:$_id, _person: $_person){
+      mutation read_Notification($_id: ID, $_user: ID){
+        read_Notification(_id:$_id, _user: $_user){
           _id
         }
       }`,
@@ -56,8 +56,8 @@ export class NotificationsService {
   async getNotifications(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Notifications($_person: ID){
-        Notifications(_person:$_person){
+      query Notifications($_user: ID){
+        Notifications(_user:$_user){
           _id
           ${fields || ""}
         }
@@ -71,8 +71,8 @@ export class NotificationsService {
     args._person = await this.storage.get('user_id');
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query NotificationsUnread($_person: ID){
-        NotificationsUnread(_person:$_person){
+      query NotificationsUnread($_user: ID){
+        NotificationsUnread(_user:$_user){
           _id
           ${fields || ""}
         }

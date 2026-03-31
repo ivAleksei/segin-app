@@ -10,6 +10,7 @@
     <div class="content">
       <div class="card">
         <div class="card-body">
+          <!-- <pre>{{tableInfo|json}}</pre> -->
           <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
             (clickEvent)="handleTable($event)"></data-table>
         </div>

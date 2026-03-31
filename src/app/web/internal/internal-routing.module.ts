@@ -15,6 +15,8 @@ const routes: Routes = [
       { path: 'teaching', loadChildren: () => import('../teaching/teaching.module').then(m => m.TeachingModule) },
       { path: 'schedule', loadChildren: () => import('../schedule/schedule.module').then(m => m.ScheduleModule) },
       { path: 'classes', loadChildren: () => import('../classes/classes.module').then(m => m.ClassesModule) },
+      { path: 'about', loadChildren: () => import('../about/about.module').then(m => m.AboutPageModule) },
+      { path: 'notifications', loadChildren: () => import('../notifications/notifications.module').then(m => m.NotificationsPageModule) },
       { path: '**', redirectTo: '/internal/home', pathMatch: 'full' }
     ]
   },

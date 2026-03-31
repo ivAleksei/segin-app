@@ -82,7 +82,7 @@ export class DataTableComponent implements OnInit {
 
   dtOptions: any = {
     dom: `
-    <'dataTables_row'lfp>
+    <'dataTables_row'lp>
     <'dataTables_row table_row't>
     <'dataTables_row'ip>
     `,
@@ -119,7 +119,7 @@ export class DataTableComponent implements OnInit {
   }
 
   async setupTable() {
-    ($ as any).fn.dataTable.moment(this.utils.formatsDate);
+    ($ as any).fn.dataTable.moment();
     ($ as any).fn.dataTable.ext.errMode = "none";
     ($ as any).fn.DataTable.ext.pager.numbers_length = 4;
 

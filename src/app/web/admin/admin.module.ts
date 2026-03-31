@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'access-control', loadChildren: () => import('./access-control/access-control.module').then(m => m.AccessControlPageModule) },
   { path: 'notices', loadChildren: () => import('./notices/notices.module').then(m => m.NoticesPageModule) },
   { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaPageModule) },
+  { path: 'institution', loadChildren: () => import('./institution/institution.module').then(m => m.InstitutionPageModule) },
   { path: '**', redirectTo: '/internal/students' },
 ];
 

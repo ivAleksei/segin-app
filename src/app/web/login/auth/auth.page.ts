@@ -18,6 +18,7 @@ export class AuthPage implements OnInit {
   password: any;
   loading: boolean = false;
   version: any = environment.version;
+  showPassword: any = false;
 
   @ViewChild("loginForm", {}) loginForm: any;
 
@@ -26,7 +27,7 @@ export class AuthPage implements OnInit {
     private userService: UserService,
     private storage: LocalStorageService,
     private menuCtrl: MenuController,
-  ) {  }
+  ) { }
 
   async ionViewWillEnter() {
     this.userService.clearData();

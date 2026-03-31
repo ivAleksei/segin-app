@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 const routes: Routes = [
   // { path: '', loadChildren: () => import('./turmas-list/turmas-list.module').then(m => m.TurmasListPageModule) },
   // { path: ':id', loadChildren: () => import('./turma-detalhe/turma-detalhe.module').then(m => m.TurmaDetalhePageModule) },
-  { path: '**', redirectTo: '/internal/admin/turmas' },
+  { path: '**', redirectTo: '/internal/admin/classes' },
 ];
 
 @NgModule({

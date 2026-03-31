@@ -59,7 +59,7 @@ export class InstitutionsPage implements OnInit {
   handleTable(ev) {
     let map = {
       homepage: () => open([environment.portal.url, ev.data.slug].join('/'), '_blank'),
-      detail: () => this.nav.navigateForward(['/internal/admin/escola-detalhe', ev?.data?._id]),
+      detail: () => this.nav.navigateForward(['/internal/admin/institution-detail', ev?.data?._id]),
       edit: () => {
         this.modalInstitution.present();
         setTimeout(() => {

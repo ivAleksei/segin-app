@@ -70,7 +70,7 @@ export class ClassesPage implements OnInit {
 
   handleTable(ev) {
     let map = {
-      detail: () => this.nav.navigateForward(['/internal/admin/turma-detalhe', ev.data._id]),
+      detail: () => this.nav.navigateForward(['/internal/admin/class-detail', ev.data._id]),
       edit: () => {
         this.modalClasse.present();
         setTimeout(() => {

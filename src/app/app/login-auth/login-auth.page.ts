@@ -19,7 +19,7 @@ export class LoginAuthPage implements OnInit {
 
   _institution: any;
   institution: any = {
-    img:"/assets/imgs/logo-vert.png"
+    img:"https://ialk.com.br/assets/segin/imgs/logo-vert.png"
   };
 
   constructor(
@@ -41,7 +41,7 @@ export class LoginAuthPage implements OnInit {
     if (!this._institution) return;
 
     this.institution = {
-    img: "/assets/imgs/smilinguido.png",
+    img: "https://ialk.com.br/assets/segin/imgs/smilinguido.png",
     }
   }
 

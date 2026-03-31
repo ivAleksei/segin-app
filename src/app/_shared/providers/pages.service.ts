@@ -5,7 +5,7 @@ import { GraphqlService } from 'src/app/_shared/services/graphql.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PaginasService {
+export class PagesService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 

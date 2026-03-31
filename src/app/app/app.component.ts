@@ -82,7 +82,7 @@ export class AppComponent {
   }
 
   async setVersion() {
-    let info = await this.http.get('/assets/json/build.json');
+    let info = await this.http.get('https://ialk.com.br/assets/segin/json/build.json');
     await this.storage.set('version_info', info || { str: "1.0.0", revision: 412 });
   }
 

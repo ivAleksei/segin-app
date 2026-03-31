@@ -221,7 +221,7 @@ export class InternalPage implements OnInit {
     let user = await this.userService.getUser();
     if (!user) return this.userService.logOut();
 
-    if (user && !user.img) user.img = '/assets/imgs/avatar.jpeg';
+    if (user && !user.img) user.img = 'https://ialk.com.br/assets/segin/imgs/avatar.jpeg';
     this.user = user || {};
 
     let _institution = await this.storage.get('__institution');

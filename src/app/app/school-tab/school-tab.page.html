@@ -16,7 +16,7 @@
             <full-calendar #calendar [options]="calendarOptions"></full-calendar>
           </div>
           <div class="svg-placeholder" *ngIf="!list_events?.length">
-            <img src="/assets/svg/calendar.svg" alt="calendar">
+            <img src="https://ialk.com.br/assets/segin/svg/calendar.svg" alt="calendar">
             <h3>{{i18n.lang.EMPTY_EVENT}}</h3>
             <p>{{i18n.lang.EMPTY_EVENT_TXT}}</p>
           </div>
@@ -61,7 +61,7 @@
           <div class="notices-place">
             <ng-template ngFor let-it [ngForOf]="notices">
               <div class="notices-item" [routerLink]="['/internal/notice-detail', it._id]">
-                <img src="/assets/svg/attention.svg" alt="attention">
+                <img src="https://ialk.com.br/assets/segin/svg/attention.svg" alt="attention">
                 <h4>{{it.title}}<br><small>{{it.subtitle}}</small></h4>
                 <p>{{it.text}}</p>
               </div>

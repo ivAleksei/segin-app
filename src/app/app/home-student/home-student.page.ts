@@ -47,17 +47,32 @@ export class HomeStudentPage implements OnInit {
   }
 
   async getNotices() {
-    let data = await this.noticesService.getNotices();
+    let data = await this.noticesService.getNotices({}, `
+      title
+      subtitle
+      text
+    `);
     this.notices = data || [];
   }
 
   async getMeals() {
-    let data = await this.mealsService.getMeals();
+    let data = await this.mealsService.getMeals({}, `
+      name
+      text
+      start
+      img
+    `);
     this.meals = data || [];
   }
 
   async getSchedule() {
-    let data = await this.agendaService.getAgendas({ date: this.date_ref });
+    let data = await this.agendaService.getAgendas({ date: this.date_ref }, `
+      title
+      description
+      time_start
+      time_end
+      color
+    `);
     this.schedule = data || [];
   }
 

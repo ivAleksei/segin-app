@@ -31,13 +31,6 @@ export class NoticesService {
       query PublishedNotices{
         PublishedNotices{
           _id
-          title
-          subtitle
-          text
-          image_url
-          pinned
-          start_at
-          end_at
           ${fields || ''}
         }
       }`,

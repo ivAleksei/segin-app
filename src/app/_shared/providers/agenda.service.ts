@@ -31,16 +31,6 @@ export class AgendaService {
       query Agendas($date: String, $_class: ID){
         Agendas(date: $date, _class: $_class){
           _id
-          title
-          description
-          date
-          time_start
-          time_end
-          type
-          all_day
-          color
-          published
-          _class
           ${fields || ""}
         }
       }`,
@@ -49,26 +39,17 @@ export class AgendaService {
     });
   }
 
-  async getAgendaById(args?) {
+  async getAgendaById(_id, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query AgendaById($_id: ID){
         AgendaById(_id: $_id){
           _id
-          title
-          description
-          date
-          time_start
-          time_end
-          type
-          all_day
-          color
-          published
-          _class
+          ${fields || ""}
         }
       }`,
       name: "AgendaById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

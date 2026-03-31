@@ -49,17 +49,18 @@ export class JournalsService {
       variables: args || {}
     });
   }
-  async getJournalById(args?) {
+  async getJournalById(_id, fields?) {
     return this.mock[0];
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query JournalById($_id: String){
         JournalById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "JournalById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

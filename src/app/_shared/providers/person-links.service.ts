@@ -51,16 +51,17 @@ export class PersonLinksService {
       variables: args || {}
     });
   }
-  async getPersonLinkById(args?) {
+  async getPersonLinkById(_id, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query PersonLinkById($_id: String){
         PersonLinkById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "PersonLinkById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

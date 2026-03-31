@@ -37,16 +37,17 @@ export class GuardiansService {
       variables: args || {}
     });
   }
-  async getGuardianById(args?) {
+  async getGuardianById(_id, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query GuardianById($_id: String){
         GuardianById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "GuardianById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

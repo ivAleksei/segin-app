@@ -24,28 +24,30 @@ export class ConfigsService {
     this._watch.next(true);
   }
 
-  async getConfigs(args?) {
+  async getConfigs(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query Configs{
         Configs{
           _id
+          ${fields || ""}
         }
       }`,
       name: "Configs",
       variables: args || {}
     });
   }
-  async getConfigById(args?) {
+  async getConfigById(_id, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query ConfigById($_id: String){
         ConfigById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "ConfigById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

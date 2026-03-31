@@ -80,17 +80,18 @@ export class MealsService {
       variables: args || {}
     });
   }
-  async getMealById(args?) {
+  async getMealById(_id, fields?) {
     return this.mock[0];
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query MealById($_id: String){
         MealById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "MealById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

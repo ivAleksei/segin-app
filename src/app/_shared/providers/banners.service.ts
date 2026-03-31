@@ -11,8 +11,6 @@ import { HttpService } from 'src/app/_shared/services/http.service';
   providedIn: 'root'
 })
 export class BannersService {
-
-
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -26,40 +24,58 @@ export class BannersService {
     this._watch = <BehaviorSubject<any>>new BehaviorSubject(false);
     this.watch = this._watch.asObservable();
   }
+
   trigger() {
     this._watch.next(true);
   }
 
-
-  async getBanners(args?: any) {
+  async getBanners(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query Banners($all: Boolean){
         Banners(all: $all){
           _id
-          url
-          img{
-            url
-          }
-          pdf{
-            url
-          }
-          dt_start
-          dt_end
+          ${fields || ""}
         }
       }`,
-      name: "Banners",
+      name: 'Banners',
       variables: args || {}
     }).then(data => {
       return (data || []).map(it => {
-        if (it?.pdf) it.pdf = this.sanitizer.bypassSecurityTrustResourceUrl(`${it.pdf}#toolbar=0&navpanes=0`);
+        if (it?.pdf?.url) {
+          it.pdfSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+            `${it.pdf.url}#toolbar=0&navpanes=0`
+          );
+        }
         return it;
       });
-    })
+    });
+  }
+
+  async getBannerById(_id, fields?) {
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      query BannerById($_id: ID){
+        BannerById(_id: $_id){
+          _id
+          ${fields || ""}
+        }
+      }`,
+      name: 'BannerById',
+      variables: { _id }
+    }).then(data => {
+      if (data?.pdf?.url) {
+        data.pdfSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          `${data.pdf.url}#toolbar=0&navpanes=0`
+        );
+      }
+      return data;
+    });
   }
 
   newBanner(data) {
     this.loadingService.show();
+
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       mutation CreateBanner($input: BannerInput){
@@ -71,13 +87,12 @@ export class BannersService {
           msg
         }
       }`,
-      name: "CreateBanner",
+      name: 'CreateBanner',
       variables: data
-    })
-      .then(done => {
-        this.loadingService.hide();
-        return done;
-      });
+    }).then(done => {
+      this.loadingService.hide();
+      return done;
+    });
   }
 
   editBanner(data) {
@@ -94,30 +109,30 @@ export class BannersService {
           msg
         }
       }`,
-
-      name: "UpdateBanner",
+      name: 'UpdateBanner',
       variables: data
-    })
-      .then(done => {
-        this.loadingService.hide();
-        return done;
-      });
+    }).then(done => {
+      this.loadingService.hide();
+      return done;
+    });
   }
 
   delBanner(data) {
     return this.alertsService.confirmDel()
       .then(confirm => {
         if (!confirm) return;
+
         this.loadingService.show();
+
         return this.graphql.query(environment.API.segin, 'graphql', {
           query: `
-        mutation deleteBanner($_id: ID){
-          deleteBanner(_id: $_id){
-            status
-            msg
-          }
-        }`,
-          name: "deleteBanner",
+          mutation deleteBanner($_id: ID){
+            deleteBanner(_id: $_id){
+              status
+              msg
+            }
+          }`,
+          name: 'deleteBanner',
           variables: data
         });
       })
@@ -128,6 +143,6 @@ export class BannersService {
   }
 
   saveBanner(data) {
-    return this[data._id ? 'editBanner' : "newBanner"]({ input: data });
+    return this[data._id ? 'editBanner' : 'newBanner']({ input: data });
   }
 }

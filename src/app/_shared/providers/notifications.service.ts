@@ -53,17 +53,13 @@ export class NotificationsService {
       });
   }
 
-  async getNotifications(args) {
+  async getNotifications(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query Notifications($_person: ID){
         Notifications(_person:$_person){
           _id
-          title
-          text
-          url
-          updated_at
-          created_at
+          ${fields || ""}
         }
       }`,
       name: "Notifications",
@@ -71,18 +67,14 @@ export class NotificationsService {
     });
   }
 
-  async getNotificationsUnread(args: any = {}) {
+  async getNotificationsUnread(args: any = {}, fields?) {
     args._person = await this.storage.get('user_id');
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query NotificationsUnread($_person: ID){
         NotificationsUnread(_person:$_person){
           _id
-          title
-          text
-          url
-          created_at
-          updated_at
+          ${fields || ""}
         }
       }`,
       name: "NotificationsUnread",
@@ -90,22 +82,17 @@ export class NotificationsService {
     });
   }
 
-  async getNotificationsById(_id) {
+  async getNotificationsById(_id, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query NotificationById($_id: ID){
         NotificationById(_id: $_id){
           _id
-          title
-          text
-          url
-          updated_at
-          created_at
-          route
+          ${fields || ""}
         }
       }`,
       name: "NotificationById",
-      variables: { _id: _id }
+      variables: { _id }
     });
   }
 

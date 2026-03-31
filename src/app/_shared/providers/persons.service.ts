@@ -48,7 +48,6 @@ export class PersonsService {
       query Persons($type: String){
         Persons(type: $type){
           _id
-          name
           ${fields || ''}
         }
       }`,

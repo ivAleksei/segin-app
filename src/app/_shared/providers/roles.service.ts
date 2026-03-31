@@ -49,18 +49,17 @@ export class RolesService {
     });
   }
 
-  async getUsersByRole(_id) {
+  async getUsersByRole(_id, fields?) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       query UserByRole($_id: String){
         UserByRole(_id: $_id){
           _id
-          str_nomecurto
-          _roles
+          ${fields || ""}
         }
       }`,
       name: "UserByRole",
-      variables: { _id: _id }
+      variables: { _id }
     });
   }
 

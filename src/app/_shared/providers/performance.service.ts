@@ -58,17 +58,18 @@ export class PerformancesService {
       variables: args || {}
     });
   }
-  async getPerformanceById(args?) {
+  async getPerformanceById(_id, fields?) {
     return this.mock;
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query PerformanceById($_id: String){
         PerformanceById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "PerformanceById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

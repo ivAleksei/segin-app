@@ -37,16 +37,17 @@ export class StudentClassLinksService {
       variables: args || {}
     });
   }
-  async getStudentClassLinkById(args?) {
+  async getStudentClassLinkById(_id, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query StudentClassLinkById($_id: String){
         StudentClassLinkById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "StudentClassLinkById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

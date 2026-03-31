@@ -37,16 +37,17 @@ export class CollaboratorsService {
       variables: args || {}
     });
   }
-  async getCollaboratorById(args?) {
+  async getCollaboratorById(_id, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query CollaboratorById($_id: String){
         CollaboratorById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "CollaboratorById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

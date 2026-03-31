@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { GraphqlService } from 'src/app/_shared/services/graphql.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +21,13 @@ export class ModulesService {
     this._watch.next(true);
   }
 
-  async getModulos(environment) {
+  async getModulos(fields?) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       query Modulos{
         Modulos{
           _id
-          str_ordem
-          str_label
+          ${fields || ""}
         }
       }`,
       name: "Modulos",
@@ -35,25 +35,21 @@ export class ModulesService {
     });
   }
 
-  async getModuloById(environment, _id) {
+  async getModuloById(_id, fields?) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       query ModuloById($_id: ID){
         ModuloById(_id: $_id){
           _id
-          str_ordem
-          str_label
-          str_rota
-          bo_oculto
-          updated_at
+          ${fields || ""}
         }
       }`,
       name: "ModuloById",
-      variables: { _id: _id }
+      variables: { _id }
     });
   }
 
-  newModulo(environment, data) {
+  newModulo(data) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       mutation CreateModulo(
@@ -70,7 +66,7 @@ export class ModulesService {
     });
   }
 
-  editModulo(environment, data) {
+  editModulo(data) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       mutation UpdateModulo(
@@ -87,7 +83,7 @@ export class ModulesService {
     });
   }
 
-  delModulo(environment, data) {
+  delModulo(data) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       mutation deleteModulo($_id: ID){
@@ -100,7 +96,7 @@ export class ModulesService {
     });
   }
 
-  saveModulo(environment, data) {
-    return this[data._id ? 'editModulo' : "newModulo"](environment, { input: data });
+  saveModulo(data) {
+    return this[data._id ? 'editModulo' : "newModulo"]({ input: data });
   }
 }

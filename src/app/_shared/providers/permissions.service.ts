@@ -21,12 +21,13 @@ export class PermissionsService {
     this._watch.next(true);
   }
 
-  async getPermissions(environment) {
+  async getPermissions(fields?) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       query Permissions{
         Permissions{
           _id
+          ${fields || ""}
         }
       }`,
       name: "Permissions",
@@ -34,16 +35,17 @@ export class PermissionsService {
     });
   }
 
-  async getPermissionById(_id) {
+  async getPermissionById(_id, fields?) {
     return this.graphql.query(environment.API.admin, 'graphql', {
       query: `
       query PermissionById($_id: String){
         PermissionById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "PermissionById",
-      variables: { _id: _id }
+      variables: { _id }
     });
   }
 

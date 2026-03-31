@@ -75,17 +75,18 @@ export class ReportsService {
       variables: args || {}
     });
   }
-  async getReportById(args?) {
+  async getReportById(_id, fields?) {
     return this.mock;
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query ReportById($_id: String){
         ReportById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "ReportById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

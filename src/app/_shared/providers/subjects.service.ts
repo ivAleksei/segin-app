@@ -96,17 +96,18 @@ export class SubjectsService {
       variables: args || {}
     });
   }
-  async getSubjectById(args?) {
+  async getSubjectById(_id, fields?) {
     return this.mock[0];
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query SubjectById($_id: String){
         SubjectById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "SubjectById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

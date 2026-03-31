@@ -24,28 +24,30 @@ export class LogsService {
     this._watch.next(true);
   }
 
-  async getLogs(args?) {
+  async getLogs(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query Logs{
         Logs{
           _id
+          ${fields || ""}
         }
       }`,
       name: "Logs",
       variables: args || {}
     });
   }
-  async getLogsById(args?) {
+  async getLogsById(_id, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query LogsById($_id: String){
         LogsById(_id: $_id){
           _id
+          ${fields || ""}
         }
       }`,
       name: "LogsById",
-      variables: args || {}
+      variables: { _id }
     });
   }
 

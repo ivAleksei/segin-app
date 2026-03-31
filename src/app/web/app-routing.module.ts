@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../_shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'internal',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./internal/internal.module').then(m => m.InternalPageModule)
   },
   { path: '**', redirectTo: '/start', pathMatch: 'full' },

@@ -8,17 +8,17 @@ export const environment = {
   browser: true,
   menu_type: 'side',
   portal: {
-    url: "http://127.0.0.1:4200"
+    url: "http://192.168.1.70:4200"
   },
   API: {
-    storage: "https://storage.cbm.rn.gov.br",
-    auth: "http://127.0.0.1:3003/api_auth",
-    admin: "http://127.0.0.1:3003/api_admin",
-    segin: "http://127.0.0.1:3003/api_segin",
+    storage: "https://storage.ialk.com.br",
+    auth: "http://192.168.1.70:3003/api_auth",
+    admin: "http://192.168.1.70:3003/api_admin",
+    segin: "http://192.168.1.70:3003/api_segin",
   },
   Socket: {
-    platform: "segin",
-    url: "https://ialk-socket-4a3a27ccedad.herokuapp.com",
+    platform: "segin-dev",
+    url: "https://socket.ialk.com.br",
   },
   oneSignal: {
     appId: "e84cc2ee-5c42-490f-a976-58f9349c42d2",

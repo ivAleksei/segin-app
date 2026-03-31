@@ -1,19 +1,19 @@
 export const environment = {
-  production: true,
+  production: false,
   version: "1.0.0",
   browser: true,
   menu_type: 'side',
   portal: {
-    url: "https://segin.ialk.com.br"
+    url: "https://seginhom.ialk.com.br"
   },
   API: {
     storage: "https://storage.ialk.com.br",
-    auth: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_auth",
-    admin: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_admin",
-    segin: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_api",
+    auth: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_auth_hom",
+    admin: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_admin_hom",
+    segin: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_api_hom",
   },
   Socket: {
-    platform: "segin-production",
+    platform: "segin-hom",
     url: "https://socket.ialk.com.br",
   },
   oneSignal: {

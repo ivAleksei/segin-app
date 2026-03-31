@@ -64,6 +64,15 @@
               ],
               "outputHashing": "all"
             },
+            "hom": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hom.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -83,6 +92,9 @@
           "configurations": {
             "production": {
               "buildTarget": "app:build:production"
+            },
+            "hom": {
+              "buildTarget": "app:build:hom"
             },
             "development": {
               "buildTarget": "app:build:development"
@@ -214,6 +226,15 @@
               ],
               "outputHashing": "all"
             },
+            "hom": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hom.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -233,6 +254,9 @@
           "configurations": {
             "production": {
               "buildTarget": "web:build:production"
+            },
+            "hom": {
+              "buildTarget": "web:build:hom"
             },
             "development": {
               "buildTarget": "web:build:development"

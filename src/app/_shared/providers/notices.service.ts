@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { GraphqlService } from 'src/app/_shared/services/graphql.service';
+import { AlertsService } from 'src/app/_shared/services/alerts.service';
+import { LoadingService } from 'src/app/_shared/services/loading.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,13 +12,9 @@ export class NoticesService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
-  mock:any = [
-    { _id:0, title: "Feriado Municipal", subtitle: "Feriado dia 08/01/2026", text: "Informamos que as atividades escolares serão encerradas as 12h00 do dia 08/01/2026, pois será realizada uma detetização." },
-    { _id:1, title: "Detetização", subtitle: "Feriado dia 08/01/2026", text: "Informamos que as atividades escolares serão encerradas as 12h00 do dia 08/01/2026, pois será realizada uma detetização." },
-    { _id:2, title: "Passeio", subtitle: "Feriado dia 08/01/2026", text: "Informamos que as atividades escolares serão encerradas as 12h00 do dia 08/01/2026, pois será realizada uma detetização." }
-  ]
-
   constructor(
+    private loadingService: LoadingService,
+    private alertsService: AlertsService,
     private graphql: GraphqlService
   ) {
     this._watch = <BehaviorSubject<any>>new BehaviorSubject(false);
@@ -28,12 +26,38 @@ export class NoticesService {
   }
 
   async getNotices(args?, fields?) {
-    return this.mock;
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      query PublishedNotices{
+        PublishedNotices{
+          _id
+          title
+          subtitle
+          text
+          image_url
+          pinned
+          start_at
+          end_at
+          ${fields || ''}
+        }
+      }`,
+      name: "PublishedNotices",
+      variables: {}
+    });
+  }
+
+  async getAllNotices(args?, fields?) {
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query Notices{
         Notices{
           _id
+          title
+          subtitle
+          published
+          pinned
+          start_at
+          end_at
           ${fields || ''}
         }
       }`,
@@ -43,51 +67,89 @@ export class NoticesService {
   }
 
   async getNoticeById(_id, fields?) {
-    return this.mock[0];
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query NoticeById($_id: String){
+      query NoticeById($_id: ID){
         NoticeById(_id: $_id){
           _id
+          title
+          subtitle
+          text
+          image_url
+          published
+          pinned
+          start_at
+          end_at
+          _class
+          _institution
           ${fields || ''}
         }
       }`,
       name: "NoticeById",
-      variables: { _id: _id }
+      variables: { _id }
+    });
+  }
+
+  newNotice(data) {
+    this.loadingService.show();
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      mutation CreateNotice($input: NoticeInput){
+        CreateNotice(input: $input){
+          status
+          msg
+        }
+      }`,
+      name: "CreateNotice",
+      variables: data
+    }).then(done => {
+      this.loadingService.hide();
+      return done;
     });
   }
 
   editNotice(data) {
+    this.loadingService.show();
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      mutation UpdateNotice(
-        $input: NoticeInput
-      ){
-        UpdateNotice(
-          input: $input,
-        ){
+      mutation UpdateNotice($input: NoticeInput){
+        UpdateNotice(input: $input){
           status
+          msg
         }
       }`,
       name: "UpdateNotice",
       variables: data
+    }).then(done => {
+      this.loadingService.hide();
+      return done;
     });
   }
 
   delNotice(data) {
-    return this.graphql.query(environment.API.segin, 'graphql', {
-      query: `
-      mutation deleteNotice($_id: String){
-        deleteNotice(_id: $_id){
-          status
-        }
-      }`,
-      name: "deleteNotice",
-      variables: data
-    });
+    return this.alertsService.confirmDel()
+      .then(confirm => {
+        if (!confirm) return;
+        this.loadingService.show();
+        return this.graphql.query(environment.API.segin, 'graphql', {
+          query: `
+          mutation deleteNotice($_id: ID){
+            deleteNotice(_id: $_id){
+              status
+              msg
+            }
+          }`,
+          name: "deleteNotice",
+          variables: data
+        });
+      })
+      .then(done => {
+        this.loadingService.hide();
+        return done;
+      });
   }
 
   saveNotice(data) {
-    return this.editNotice({ input: data });
+    return this[data._id ? 'editNotice' : 'newNotice']({ input: data });
   }
 }

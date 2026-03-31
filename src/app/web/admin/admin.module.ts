@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'person-links', loadChildren: () => import('./person-links/person-links.module').then(m => m.PersonLinksPageModule) },
   { path: 'enrollments', loadChildren: () => import('./student-class-links/student-class-links.module').then(m => m.StudentClassLinksPageModule) },
   { path: 'access-control', loadChildren: () => import('./access-control/access-control.module').then(m => m.AccessControlPageModule) },
+  { path: 'notices', loadChildren: () => import('./notices/notices.module').then(m => m.NoticesPageModule) },
   { path: '**', redirectTo: '/internal/students' },
 ];
 

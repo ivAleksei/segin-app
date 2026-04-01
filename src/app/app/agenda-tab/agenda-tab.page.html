@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/internal/home-guardian"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Agenda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- DATE NAVIGATION -->
+  <div class="date-nav">
+    <ion-button fill="clear" (click)="prevDay()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+
+    <div class="date-center" (click)="goToday()">
+      <span class="date-label">{{ date_label }}</span>
+      <span class="date-sub">{{ date_ref }}</span>
+    </div>
+
+    <ion-button fill="clear" (click)="nextDay()">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="events-container ion-padding">
+
+    <div *ngIf="list_events.length === 0" class="empty-state">
+      <ion-icon name="calendar-outline" size="large"></ion-icon>
+      <p>Nenhum evento para este dia.</p>
+      <ion-button fill="outline" size="small" (click)="goToday()">Ver hoje</ion-button>
+    </div>
+
+    <div *ngFor="let ev of list_events" class="event-item">
+      <div class="event-color-bar" [style.background]="ev.color || '#3880ff'"></div>
+
+      <div class="event-content">
+        <div class="event-time">
+          <span *ngIf="ev.all_day">Dia todo</span>
+          <span *ngIf="!ev.all_day && ev.time_start">{{ ev.time_start }}</span>
+          <span *ngIf="!ev.all_day && ev.time_start && ev.time_end"> – {{ ev.time_end }}</span>
+          <span *ngIf="!ev.all_day && !ev.time_start">—</span>
+        </div>
+        <div class="event-title">{{ ev.title }}</div>
+        <div class="event-type">{{ ev.type }}</div>
+        <div class="event-desc" *ngIf="ev.description">{{ ev.description }}</div>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

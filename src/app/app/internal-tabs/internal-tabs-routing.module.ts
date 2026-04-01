@@ -63,6 +63,10 @@ const routes: Routes = [
     path: 'journal-detail/:id',
     loadChildren: () => import('../journal-detail/journal-detail.module').then(m => m.JournalDetailPageModule)
   },
+  {
+    path: 'agenda',
+    loadChildren: () => import('../agenda-tab/agenda-tab.module').then(m => m.AgendaTabPageModule)
+  },
 ];
 
 @NgModule({

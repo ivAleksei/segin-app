@@ -1,21 +1,107 @@
 <ion-content [fullscreen]="true">
   <div class="page-layout">
-    <h3 class="page-title">Agenda do Dia<br>
-      <small>Rotina e eventos da escola</small>
-    </h3>
 
-    <ion-button class="btn-add" (click)="handleTable({action: 'new'})">
-      <i class="mdi mdi-plus"></i>
-      <span class="text"> Novo Evento</span>
-    </ion-button>
+    <!-- HEADER -->
+    <div class="page-header">
+      <h2>Agenda do Dia</h2>
+      <p>Rotina e eventos da escola</p>
 
-    <div class="content">
-      <div class="card">
-        <div class="card-body">
-          <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
-            (clickEvent)="handleTable($event)"></data-table>
+      <div class="breadcrumb">
+        <span>Rotina</span>
+        <span>›</span>
+        <strong>Agenda do Dia</strong>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="agenda-controls">
+
+      <div class="date-nav">
+        <ion-button fill="clear" (click)="prevDay()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+
+        <div class="date-display" (click)="goToday()">
+          <span class="date-label">{{ date_label || date_ref }}</span>
+          <span class="date-sub">{{ date_ref }}</span>
+        </div>
+
+        <ion-button fill="clear" (click)="nextDay()">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="outline" size="small" (click)="goToday()">Hoje</ion-button>
+      </div>
+
+      <div class="agenda-actions">
+        <ion-select
+          [(ngModel)]="filter_class"
+          (ngModelChange)="loadEvents()"
+          interface="popover"
+          placeholder="Todas as turmas"
+          class="class-filter">
+          <ion-select-option value="">Todas as turmas</ion-select-option>
+          <ion-select-option *ngFor="let c of list_classes" [value]="c._id">{{ c.name }}</ion-select-option>
+        </ion-select>
+
+        <ion-button size="small" (click)="openNew()">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Novo Evento
+        </ion-button>
+      </div>
+
+    </div>
+
+    <!-- EVENT LIST -->
+    <div class="main-card">
+
+      <div *ngIf="list_events.length === 0" class="empty-state">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <p>Nenhum evento para este dia.</p>
+        <ion-button fill="outline" size="small" (click)="openNew()">Adicionar evento</ion-button>
+      </div>
+
+      <div class="events-list" *ngIf="list_events.length > 0">
+        <div
+          *ngFor="let ev of list_events"
+          class="event-card {{ getEventClass(ev.type) }}"
+          [style.border-left-color]="ev.color || null">
+
+          <div class="event-time">
+            <span *ngIf="ev.all_day">Dia todo</span>
+            <span *ngIf="!ev.all_day && ev.time_start">{{ ev.time_start }}</span>
+            <span *ngIf="!ev.all_day && ev.time_start && ev.time_end" class="time-sep">–</span>
+            <span *ngIf="!ev.all_day && ev.time_end">{{ ev.time_end }}</span>
+            <span *ngIf="!ev.all_day && !ev.time_start">—</span>
+          </div>
+
+          <div class="event-body">
+            <div class="event-title">{{ ev.title }}</div>
+            <div class="event-meta">
+              <span class="event-type">{{ ev.type }}</span>
+              <span class="event-class">{{ getClassName(ev._class) }}</span>
+            </div>
+            <div class="event-description" *ngIf="ev.description">{{ ev.description }}</div>
+          </div>
+
+          <div class="event-status">
+            <ion-badge [color]="ev.published ? 'success' : 'medium'">
+              {{ ev.published ? 'Publicado' : 'Rascunho' }}
+            </ion-badge>
+          </div>
+
+          <div class="event-actions">
+            <ion-button fill="clear" size="small" (click)="openEdit(ev)">
+              <ion-icon name="pencil-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" size="small" color="danger" (click)="deleteEvent(ev)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+
         </div>
       </div>
+
     </div>
   </div>
 </ion-content>
@@ -24,11 +110,12 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
+        <ion-title>Evento</ion-title>
         <ion-buttons slot="start">
-          <ion-button (click)="closeModal()">{{i18n.lang.CANCEL}}</ion-button>
+          <ion-button (click)="closeModal()">{{ i18n.lang.CANCEL }}</ion-button>
         </ion-buttons>
         <ion-buttons slot="end">
-          <ion-button (click)="saveForm()" [strong]="true">{{i18n.lang.CONFIRM}}</ion-button>
+          <ion-button (click)="saveForm()" [strong]="true">{{ i18n.lang.CONFIRM }}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -56,7 +143,7 @@
                 <ion-item>
                   <ion-label position="stacked">Tipo</ion-label>
                   <ion-select name="type" ngModel interface="popover">
-                    <ion-select-option *ngFor="let t of event_types" [value]="t.value">{{t.label}}</ion-select-option>
+                    <ion-select-option *ngFor="let t of event_types" [value]="t.value">{{ t.label }}</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-col>
@@ -111,7 +198,7 @@
                   <ion-label position="stacked">Turma (opcional)</ion-label>
                   <ion-select name="_class" ngModel interface="popover">
                     <ion-select-option value="">Todas as turmas</ion-select-option>
-                    <ion-select-option *ngFor="let c of list_classes" [value]="c._id">{{c.name}}</ion-select-option>
+                    <ion-select-option *ngFor="let c of list_classes" [value]="c._id">{{ c.name }}</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-col>
@@ -124,6 +211,7 @@
             </ion-row>
           </div>
         </div>
+
       </form>
     </ion-content>
   </ng-template>

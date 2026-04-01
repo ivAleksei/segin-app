@@ -1,0 +1,49 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+    <h3 class="page-title">Notificações<br><small>CRUD direto — Notifications</small></h3>
+
+    <ion-button class="btn-add" (click)="handleTable({action: 'new'})">
+      <i class="mdi mdi-plus"></i> <span class="text"> Nova Notificação</span>
+    </ion-button>
+
+    <div class="content"><div class="card"><div class="card-body">
+      <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
+        (clickEvent)="handleTable($event)"></data-table>
+    </div></div></div>
+  </div>
+</ion-content>
+
+<ion-modal #modalNotification>
+  <ng-template>
+    <ion-header><ion-toolbar>
+      <ion-buttons slot="start"><ion-button (click)="closeModal()">{{ i18n.lang.CANCEL }}</ion-button></ion-buttons>
+      <ion-title>Notificação</ion-title>
+      <ion-buttons slot="end"><ion-button (click)="saveForm()" [strong]="true">{{ i18n.lang.CONFIRM }}</ion-button></ion-buttons>
+    </ion-toolbar></ion-header>
+    <ion-content class="ion-padding">
+      <form #NotificationForm="ngForm" novalidate>
+        <input type="hidden" name="_id" ngModel>
+        <ion-item>
+          <ion-label position="stacked">Usuário (_id)</ion-label>
+          <ion-input type="text" name="_user" ngModel></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Título</ion-label>
+          <ion-input type="text" name="title" ngModel></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Texto</ion-label>
+          <ion-textarea name="text" ngModel rows="3"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">URL</ion-label>
+          <ion-input type="url" name="url" ngModel></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Rota interna</ion-label>
+          <ion-input type="text" name="route" ngModel placeholder="/internal/schedule/agenda"></ion-input>
+        </ion-item>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>

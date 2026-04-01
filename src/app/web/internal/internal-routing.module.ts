@@ -17,6 +17,7 @@ const routes: Routes = [
       { path: 'classes', loadChildren: () => import('../classes/classes.module').then(m => m.ClassesModule) },
       { path: 'about', loadChildren: () => import('../about/about.module').then(m => m.AboutPageModule) },
       { path: 'notifications', loadChildren: () => import('../notifications/notifications.module').then(m => m.NotificationsPageModule) },
+      { path: 'cruds', loadChildren: () => import('../cruds/cruds.module').then(m => m.CrudsModule) },
       { path: '**', redirectTo: '/internal/home', pathMatch: 'full' }
     ]
   },

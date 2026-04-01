@@ -96,6 +96,49 @@ export class NotificationsService {
     });
   }
 
+  newNotification(data) {
+    this.loadingService.show();
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      mutation CreateNotification($input: NotificationInput){
+        CreateNotification(input: $input){ status msg }
+      }`,
+      name: 'CreateNotification',
+      variables: data
+    }).then(done => { this.loadingService.hide(); return done; });
+  }
+
+  editNotification(data) {
+    this.loadingService.show();
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      mutation UpdateNotification($input: NotificationInput){
+        UpdateNotification(input: $input){ status msg }
+      }`,
+      name: 'UpdateNotification',
+      variables: data
+    }).then(done => { this.loadingService.hide(); return done; });
+  }
+
+  delNotification(data) {
+    return this.alertsService.confirmDel().then(confirm => {
+      if (!confirm) return;
+      this.loadingService.show();
+      return this.graphql.query(environment.API.segin, 'graphql', {
+        query: `
+        mutation deleteNotification($_id: ID){
+          deleteNotification(_id: $_id){ status msg }
+        }`,
+        name: 'deleteNotification',
+        variables: data
+      });
+    }).then(done => { this.loadingService.hide(); return done; });
+  }
+
+  saveNotification(data) {
+    return this[data._id ? 'editNotification' : 'newNotification']({ input: data });
+  }
+
   async detail(it?, _id?) {
     if (_id) it = await this.getNotificationsById(_id);
     this.alertsService.ask({

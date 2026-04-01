@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+    <h3 class="page-title">Banners<br><small>CRUD direto — Banners</small></h3>
+
+    <ion-button class="btn-add" (click)="handleTable({action: 'new'})">
+      <i class="mdi mdi-plus"></i> <span class="text"> Novo Banner</span>
+    </ion-button>
+
+    <div class="content"><div class="card"><div class="card-body">
+      <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
+        (clickEvent)="handleTable($event)"></data-table>
+    </div></div></div>
+  </div>
+</ion-content>
+
+<ion-modal #modalBanner>
+  <ng-template>
+    <ion-header><ion-toolbar>
+      <ion-buttons slot="start"><ion-button (click)="closeModal()">{{ i18n.lang.CANCEL }}</ion-button></ion-buttons>
+      <ion-title>Banner</ion-title>
+      <ion-buttons slot="end"><ion-button (click)="saveForm()" [strong]="true">{{ i18n.lang.CONFIRM }}</ion-button></ion-buttons>
+    </ion-toolbar></ion-header>
+    <ion-content class="ion-padding">
+      <form #BannerForm="ngForm" novalidate>
+        <input type="hidden" name="_id" ngModel>
+        <ion-item>
+          <ion-label position="stacked">URL</ion-label>
+          <ion-input type="url" name="url" ngModel></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Data Início</ion-label>
+          <ion-input type="date" name="dt_start" ngModel></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Data Fim</ion-label>
+          <ion-input type="date" name="dt_end" ngModel></ion-input>
+        </ion-item>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>

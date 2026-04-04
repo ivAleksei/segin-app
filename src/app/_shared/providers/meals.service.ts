@@ -12,48 +12,6 @@ export class MealsService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
-  mock:any = [
-    {
-      name: "Café da Manhã",
-      date: "2024-05-13",
-      start: "07:30",
-      img: {
-        url: "https://www.seara.com.br/wp-content/uploads/2025/09/pizza-de-pao-de-forma-portal-minha-receita-1-1.jpg"
-      },
-      text: `<ul>
-              <li>Leite (ou bebida vegetal) com aveia</li>
-              <li>Banana amassada com canela</li>
-              <li>Pão macio com queijo branco</li>
-            </ul>`
-    },
-    {
-      name: "Lanche",
-      date: "2024-05-13",
-      start: "09:30",
-      img: {
-        url: "https://www.seara.com.br/wp-content/uploads/2025/09/pizza-de-pao-de-forma-portal-minha-receita-1-1.jpg"
-      },
-      text: ` <ul>
-              <li>Maçã em cubos</li>
-              <li>Água</li>
-            </ul>`
-    },
-    {
-      name: "Café da Manhã",
-      date: "2024-05-13",
-      start: "11:30",
-      img: {
-        url: "https://www.seara.com.br/wp-content/uploads/2025/09/pizza-de-pao-de-forma-portal-minha-receita-1-1.jpg"
-      },
-      text: `<ul>
-              <li>Arroz + feijão</li>
-              <li>Frango desfiado ao molho suave</li>
-              <li>Abóbora refogada</li>
-              <li>Salada de pepino (opcional)</li>
-            </ul>`
-    }
-  ];
-
   constructor(
     private loadingService: LoadingService,
     private alertsService: AlertsService,
@@ -62,35 +20,51 @@ export class MealsService {
     this._watch = <BehaviorSubject<any>>new BehaviorSubject(false);
     this.watch = this._watch.asObservable();
   }
+
   trigger() {
     this._watch.next(true);
   }
 
   async getMeals(args?, fields?) {
-    return this.mock;
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Meals{
-        Meals{
+      query Meals($date: String, $_classe: ID){
+        Meals(date: $date, _classe: $_classe){
           _id
-          ${fields||""}
-        }
-      }`,
-      name: "Meals",
-      variables: args || {}
-    });
-  }
-  async getMealById(_id, fields?) {
-    return this.mock[0];
-    return this.graphql.query(environment.API.segin, 'graphql', {
-      query: `
-      query MealById($_id: String){
-        MealById(_id: $_id){
-          _id
+          name
+          date
+          start
+          text
+          _classe
+          _institution
+          ate_students
+          repeated_students
           ${fields || ""}
         }
       }`,
-      name: "MealById",
+      name: 'Meals',
+      variables: args || {}
+    });
+  }
+
+  async getMealById(_id, fields?) {
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      query MealById($_id: ID){
+        MealById(_id: $_id){
+          _id
+          name
+          date
+          start
+          text
+          _classe
+          _institution
+          ate_students
+          repeated_students
+          ${fields || ""}
+        }
+      }`,
+      name: 'MealById',
       variables: { _id }
     });
   }
@@ -105,18 +79,16 @@ export class MealsService {
           msg
         }
       }`,
-      name: "CreateMeal",
+      name: 'CreateMeal',
       variables: data
-    })
-      .then(done => {
-        this.loadingService.hide();
-        return done;
-      });
+    }).then(done => {
+      this.loadingService.hide();
+      return done;
+    });
   }
 
   editMeal(data) {
     this.loadingService.show();
-
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       mutation UpdateMeal($input: MealInput){
@@ -125,14 +97,12 @@ export class MealsService {
           msg
         }
       }`,
-
-      name: "UpdateMeal",
+      name: 'UpdateMeal',
       variables: data
-    })
-      .then(done => {
-        this.loadingService.hide();
-        return done;
-      });
+    }).then(done => {
+      this.loadingService.hide();
+      return done;
+    });
   }
 
   delMeal(data) {
@@ -142,13 +112,13 @@ export class MealsService {
         this.loadingService.show();
         return this.graphql.query(environment.API.segin, 'graphql', {
           query: `
-        mutation deleteMeal($_id: ID){
-          deleteMeal(_id: $_id){
-            status
-            msg
-          }
-        }`,
-          name: "deleteMeal",
+          mutation deleteMeal($_id: ID){
+            deleteMeal(_id: $_id){
+              status
+              msg
+            }
+          }`,
+          name: 'deleteMeal',
           variables: data
         });
       })
@@ -159,7 +129,6 @@ export class MealsService {
   }
 
   saveMeal(data) {
-    return this[data._id ? 'editMeal' : "newMeal"]({ input: data });
+    return this[data._id ? 'editMeal' : 'newMeal']({ input: data });
   }
-
 }

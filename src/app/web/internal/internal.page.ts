@@ -131,9 +131,7 @@ export class InternalPage implements OnInit {
   }
 
   ngOnInit() {
-    let env = environment.production ? 'production' : 'development';
-    this.socket.start(env);
-    // this.screenOrientation.onChange().subscribe(() => this.closeMenus());
+    this.socket.start();
   }
 
   ngOnDestroy() {

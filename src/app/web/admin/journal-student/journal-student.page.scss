@@ -1,0 +1,134 @@
+tbody {
+
+    td {
+        font-size: 1em;
+
+        pre {
+            font-family: var(--ion-font-family);
+            font-size: 1em;
+            margin: 0
+        }
+    }
+}
+
+.t-center {
+    text-align: center;
+}
+
+.card {
+    padding-bottom: 0;
+
+    &.header {
+        padding: 0;
+        margin-top: 0;
+
+        td {
+            padding: 0 16px;
+        }
+
+        th {
+            text-align: center;
+        }
+    }
+
+    .card-body {
+        tbody {
+            .f-td {
+                width: 250px;
+                min-width: 120px;
+            }
+        }
+    }
+}
+
+h4 {
+    margin-left: 16px;
+}
+
+.n-fate a {
+    cursor: pointer;
+}
+
+
+
+.table.dataTable tbody tr {
+    &.date {
+        td {
+            font-weight: bold;
+        }
+    }
+
+    &.text {
+        background: #fff;
+
+        td {
+            border-bottom: 1px solid #ccc;
+            padding-left: 32px;
+
+
+            input {
+                width: 100%;
+            }
+
+        }
+
+
+    }
+}
+
+ion-button {
+    margin: 16px;
+}
+
+.card.new {
+    text-align: right;
+
+    ion-item {
+        margin-bottom: 16px;
+    }
+
+    h4 {
+        text-align: left;
+
+    }
+}
+
+.actions {
+    text-align: right;
+
+    width: 80px;
+    padding-left: 10px;
+
+    button {
+        margin-right: 8px;
+        padding: 4px;
+        font-size: 1.3em;
+        background: transparent;
+
+        &.edit {
+            background: var(--ion-color-info);
+
+            &.active {
+                background: var(--ion-color-success);
+            }
+
+            i.mdi-content-save {
+                color: var(--ion-color-success-contrast);
+            }
+
+            i.mdi-pencil {
+                color: var(--ion-color-info-contrast);
+            }
+        }
+
+        &.rmv {
+            background: var(--ion-color-danger);
+
+            i.mdi-close {
+                color: var(--ion-color-danger-contrast)
+            }
+        }
+
+
+    }
+}

@@ -14,7 +14,8 @@ export const environment = {
     segin: "https://us-central1-ialk-f967b.cloudfunctions.net/segin_api",
   },
   Socket: {
-    platform: "segin-production",
+    platform: "segin",
+    endpoint: "production",
     url: "https://socket.ialk.com.br",
   },
   oneSignal: {

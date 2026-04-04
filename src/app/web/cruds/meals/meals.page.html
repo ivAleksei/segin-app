@@ -1,36 +1,78 @@
 <ion-content [fullscreen]="true">
   <div class="page-layout">
-    <h3 class="page-title">Refeições<br><small>CRUD direto — Meals</small></h3>
+    <h3 class="page-title">Refeições<br>
+      <small>Gestão do cardápio</small>
+    </h3>
 
     <ion-button class="btn-add" (click)="handleTable({action: 'new'})">
-      <i class="mdi mdi-plus"></i> <span class="text"> Nova Refeição</span>
+      <i class="mdi mdi-plus"></i>
+      <span class="text"> Nova Refeição</span>
     </ion-button>
 
-    <div class="content"><div class="card"><div class="card-body">
-      <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
-        (clickEvent)="handleTable($event)"></data-table>
-    </div></div></div>
+    <div class="content">
+      <div class="card">
+        <div class="card-body">
+          <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
+            (clickEvent)="handleTable($event)"></data-table>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
 
 <ion-modal #modalMeal>
   <ng-template>
-    <ion-header><ion-toolbar>
-      <ion-buttons slot="start"><ion-button (click)="closeModal()">{{ i18n.lang.CANCEL }}</ion-button></ion-buttons>
-      <ion-title>Refeição</ion-title>
-      <ion-buttons slot="end"><ion-button (click)="saveForm()" [strong]="true">{{ i18n.lang.CONFIRM }}</ion-button></ion-buttons>
-    </ion-toolbar></ion-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="closeModal()">{{ i18n.lang.CANCEL }}</ion-button>
+        </ion-buttons>
+        <ion-title>Refeição</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="saveForm()" [strong]="true">{{ i18n.lang.CONFIRM }}</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
     <ion-content class="ion-padding">
       <form #MealForm="ngForm" novalidate>
         <input type="hidden" name="_id" ngModel>
-        <ion-item>
-          <ion-label position="stacked">Aluno (_id)</ion-label>
-          <ion-input type="text" name="_student" ngModel></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Turma (_id)</ion-label>
-          <ion-input type="text" name="_classe" ngModel></ion-input>
-        </ion-item>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label position="stacked">Nome*</ion-label>
+              <ion-input type="text" name="name" ngModel required
+                placeholder="Ex: Café da Manhã, Almoço..."></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-md="6">
+            <ion-item>
+              <ion-label position="stacked">Data*</ion-label>
+              <ion-input type="date" name="date" ngModel required></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xs="12" size-md="6">
+            <ion-item>
+              <ion-label position="stacked">Horário</ion-label>
+              <ion-input type="time" name="start" ngModel></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label position="stacked">Turma</ion-label>
+              <ion-select name="_classe" ngModel interface="popover" placeholder="Selecione...">
+                <ion-select-option *ngFor="let c of classes" [value]="c._id">
+                  {{c.alias}} — {{c.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label position="stacked">Cardápio / Descrição</ion-label>
+              <ion-textarea name="text" ngModel rows="4" auto-grow="true"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
       </form>
     </ion-content>
   </ng-template>

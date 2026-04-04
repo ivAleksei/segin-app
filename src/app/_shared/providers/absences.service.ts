@@ -12,16 +12,6 @@ export class AbsencesService {
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
-  mock: any = {
-    total: 3,
-    percent: 90,
-    absences: [
-      { date: '2026-02-26', subject: { name: 'Matemática' }, teacher: { name: 'André Santos' } },
-      { date: '2026-02-18', subject: { name: 'Biologia' }, teacher: { name: 'Jailma Santos' } },
-      { date: '2026-02-16', subject: { name: 'Biologia' }, teacher: { name: 'Jailma Santos' } },
-    ]
-  };
-
   constructor(
     private loadingService: LoadingService,
     private alertsService: AlertsService,
@@ -36,13 +26,16 @@ export class AbsencesService {
   }
 
   async getAbsences(args?, fields?) {
-    // return this.mock;
-
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Absences($student: ID, $_class: ID, $date: String){
-        Absences(student: $student, _class: $_class, date: $date){
+      query Absences($_student: ID, $_classe: ID){
+        Absences(_student: $_student, _classe: $_classe){
           _id
+          _student
+          _classe
+          date_ref
+          justified
+          obs
           ${fields || ""}
         }
       }`,
@@ -52,13 +45,16 @@ export class AbsencesService {
   }
 
   async getAbsenceById(_id, fields?) {
-    // return this.mock;
-
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       query AbsenceById($_id: ID){
         AbsenceById(_id: $_id){
           _id
+          _student
+          _classe
+          date_ref
+          justified
+          obs
           ${fields || ""}
         }
       }`,
@@ -69,7 +65,6 @@ export class AbsencesService {
 
   newAbsence(data) {
     this.loadingService.show();
-
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       mutation CreateAbsence($input: AbsenceInput){
@@ -88,7 +83,6 @@ export class AbsencesService {
 
   editAbsence(data) {
     this.loadingService.show();
-
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       mutation UpdateAbsence($input: AbsenceInput){
@@ -106,28 +100,21 @@ export class AbsencesService {
   }
 
   delAbsence(data) {
-    return this.alertsService.confirmDel()
-      .then(confirm => {
-        if (!confirm) return;
-
-        this.loadingService.show();
-
-        return this.graphql.query(environment.API.segin, 'graphql', {
-          query: `
-          mutation deleteAbsence($_id: ID){
-            deleteAbsence(_id: $_id){
-              status
-              msg
-            }
-          }`,
-          name: 'deleteAbsence',
-          variables: data
-        });
-      })
-      .then(done => {
-        this.loadingService.hide();
-        return done;
-      });
+    this.loadingService.show();
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      mutation deleteAbsence($_id: ID){
+        deleteAbsence(_id: $_id){
+          status
+          msg
+        }
+      }`,
+      name: 'deleteAbsence',
+      variables: data
+    }).then(done => {
+      this.loadingService.hide();
+      return done;
+    });
   }
 
   saveAbsence(data) {

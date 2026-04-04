@@ -1,0 +1,107 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+    <h3 class="page-title">Diário do Aluno<br>
+      <small>Visão geral de registros do aluno</small>
+    </h3>
+    <br>
+
+    <div class="card header">
+      <div class="card-body">
+        <table class="table dataTable">
+          <thead class="hide-desktop">
+            <tr>
+              <th>NOME</th>
+              <th>MATRÍCULA</th>
+              <th>TURMA</th>
+            </tr>
+            <tr>
+              <th>{{student?.short_name || student?.name}}</th>
+              <th>{{student?.regist}}</th>
+              <th>{{classe?.alias}}</th>
+            </tr>
+          </thead>
+          <thead class="hide-mobile">
+            <tr>
+              <th>NOME</th>
+              <th>{{student?.short_name || student?.name}}</th>
+            </tr>
+            <tr>
+              <th>MATRÍCULA</th>
+              <th>{{student?.regist}}</th>
+            </tr>
+            <tr>
+              <th>TURMA</th>
+              <th>{{classe?.alias}}</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <ion-row>
+      <ion-col size-lg="8">
+        <div class="card">
+          <h4 class="card-title">Registros do Aluno</h4>
+          <div class="card-body">
+            <table class="table dataTable">
+              <tbody>
+                <tr *ngIf="!journals?.length">
+                  <td>Nenhum registro encontrado</td>
+                </tr>
+                <ng-template ngFor let-it [ngForOf]="journals">
+                  <tr class="date">
+                    <td colspan="2">{{it.date_ref | date}}</td>
+                  </tr>
+                  <ng-template ngFor let-iit [ngForOf]="it.events">
+                    <tr class="text">
+                      <td>
+                        <span *ngIf="!iit.edit"> {{iit.text}}</span>
+                        <input *ngIf="iit.edit" name="inpt-iit._id" [(ngModel)]="iit.text" />
+                      </td>
+                      <td class="actions">
+                        <button class="edit" [disabled]="loading" [ngClass]="{'active': iit.edit}"
+                          (click)="toggleEdit(iit)"><i class="mdi"
+                            [ngClass]="{'mdi-pencil': !iit.edit, 'mdi-content-save': iit.edit}"></i></button>
+                        <button class="rmv" [disabled]="loading" (click)="rmvEvent(iit)"><i
+                            class="mdi mdi-close"></i></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </ng-template>
+              </tbody>
+              <br>
+            </table>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size-lg="4">
+        <div class="card new">
+          <h4 class="card-title">Novo Registro</h4>
+          <div class="card-body">
+            <form #JournalForm="ngForm" novalidate>
+              <ion-item class="date">
+                <ion-label for="student" position="stacked">Aluno*</ion-label>
+                <ion-input type="text" name="student" [placeholder]="student?.short_name || student?.name"
+                  [disabled]="true"></ion-input>
+              </ion-item>
+              <ion-item class="date">
+                <ion-label for="date_ref" position="stacked">Data*</ion-label>
+                <ion-input type="date" name="date_ref" ngModel required #date_ref="ngModel" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label for="text" position="stacked">Texto*</ion-label>
+                <ion-textarea name="text" ngModel required #text="ngModel" rows="8"></ion-textarea>
+              </ion-item>
+            </form>
+
+            <br>
+            <ion-button color="primary" (click)="saveJournal()">
+              <i class="mdi mdi-plus"></i>
+              <span class="text">Salvar Registro</span>
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </div>
+</ion-content>

@@ -1,41 +1,85 @@
 <ion-content [fullscreen]="true">
   <div class="page-layout">
-    <h3 class="page-title">Faltas<br><small>CRUD direto — Absences</small></h3>
+    <h3 class="page-title">Lançamento de Faltas<br>
+      <small>Registro de ausências por aluno</small>
+    </h3>
+    <br>
 
-    <ion-button class="btn-add" (click)="handleTable({action: 'new'})">
-      <i class="mdi mdi-plus"></i> <span class="text"> Nova Falta</span>
-    </ion-button>
+    <app-filter-by [filters]="filters" (filterEvent)="handleFilter($event)"></app-filter-by>
 
-    <div class="content"><div class="card"><div class="card-body">
-      <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
-        (clickEvent)="handleTable($event)"></data-table>
-    </div></div></div>
+    <div class="content">
+      <form #AbsenceForm="ngForm" novalidate>
+        <ion-accordion-group [value]="openTabs">
+
+          <ion-accordion value="data">
+            <ion-item slot="header" color="light">
+              <ion-label class="group-title">Ausências Registradas</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <data-table *ngIf="tableInfo" [tableInfo]="tableInfo" [reload]="reloadTable"
+                (clickEvent)="handleTable($event)"></data-table>
+            </div>
+          </ion-accordion>
+
+          <ion-accordion value="new">
+            <ion-item slot="header" color="light">
+              <ion-label class="group-title">Novo Lançamento</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+
+              <input type="hidden" name="_id" ngModel>
+              <input type="hidden" name="_student" ngModel>
+              <input type="hidden" name="_classe" ngModel>
+
+              <ion-row>
+                <ion-col size-md="6" size="12">
+                  <app-autocomplete [data]="students" [ionlabel]="'Aluno*'" [_id]="'_id'" [label]="'label'"
+                    (chooseEvent)="setStudent($event)" [clear]="clearInput"
+                    [input]="studentInput"></app-autocomplete>
+                </ion-col>
+                <ion-col size-md="6" size="12">
+                  <ion-item>
+                    <ion-label position="stacked">Turma</ion-label>
+                    <ion-input type="text" [value]="classe?.alias || '—'" [disabled]="true"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size-md="4" size="12">
+                  <ion-item>
+                    <ion-label for="date_ref" position="stacked">Data da Ausência*</ion-label>
+                    <ion-input type="date" name="date_ref" ngModel required></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size-md="2" size="6">
+                  <ion-item>
+                    <ion-label position="stacked">Justificado</ion-label>
+                    <ion-toggle name="justified" ngModel></ion-toggle>
+                  </ion-item>
+                </ion-col>
+                <ion-col size-md="6" size="12">
+                  <ion-item>
+                    <ion-label for="obs" position="stacked">Observação</ion-label>
+                    <ion-textarea name="obs" ngModel rows="3" auto-grow="true"></ion-textarea>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <div class="btn-place">
+                <ion-button color="medium" (click)="clear()">
+                  <span class="text">Limpar</span>
+                </ion-button>
+                <ion-button color="primary" (click)="formAbsence()">
+                  <span class="text">Lançar Ausência</span>
+                </ion-button>
+              </div>
+
+            </div>
+          </ion-accordion>
+
+        </ion-accordion-group>
+      </form>
+    </div>
   </div>
 </ion-content>
-
-<ion-modal #modalAbsence>
-  <ng-template>
-    <ion-header><ion-toolbar>
-      <ion-buttons slot="start"><ion-button (click)="closeModal()">{{ i18n.lang.CANCEL }}</ion-button></ion-buttons>
-      <ion-title>Falta</ion-title>
-      <ion-buttons slot="end"><ion-button (click)="saveForm()" [strong]="true">{{ i18n.lang.CONFIRM }}</ion-button></ion-buttons>
-    </ion-toolbar></ion-header>
-    <ion-content class="ion-padding">
-      <form #AbsenceForm="ngForm" novalidate>
-        <input type="hidden" name="_id" ngModel>
-        <ion-item>
-          <ion-label position="stacked">Aluno (_id)</ion-label>
-          <ion-input type="text" name="_student" ngModel></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Data</ion-label>
-          <ion-input type="date" name="date" ngModel></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Justificado</ion-label>
-          <ion-toggle name="justified" ngModel></ion-toggle>
-        </ion-item>
-      </form>
-    </ion-content>
-  </ng-template>
-</ion-modal>

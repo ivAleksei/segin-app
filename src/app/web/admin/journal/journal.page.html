@@ -1,0 +1,54 @@
+<ion-content [fullscreen]="true">
+  <div class="page-layout">
+    <h3 class="page-title">Diário do Aluno<br>
+      <small>Visão geral de registros do aluno</small>
+    </h3>
+    <br>
+    <ion-item class="no-border">
+      <form #JournalForm="ngForm" novalidate>
+        <ion-accordion-group #accordionGroup value="new">
+          <ng-template ngFor let-it [ngForOf]="classes">
+            <ion-accordion [value]="it._id">
+              <ion-item slot="header" color="light">
+                <ion-label class="group-title">{{it.alias}} - {{it.name}}</ion-label>
+              </ion-item>
+              <div class="ion-padding" slot="content">
+                <data-table *ngIf="it.tableInfo" [tableInfo]="it.tableInfo" [reload]="reloadTable"
+                  (clickEvent)="handleTable($event)"></data-table>
+              </div>
+            </ion-accordion>
+          </ng-template>
+          <ion-accordion value="new">
+            <ion-item slot="header" color="light">
+              <ion-label class="group-title">Novo Registro</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-row>
+                <ion-col>
+                  <app-autocomplete [data]="students" [ionlabel]="'Aluno*'" [_id]="'_id'" [label]="'label'"
+                    (chooseEvent)="setStudent($event)" [clear]="clearInput" [input]="inputReceiver"></app-autocomplete>
+                </ion-col>
+                <ion-col>
+                  <ion-item class="date">
+                    <ion-label for="date_ref" position="stacked">Data*</ion-label>
+                    <ion-input type="date" name="date_ref" ngModel required #date_ref="ngModel"
+                      placeholder=""></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-item>
+                <ion-label for="text" position="stacked">Texto*</ion-label>
+                <ion-textarea name="text" ngModel required #text="ngModel" rows="8"></ion-textarea>
+              </ion-item>
+              <br>
+              <ion-button color="primary" (click)="saveJournal()">
+                <i class="mdi mdi-plus"></i>
+                <span class="text">Salvar Registro</span>
+              </ion-button>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </form>
+    </ion-item>
+  </div>
+</ion-content>

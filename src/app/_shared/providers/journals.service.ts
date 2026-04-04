@@ -10,16 +10,6 @@ import { LoadingService } from 'src/app/_shared/services/loading.service';
 })
 export class JournalsService {
 
-  mock: any = [
-    { date: "2026-03-26", type:"informacao", classe: { name: "Infantil 5" }, student: { name: "Maria José" }, period: { label: "1o Bimestre" }, subject: { name: "Matemática" }, teacher: { short_name: "André Santos" }, text:"Lorem ipsum..." },
-    { date: "2026-03-26", type:"advertencia", classe: { name: "Infantil 5" }, student: { name: "Maria José" }, period: { label: "1o Bimestre" }, subject: { name: "Matemática" }, teacher: { short_name: "André Santos" }, text:"Lorem ipsum..." },
-    { date: "2026-03-26", type:"elogio", classe: { name: "Infantil 5" }, student: { name: "Maria José" }, period: { label: "1o Bimestre" }, subject: { name: "Matemática" }, teacher: { short_name: "André Santos" }, text:"Lorem ipsum..." },
-    { date: "2026-02-26", type:"negativo", classe: { name: "Infantil 5" }, student: { name: "Maria José" }, period: { label: "1o Bimestre" }, subject: { name: "Matemática" }, teacher: { short_name: "André Santos" }, text:"Lorem ipsum..." },
-    { date: "2026-02-26", type:"advertencia", classe: { name: "Infantil 5" }, student: { name: "Maria José" }, period: { label: "1o Bimestre" }, subject: { name: "Matemática" }, teacher: { short_name: "André Santos" }, text:"Lorem ipsum..." },
-    { date: "2026-02-26", type:"negativo", classe: { name: "Infantil 5" }, student: { name: "Maria José" }, period: { label: "1o Bimestre" }, subject: { name: "Matemática" }, teacher: { short_name: "André Santos" }, text:"Lorem ipsum..." },
-    { date: "2026-02-26", type:"advertencia", classe: { name: "Infantil 5" }, student: { name: "Maria José" }, period: { label: "1o Bimestre" }, subject: { name: "Matemática" }, teacher: { short_name: "André Santos" }, text:"Lorem ipsum..." },
-  ]
-
   private _watch: BehaviorSubject<any>;
   public watch: Observable<any>;
 
@@ -31,17 +21,21 @@ export class JournalsService {
     this._watch = <BehaviorSubject<any>>new BehaviorSubject(false);
     this.watch = this._watch.asObservable();
   }
+
   trigger() {
     this._watch.next(true);
   }
 
   async getJournals(args?, fields?) {
-    return this.mock;
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query Journals{
-        Journals{
+      query Journals($_student: ID){
+        Journals(_student: $_student){
           _id
+          _student
+          _classe
+          date_ref
+          text
           ${fields || ""}
         }
       }`,
@@ -49,13 +43,17 @@ export class JournalsService {
       variables: args || {}
     });
   }
+
   async getJournalById(_id, fields?) {
-    return this.mock[0];
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
-      query JournalById($_id: String){
+      query JournalById($_id: ID){
         JournalById(_id: $_id){
           _id
+          _student
+          _classe
+          date_ref
+          text
           ${fields || ""}
         }
       }`,
@@ -85,7 +83,6 @@ export class JournalsService {
 
   editJournal(data) {
     this.loadingService.show();
-
     return this.graphql.query(environment.API.segin, 'graphql', {
       query: `
       mutation UpdateJournal($input: JournalInput){
@@ -94,7 +91,6 @@ export class JournalsService {
           msg
         }
       }`,
-
       name: "UpdateJournal",
       variables: data
     })
@@ -105,22 +101,18 @@ export class JournalsService {
   }
 
   delJournal(data) {
-    return this.alertsService.confirmDel()
-      .then(confirm => {
-        if (!confirm) return;
-        this.loadingService.show();
-        return this.graphql.query(environment.API.segin, 'graphql', {
-          query: `
-        mutation deleteJournal($_id: ID){
-          deleteJournal(_id: $_id){
-            status
-            msg
-          }
-        }`,
-          name: "deleteJournal",
-          variables: data
-        });
-      })
+    this.loadingService.show();
+    return this.graphql.query(environment.API.segin, 'graphql', {
+      query: `
+      mutation deleteJournal($_id: ID){
+        deleteJournal(_id: $_id){
+          status
+          msg
+        }
+      }`,
+      name: "deleteJournal",
+      variables: data
+    })
       .then(done => {
         this.loadingService.hide();
         return done;

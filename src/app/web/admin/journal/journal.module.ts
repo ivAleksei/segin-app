@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AbsencesPageRoutingModule } from './absences-routing.module';
+import { JournalPageRoutingModule } from './journal-routing.module';
 
-import { AbsencesPage } from './absences.page';
+import { JournalPage } from './journal.page';
 import { ComponentsModule } from 'src/app/_shared/components/components.module';
-import { PipesModule } from 'src/app/_shared/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -16,9 +15,8 @@ import { PipesModule } from 'src/app/_shared/pipes/pipes.module';
     FormsModule,
     IonicModule,
     ComponentsModule,
-    PipesModule,
-    AbsencesPageRoutingModule
+    JournalPageRoutingModule
   ],
-  declarations: [AbsencesPage]
+  declarations: [JournalPage]
 })
-export class AbsencesPageModule { }
+export class JournalPageModule { }

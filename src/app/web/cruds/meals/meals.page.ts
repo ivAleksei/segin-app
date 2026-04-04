@@ -3,9 +3,10 @@ import { AlertsService } from 'src/app/_shared/services/alerts.service';
 import { environment } from 'src/environments/environment';
 import { I18nService } from 'src/app/_shared/services/i18n.service';
 import { MealsService } from 'src/app/_shared/providers/meals.service';
+import { ClassesService } from 'src/app/_shared/providers/classes.service';
 
 @Component({
-  selector: 'app-meals',
+  selector: 'app-meals-crud',
   templateUrl: './meals.page.html',
   styleUrls: ['./meals.page.scss'],
 })
@@ -14,11 +15,15 @@ export class MealsPage implements OnInit {
   @ViewChild('modalMeal') modalMeal: any;
   @ViewChild('MealForm') MealForm: any;
 
+  classes: any[] = [];
+
   tableInfo: any = {
-    id: 'table-meals',
+    id: 'table-meals-crud',
     columns: [
-      { title: 'Aluno (_id)', data: '_student' },
-      { title: 'Turma (_id)', data: '_classe' },
+      { title: 'Data', data: 'date', datatype: 'pipe', pipe: 'DatePipe', options: 'DD/MM/YYYY' },
+      { title: 'Horário', data: 'start' },
+      { title: 'Nome', data: 'name' },
+      { title: 'Turma', data: 'classe.alias' },
     ],
     ajax: { url: `${environment.API.segin}/server_side/meals` },
     actions: {
@@ -32,10 +37,20 @@ export class MealsPage implements OnInit {
   constructor(
     public i18n: I18nService,
     private mealsService: MealsService,
+    private classesService: ClassesService,
     private alertsService: AlertsService,
   ) { }
 
   ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.loadClasses();
+  }
+
+  async loadClasses() {
+    const data = await this.classesService.getClasses(null, 'name alias');
+    this.classes = data || [];
+  }
 
   handleTable(ev) {
     const map: any = {

@@ -8,17 +8,18 @@ export const environment = {
   browser: true,
   menu_type: 'side',
   portal: {
-    url: "http://192.168.1.70:4200"
+    url: "http://192.168.1.72:4200"
   },
   API: {
     storage: "https://storage.ialk.com.br",
     storagePrefix: "segindev-",
-    auth: "http://192.168.1.70:3003/api_auth",
-    admin: "http://192.168.1.70:3003/api_admin",
-    segin: "http://192.168.1.70:3003/api_segin",
+    auth: "http://192.168.1.72:3003/api_auth",
+    admin: "http://192.168.1.72:3003/api_admin",
+    segin: "http://192.168.1.72:3003/api_segin",
   },
   Socket: {
-    platform: "segin-dev",
+    platform: "segin",
+    endpoint: "development",
     url: "https://socket.ialk.com.br",
   },
   oneSignal: {
